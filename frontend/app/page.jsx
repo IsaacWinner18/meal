@@ -9,13 +9,22 @@ import Image from "next/image";
 import Footer from "@/components/Footer";
 
 export default function Home() {
-  const [firstName, setFirstName] = useState(null);
-  const [lastName, setLastName] = useState(null);
-  const [username, setUserName] = useState(null);
-  const [userId, setUserId] = useState(null);
+  // const [firstName, setFirstName] = useState(null);
+  // const [lastName, setLastName] = useState(null);
+  // const [username, setUserName] = useState(null);
+  // const [userId, setUserId] = useState(null);
   const [balance, setBalance] = useState(0);
   const [progress, setProgress] = useState(0);
   const [canClaim, setCanClaim] = useState(true);
+
+  const [peopleData, setPeopleData] = useState({
+    firstName: "",
+    lastName: "",
+    username: "",
+    userId: ""
+  })
+
+ 
 
   useEffect(() => {
     const loadTelegramSDK = () => {
@@ -37,10 +46,17 @@ export default function Home() {
               const { first_name, last_name, username, id } = userData;
 
               webApp.ready();
-              setFirstName(first_name);
-              setLastName(last_name);
-              setUserId(id);
-              setUserName(username);
+              // setFirstName(first_name);
+              // setLastName(last_name);
+              // setUserId(id);
+              // setUserName(username);
+
+              setPeopleData(prev => ({...prev, 
+                firstName: first_name, 
+                lastName: last_name,
+                username: username,
+                userId: id
+              }))
               console.log("User's first name:", first_name);
             } else {
               console.log("User data not available.");
@@ -61,7 +77,7 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/dashboard", {
+      const response = await fetch("https://meal-production.up.railway.app/dashboard", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -88,7 +104,7 @@ export default function Home() {
   const handleClaim = async () => {
     if (canClaim) {
       try {
-        const response = await fetch("http://localhost:5000/dashboard", {
+        const response = await fetch("https://meal-production.up.railway.app/dashboard", {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -139,10 +155,10 @@ export default function Home() {
       <div className="flex justify-between items-start mb-4 p-2">
         <div>
           <h1 className="text-lg font-bold">
-            {firstName || "loading"} {lastName || "loading"}
+            {peopleData.firstName || "loading"} {peopleData.lastName || "loading"}
           </h1>
           <p className="text-gray-500 text-sm shadow-xl shadow-neutral-300">
-            ID: {userId || "loading"}
+            ID: {peopleData.userId || "loading"}
           </p>
         </div>
         <div className="rounded-lg shadow-xl shadow-green-700">
