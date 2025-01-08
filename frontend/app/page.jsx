@@ -9,10 +9,6 @@ import Image from "next/image";
 import Footer from "@/components/Footer";
 
 export default function Home() {
-  // const [firstName, setFirstName] = useState(null);
-  // const [lastName, setLastName] = useState(null);
-  // const [username, setUserName] = useState(null);
-  // const [userId, setUserId] = useState(null);
   const [balance, setBalance] = useState(0);
   const [progress, setProgress] = useState(0);
   const [canClaim, setCanClaim] = useState(true);
@@ -20,7 +16,7 @@ export default function Home() {
   const [peopleData, setPeopleData] = useState({
     firstName: "",
     lastName: "",
-    username: "",
+    userName: "",
     userId: ""
   })
 
@@ -46,15 +42,11 @@ export default function Home() {
               const { first_name, last_name, username, id } = userData;
 
               webApp.ready();
-              // setFirstName(first_name);
-              // setLastName(last_name);
-              // setUserId(id);
-              // setUserName(username);
 
               setPeopleData(prev => ({...prev, 
                 firstName: first_name, 
                 lastName: last_name,
-                username: username,
+                userName: username,
                 userId: id
               }))
               console.log("User's first name:", first_name);
@@ -77,16 +69,16 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch("https://meal-production.up.railway.app/dashboard", {
+      const response = await fetch(process.env.SERVER_URI, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
 
         body: JSON.stringify({
-          firstName: firstName,
-          lastName: lastName,
-          usernamedb: username,
+          firstName: peopleData.firstName,
+          lastName: peopleData.lastName,
+          usernamedb: peopleData.username,
           mlcoin: balance,
         }),
       });
@@ -104,7 +96,7 @@ export default function Home() {
   const handleClaim = async () => {
     if (canClaim) {
       try {
-        const response = await fetch("https://meal-production.up.railway.app/dashboard", {
+        const response = await fetch(process.env.SERVER_URI, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -123,7 +115,7 @@ export default function Home() {
           setCanClaim(true);
         }, 600); // Reset after 5 seconds
       } catch (error) {
-        console.log(`The ${error}`);
+        console.log(`The adeola ${error}`);
       }
     }
   };
@@ -159,6 +151,7 @@ export default function Home() {
           </h1>
           <p className="text-gray-500 text-sm shadow-xl shadow-neutral-300">
             ID: {peopleData.userId || "loading"}
+            <i className="hidden">{peopleData.userName}</i>
           </p>
         </div>
         <div className="rounded-lg shadow-xl shadow-green-700">
