@@ -69,7 +69,7 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(process.env.SERVER_URI, {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,11 +78,12 @@ export default function Home() {
         body: JSON.stringify({
           firstName: peopleData.firstName,
           lastName: peopleData.lastName,
-          usernamedb: peopleData.username,
+          usernamedb: peopleData.userName,
           mlcoin: balance,
         }),
       });
       if (!response.ok) {
+        console.log(` this is the api url: ${process.env.NEXT_PUBLIC_API_URL}`)
         throw new Error("failed to register");
       }
       const data = await response.json();
@@ -96,13 +97,13 @@ export default function Home() {
   const handleClaim = async () => {
     if (canClaim) {
       try {
-        const response = await fetch(process.env.SERVER_URI, {
+        const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
 
-          body: JSON.stringify({ usernamedb }),
+          body: JSON.stringify({ usernamedb: peopleData.userName }),
         });
         if (!response.ok) {
           throw new Error("failed to update mlcoin");

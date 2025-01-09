@@ -24,7 +24,7 @@ DashboardRoute.post("/dashboard", async (req, res) => {
       user: savedUser,
     });
   } catch (err) {
-    console.error(`Error saving info: ${err.message}`);
+    console.error(`A: Error saving info: ${err.message}`);
     res.status(500).json({ message: "Error saving info", error: err.message });
   }
 });
