@@ -19,9 +19,9 @@ export default function Home() {
   // const [firstName, setFirstName] = useState("")
 
   const [peopleData, setPeopleData] = useState({
-    firstName: "Arinze",
-    lastName: "Nwannaji",
-    userName: "ari9876",
+    firstName: "",
+    lastName: "",
+    userName: "",
     userId: ""
   })
 
@@ -54,6 +54,13 @@ export default function Home() {
                 userName: username,
                 userId: id
               }))
+
+              fetchData({
+              firstName: first_name,
+              lastName: last_name,
+              userName: username,
+              userId: id
+              })
               // console.log("User's first name:", first_name);
             } else {
               console.log("User data not available.");
@@ -74,22 +81,22 @@ export default function Home() {
 
 
 
-  const fetchData = async () => {
-
+  const fetchData = async (data) => {
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(data)
 
-        body: JSON.stringify({
-          // firstName: firstName,
-          firstName: peopleData.firstName,
-          lastName: peopleData.lastName,
-          usernamedb: peopleData.userName,
-          mlcoin: balance,
-        }),
+        // body: JSON.stringify({
+        //   // firstName: firstName,
+        //   firstName: peopleData.firstName,
+        //   lastName: peopleData.lastName,
+        //   usernamedb: peopleData.userName,
+        //   mlcoin: balance,
+        // }),
       });
       if (!response.ok) {
         // console.log(` this is the api url: ${process.env.NEXT_PUBLIC_API_URL}`)
@@ -115,7 +122,7 @@ export default function Home() {
             "Content-Type": "application/json",
           },
 
-          body: JSON.stringify({ usernamedb: "ari9876" }),
+          body: JSON.stringify({ usernamedb: peopleData.userName }),
         });
         if (!response.ok) {
           throw new Error("failed to update mlcoin");
@@ -138,16 +145,16 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    fetchData()
+  // useEffect(() => {
+  //   fetchData()
 
-  // if(peopleData.lastName) {
-  //   fetchData();
-  // }
-  // else {
-  //   console.log("last_name is not acessible")
-  // }
-  }, []);
+  // // if(peopleData.lastName) {
+  // //   fetchData();
+  // // }
+  // // else {
+  // //   console.log("last_name is not acessible")
+  // // }
+  // }, []);
 
   useEffect(() => {
     if (!canClaim) {
