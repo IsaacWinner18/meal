@@ -27,8 +27,6 @@ export default function Home() {
 
   const fetchData = async (data) => {
     try {
-      throw new Error("Test popsy error");
-
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
         method: "POST",
         headers: {
@@ -44,6 +42,8 @@ export default function Home() {
         //   mlcoin: balance,
         // }),
       });
+      throw new Error("Test popsy error");
+
       if (!response.ok) {
         // console.log(` this is the api url: ${process.env.NEXT_PUBLIC_API_URL}`)
         throw new Error("failed to register");
