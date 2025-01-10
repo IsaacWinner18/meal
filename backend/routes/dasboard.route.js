@@ -33,7 +33,7 @@ DashboardRoute.post("/dashboard", async (req, res) => {
 DashboardRoute.patch("/dashboard", async (req, res) => {
   
   const { usernamedb } = req.body;
-  // console.log(req.body)
+  console.log(req.body)
   try {
     const user = await UserDashboard.findOneAndUpdate(
       { usernamedb },

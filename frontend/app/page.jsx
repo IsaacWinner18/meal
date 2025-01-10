@@ -12,7 +12,10 @@ export default function Home() {
   const [balance, setBalance] = useState(0);
   const [progress, setProgress] = useState(0);
   const [canClaim, setCanClaim] = useState(true);
-  const [logerr, setLogErr]  = useState('')
+  const [loger, setLogErr]  = useState({
+    one: '',
+    two: '',
+  })
 
   const [peopleData, setPeopleData] = useState({
     firstName: "",
@@ -95,6 +98,9 @@ export default function Home() {
       setBalance(data.user.mlcoin);
     } catch (error) {
       console.log(`Fetch error: ${error.message}`);
+      setLogErr(prev => ({
+        two: error.message
+      }))
     }
   };
 
@@ -120,20 +126,24 @@ export default function Home() {
           setCanClaim(true);
         }, 600); // Reset after 5 seconds
       } catch (error) {
-        console.log(`The adeola ${error}`);
-        setLogErr(error.message)
+        console.log(`The adeola error ${error}`);
+        setLogErr(prev => ({
+          one: error.message
+        })
+      )
       }
     }
   };
 
   useEffect(() => {
+    fetchData()
 
-  if(peopleData.lastName) {
-    fetchData();
-  }
-  else {
-    console.log("last_name is not acessible")
-  }
+  // if(peopleData.lastName) {
+  //   fetchData();
+  // }
+  // else {
+  //   console.log("last_name is not acessible")
+  // }
   }, []);
 
   useEffect(() => {
@@ -213,7 +223,8 @@ export default function Home() {
             </span>
             <span> Available </span> &nbsp;
             <span>
-               {logerr}
+               {loger.one}
+               {loger.two}
             </span>
           </div>
         </div>
