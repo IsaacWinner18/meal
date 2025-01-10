@@ -104,7 +104,7 @@ export default function Home() {
   
         const data = await response.json();
         console.log(data.user);
-        alert(data.user.lastClaimed)
+       
         // alert(data.toString())
         setBalance(data.user.mlcoin);
       } catch (error) {
@@ -131,6 +131,7 @@ export default function Home() {
         }
         const data = await response.json();
 
+        alert(data.user.lastClaimed)
         setBalance(data.user.mlcoin);
         setProgress(0);
         setCanClaim(false);
