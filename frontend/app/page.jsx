@@ -17,7 +17,7 @@ export default function Home() {
     two: "",
   });
   // const [firstName, setFirstName] = useState()
-  const [lastClaimed, setLastClaimed] = useState(null)
+  const [lastClaimed, setLastClaimed] = useState(null);
 
   const [peopleData, setPeopleData] = useState({
     firstName: "",
@@ -25,7 +25,7 @@ export default function Home() {
     userName: "",
     userId: "",
   });
-  
+
   useEffect(() => {
     const loadTelegramSDK = () => {
       if (typeof window.Telegram === "undefined") {
@@ -33,11 +33,11 @@ export default function Home() {
         script.src = "https://telegram.org/js/telegram-web-app.js";
         script.onload = () => {
           console.log("Telegram WebApp SDK loaded.");
-          
+
           // Example usage after SDK is loaded
           if (typeof Telegram !== "undefined" && Telegram.WebApp) {
             const webApp = Telegram.WebApp;
-            
+
             // Extract user data from initDataUnsafe
             const userData = webApp.initDataUnsafe?.user;
             if (userData) {
@@ -53,7 +53,7 @@ export default function Home() {
                 userName: username,
                 userId: id,
               }));
-              
+
               fetchData({
                 firstName: first_name,
                 lastName: last_name,
@@ -62,12 +62,9 @@ export default function Home() {
               });
               // console.log("User's first name:", first_name);
             } else {
-              
               console.log("User data not available.");
             }
           }
-          
-          
         };
         script.onerror = () => {
           console.error("Failed to load Telegram WebApp SDK.");
@@ -77,88 +74,85 @@ export default function Home() {
         console.log("Telegram WebApp SDK already loaded.");
       }
     };
-    
+
     loadTelegramSDK();
   }, []);
-  
-    const fetchData = async (newData) => {
-      try {
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-  
-          body: JSON.stringify({
-            // firstName: firstName,
-            firstName: newData.firstName,
-            lastName: newData.lastName,
-            usernamedb: newData.userName,
-            mlcoin: balance,
-          }),
-        });
-  
-        if (!response.ok) {
-          // console.log(` this is the api url: ${process.env.NEXT_PUBLIC_API_URL}`)
-          throw new Error("failed to register");
-        }
-  
-        const data = await response.json();
-        setLastClaimed(new Date(data.user.lastClaimed))
-        alert(data.user.lastClaimed);
-       
-        // alert(data.toString())
-        setBalance(data.user.mlcoin);
-      } catch (error) {
-        console.log(`Fetch error: ${error.message}`);
-        // setLogErr((prev) => ({
-        //   two: error.message,
-        // }));
+
+  const fetchData = async (newData) => {
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          // firstName: firstName,
+          firstName: newData.firstName,
+          lastName: newData.lastName,
+          usernamedb: newData.userName,
+          mlcoin: balance,
+        }),
+      });
+
+      if (!response.ok) {
+        // console.log(` this is the api url: ${process.env.NEXT_PUBLIC_API_URL}`)
+        throw new Error("failed to register");
       }
-    };
-  
-  const handleClaim = async () => {
-    // if (canClaim) {
-      try {
-        const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
 
-          body: JSON.stringify({ usernamedb: peopleData.userName }),
-        });
-        
-        if (!response.ok) {
-          throw new Error("failed to update mlcoin");
-        }
+      const data = await response.json();
+      setLastClaimed(new Date(data.user.lastClaimed));
+      alert(data.user.lastClaimed);
 
-        const data = await response.json();
-
-        
-        setBalance(data.user.mlcoin);
-        setProgress(0);
-        setCanClaim(false);
-        setTimeout(() => {
-          setCanClaim(true);
-        }, 2*60*1000); 
-        if (loger.one) setLogErr(prev => ({ ...prev, one: ""}))
-      } catch (error) {
-        console.log(`The adeola error ${error}`);
-        // setLogErr((prev) => ({
-        //   one: error.message,
-        // }));
-      }
+      // alert(data.toString())
+      setBalance(data.user.mlcoin);
+    } catch (error) {
+      console.log(`Fetch error: ${error.message}`);
+      // setLogErr((prev) => ({
+      //   two: error.message,
+      // }));
+    }
   };
 
-  
+  const handleClaim = async () => {
+    // if (canClaim) {
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({ usernamedb: peopleData.userName }),
+      });
+
+      if (!response.ok) {
+        throw new Error("failed to update mlcoin");
+      }
+
+      const data = await response.json();
+
+      setBalance(data.user.mlcoin);
+      setProgress(0);
+      setCanClaim(false);
+      setTimeout(() => {
+        setCanClaim(true);
+      }, 2 * 60 * 1000);
+      if (loger.one) setLogErr((prev) => ({ ...prev, one: "" }));
+    } catch (error) {
+      console.log(`The adeola error ${error}`);
+      // setLogErr((prev) => ({
+      //   one: error.message,
+      // }));
+    }
+  };
 
   useEffect(() => {
     if (lastClaimed) {
       const interval = 1000;
-      const date = new Date(lastClaimed); 
+      const date = new Date(lastClaimed);
       const minutes = date.getTime() / (1000 * 60);
-      const increment = 100 / (minutes*60*1000 / interval);
+      const increment = 100 / ((minutes * 60 * 1000) / interval);
 
       const timer = setInterval(() => {
         setProgress((prev) => {
