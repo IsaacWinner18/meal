@@ -25,6 +25,38 @@ export default function Home() {
     userId: "",
   });
 
+  const fetchData = async (data) => {
+    try {
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+
+        // body: JSON.stringify({
+        //   // firstName: firstName,
+        //   firstName: peopleData.firstName,
+        //   lastName: peopleData.lastName,
+        //   usernamedb: peopleData.userName,
+        //   mlcoin: balance,
+        // }),
+      });
+      if (!response.ok) {
+        // console.log(` this is the api url: ${process.env.NEXT_PUBLIC_API_URL}`)
+        throw new Error("failed to register");
+      }
+      const data = await response.json();
+      console.log(data.user.mlcoin);
+      setBalance(data.user.mlcoin);
+    } catch (error) {
+      console.log(`Fetch error: ${error.message}`);
+      setLogErr((prev) => ({
+        two: error.message,
+      }));
+    }
+  };
+
   useEffect(() => {
     const loadTelegramSDK = () => {
       if (typeof window.Telegram === "undefined") {
@@ -77,38 +109,6 @@ export default function Home() {
 
     loadTelegramSDK();
   }, []);
-
-  const fetchData = async (data) => {
-    try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-
-        // body: JSON.stringify({
-        //   // firstName: firstName,
-        //   firstName: peopleData.firstName,
-        //   lastName: peopleData.lastName,
-        //   usernamedb: peopleData.userName,
-        //   mlcoin: balance,
-        // }),
-      });
-      if (!response.ok) {
-        // console.log(` this is the api url: ${process.env.NEXT_PUBLIC_API_URL}`)
-        throw new Error("failed to register");
-      }
-      const data = await response.json();
-      console.log(data.user.mlcoin);
-      setBalance(data.user.mlcoin);
-    } catch (error) {
-      console.log(`Fetch error: ${error.message}`);
-      setLogErr((prev) => ({
-        two: error.message,
-      }));
-    }
-  };
 
   const handleClaim = async () => {
     if (canClaim) {
