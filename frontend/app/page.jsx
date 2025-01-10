@@ -25,14 +25,16 @@ export default function Home() {
     userId: "",
   });
 
-  const fetchData = async (data) => {
+  const fetchData = async (userData: { firstName: string, lastName: string, userName: string, userId: string}) => {
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          ...userData
+        }),
 
         // body: JSON.stringify({
         //   // firstName: firstName,
@@ -42,7 +44,7 @@ export default function Home() {
         //   mlcoin: balance,
         // }),
       });
-      
+
       throw new Error(response.ok);
 
       if (!response.ok) {
