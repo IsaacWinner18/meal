@@ -25,27 +25,24 @@ export default function Home() {
     userId: "",
   });
 
-  const fetchData = async (userData) => {
+  const fetchData = async (newData) => {
+    alert(newData.toString())
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({
-          ...userData
-        }),
 
-        // body: JSON.stringify({
-        //   // firstName: firstName,
-        //   firstName: peopleData.firstName,
-        //   lastName: peopleData.lastName,
-        //   usernamedb: peopleData.userName,
-        //   mlcoin: balance,
-        // }),
+        body: JSON.stringify({
+          // firstName: firstName,
+          firstName: peopleData.firstName,
+          lastName: peopleData.lastName,
+          usernamedb: peopleData.userName,
+          mlcoin: balance,
+        }),
       });
 
-      throw new Error(response.ok);
 
       if (!response.ok) {
         // console.log(` this is the api url: ${process.env.NEXT_PUBLIC_API_URL}`)
@@ -58,7 +55,6 @@ export default function Home() {
       setBalance(data.user.mlcoin);
     } catch (error) {
       console.log(`Fetch error: ${error.message}`);
-      alert("Normal hello");
       setLogErr((prev) => ({
         two: error.message,
       }));
@@ -93,12 +89,14 @@ export default function Home() {
                 userId: id,
               }));
 
-              fetchData({
-                firstName: first_name,
-                lastName: last_name,
-                userName: username,
-                userId: id,
-              });
+              fetchData(
+                {
+                  firstName: first_name,
+                  lastName: last_name,
+                  userName: username,
+                  userId: id,
+                }
+              );
               // console.log("User's first name:", first_name);
             } else {
               console.log("User data not available.");
