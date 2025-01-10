@@ -115,7 +115,7 @@ export default function Home() {
             "Content-Type": "application/json",
           },
 
-          body: JSON.stringify({ usernamedb: peopleData.userName }),
+          body: JSON.stringify({ usernamedb: "ari9876" }),
         });
         if (!response.ok) {
           throw new Error("failed to update mlcoin");
