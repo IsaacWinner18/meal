@@ -18,6 +18,10 @@ const dashboardSchema = new mongoose.Schema({
     type: Number,
     default: null, // Default value is null if mlcoin is not provided
   },
+  lastClaimed: {
+    type: Date,
+    default: null,
+  },
 });
 
 // Create the model

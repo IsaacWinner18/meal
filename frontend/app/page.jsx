@@ -115,7 +115,7 @@ export default function Home() {
     };
   
   const handleClaim = async () => {
-    if (canClaim) {
+    // if (canClaim) {
       try {
         const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
           method: "PATCH",
@@ -143,19 +143,10 @@ export default function Home() {
           one: error.message,
         }));
       }
-    }
+    // }
   };
 
-  // useEffect(() => {
-  //   fetchData()
-
-  // // if(peopleData.lastName) {
-  // //   fetchData();
-  // // }
-  // // else {
-  // //   console.log("last_name is not acessible")
-  // // }
-  // }, []);
+  
 
   useEffect(() => {
     if (!canClaim) {

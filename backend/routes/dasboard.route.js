@@ -29,15 +29,32 @@ DashboardRoute.post("/dashboard", async (req, res) => {
   }
 });
 
+const A = (date) => {
+  const lastUpdated = new Date(date);
+  const currentTime = new Date();
+
+  // Check if 24 hours have passed
+  const hoursSinceLastUpdate = (currentTime - lastUpdated) / (1000 * 60 * 60); // Convert ms to hours
+
+  return hoursSinceLastUpdate >= 24;
+}
 
 DashboardRoute.patch("/dashboard", async (req, res) => {
   
   const { usernamedb } = req.body;
   console.log(req.body)
   try {
+    const usertime = await UserDashboard.findOne(
+      { usernamedb }
+    )
+    if(!A(usertime.lastClaimed)) {
+      return res.status(404).json({ message: "time left" });
+
+    }
+
     const user = await UserDashboard.findOneAndUpdate(
       { usernamedb },
-      { $inc: { mlcoin: 1000 } },
+      { $inc: { mlcoin: 1000 }, lastClaimed: new Date()},
       { new: true }
     );
 
