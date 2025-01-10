@@ -26,7 +26,7 @@ export default function Home() {
   });
 
   const fetchData = async (newData) => {
-    alert(newData.toString())
+    alert(newData.firstName)
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
         method: "POST",
@@ -58,6 +58,8 @@ export default function Home() {
       setLogErr((prev) => ({
         two: error.message,
       }));
+
+   
     }
   };
 
