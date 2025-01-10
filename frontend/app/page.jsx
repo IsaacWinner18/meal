@@ -16,11 +16,12 @@ export default function Home() {
     one: '',
     two: '',
   })
+  // const [firstName, setFirstName] = useState("")
 
   const [peopleData, setPeopleData] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
+    firstName: "Arinze",
+    lastName: "Nwannaji",
+    userName: "ari9876",
     userId: ""
   })
 
@@ -53,7 +54,7 @@ export default function Home() {
                 userName: username,
                 userId: id
               }))
-              console.log("User's first name:", first_name);
+              // console.log("User's first name:", first_name);
             } else {
               console.log("User data not available.");
             }
@@ -83,6 +84,7 @@ export default function Home() {
         },
 
         body: JSON.stringify({
+          // firstName: firstName,
           firstName: peopleData.firstName,
           lastName: peopleData.lastName,
           usernamedb: peopleData.userName,
@@ -119,6 +121,7 @@ export default function Home() {
           throw new Error("failed to update mlcoin");
         }
         const data = await response.json();
+
         setBalance(data.user.mlcoin);
         setProgress(0);
         setCanClaim(false);
