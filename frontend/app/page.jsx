@@ -67,7 +67,10 @@ export default function Home() {
     loadTelegramSDK();
   }, []);
 
+
+
   const fetchData = async () => {
+
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
         method: "POST",
@@ -83,7 +86,7 @@ export default function Home() {
         }),
       });
       if (!response.ok) {
-        console.log(` this is the api url: ${process.env.NEXT_PUBLIC_API_URL}`)
+        // console.log(` this is the api url: ${process.env.NEXT_PUBLIC_API_URL}`)
         throw new Error("failed to register");
       }
       const data = await response.json();
@@ -122,7 +125,13 @@ export default function Home() {
   };
 
   useEffect(() => {
+
+  if(peopleData.lastName) {
     fetchData();
+  }
+  else {
+    console.log("last_name is not acessible")
+  }
   }, []);
 
   useEffect(() => {

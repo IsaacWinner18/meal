@@ -5,10 +5,10 @@ const DashboardRoute = express.Router();
 
 DashboardRoute.post("/dashboard", async (req, res) => {
   const { firstName, lastName, usernamedb, mlcoin } = req.body;
+  console.log(req.body)
 
   try {
     const existingUser = await UserDashboard.findOne({ usernamedb });
-
     if (existingUser) {
       return res.status(200).json({
         message: "User exists",
@@ -33,6 +33,7 @@ DashboardRoute.post("/dashboard", async (req, res) => {
 DashboardRoute.patch("/dashboard", async (req, res) => {
   
   const { usernamedb } = req.body;
+  // console.log(req.body)
   try {
     const user = await UserDashboard.findOneAndUpdate(
       { usernamedb },
@@ -47,6 +48,7 @@ DashboardRoute.patch("/dashboard", async (req, res) => {
     res.json({ message: "mlcoin updated successfully", user });
   } catch (err) {
     console.log(`This an update error ${err}`)
+    res.status(500).json({ message: "Error updating mlcoin", error: err.message });
   }
 });
 
