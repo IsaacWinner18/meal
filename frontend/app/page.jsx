@@ -150,9 +150,11 @@ export default function Home() {
   useEffect(() => {
     if (lastClaimed) {
       const interval = 1000;
-      const date = new Date(lastClaimed);
-      const minutes = date.getTime() / (1000 * 60);
-      const increment = 100 / ((minutes * 60 * 1000) / interval);
+      const date1 = new Date(lastClaimed); 
+      const date2 = new Date(); 
+      
+      const differenceInMinutes = (date2.getTime() - date1.getTime()) / (1000 * 60);
+      const increment = 100 / ((differenceInMinutes * 60 * 1000) / interval);
 
       const timer = setInterval(() => {
         setProgress((prev) => {
