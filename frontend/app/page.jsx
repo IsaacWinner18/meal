@@ -159,7 +159,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!canClaim) {
-      const interval = 600;
+      const interval = 60*60*1000;
       const increment = 100 / (600 / interval);
 
       const timer = setInterval(() => {
