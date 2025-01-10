@@ -42,7 +42,8 @@ export default function Home() {
         //   mlcoin: balance,
         // }),
       });
-      throw new Error("Test popsy error");
+      
+      throw new Error(response.ok);
 
       if (!response.ok) {
         // console.log(` this is the api url: ${process.env.NEXT_PUBLIC_API_URL}`)
