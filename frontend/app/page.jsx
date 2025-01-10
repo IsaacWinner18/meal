@@ -25,8 +25,11 @@ export default function Home() {
     userId: "",
   });
 
+  const fet = async (newData) => {
+    setLogErr(newData.firstName)
+  }
+
   const fetchData = async (newData) => {
-    alert(newData.firstName)
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
         method: "POST",
@@ -91,7 +94,7 @@ export default function Home() {
                 userId: id,
               }));
 
-              fetchData(
+              fet(
                 {
                   firstName: first_name,
                   lastName: last_name,
