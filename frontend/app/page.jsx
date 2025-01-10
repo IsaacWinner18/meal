@@ -135,7 +135,8 @@ export default function Home() {
         setCanClaim(false);
         setTimeout(() => {
           setCanClaim(true);
-        }, 600); // Reset after 5 seconds
+        }, 60*60*1000); // Reset after 5 seconds
+        if (loger.one) setLogErr(prev => ({ ...prev, one: ""}))
       } catch (error) {
         console.log(`The adeola error ${error}`);
         setLogErr((prev) => ({
