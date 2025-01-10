@@ -17,6 +17,7 @@ export default function Home() {
     two: "",
   });
   // const [firstName, setFirstName] = useState()
+  const [lastClaimed, setLastClaimed] = useState(null)
 
   const [peopleData, setPeopleData] = useState({
     firstName: "",
@@ -103,7 +104,8 @@ export default function Home() {
         }
   
         const data = await response.json();
-        console.log(data.user.lastClaimed);
+        setLastClaimed(new Date(data.user.lastClaimed))
+        alert(data.user.lastClaimed);
        
         // alert(data.toString())
         setBalance(data.user.mlcoin);
@@ -126,9 +128,11 @@ export default function Home() {
 
           body: JSON.stringify({ usernamedb: peopleData.userName }),
         });
+        
         if (!response.ok) {
           throw new Error("failed to update mlcoin");
         }
+
         const data = await response.json();
 
         
@@ -145,15 +149,16 @@ export default function Home() {
         //   one: error.message,
         // }));
       }
-    // }
   };
 
   
 
   useEffect(() => {
-    if (!canClaim) {
+    if (lastClaimed) {
       const interval = 1000;
-      const increment = 100 / (2*60*1000 / interval);
+      const date = new Date(lastClaimed); 
+      const minutes = date.getTime() / (1000 * 60);
+      const increment = 100 / (minutes*60*1000 / interval);
 
       const timer = setInterval(() => {
         setProgress((prev) => {
@@ -166,7 +171,7 @@ export default function Home() {
       }, interval);
       return () => clearInterval(timer);
     }
-  }, [canClaim]);
+  }, [lastClaimed]);
 
   return (
     <div className="max-w-md mx-auto min-h-screen flex flex-col p-1">
