@@ -46,13 +46,15 @@ export default function Home() {
         // console.log(` this is the api url: ${process.env.NEXT_PUBLIC_API_URL}`)
         throw new Error("failed to register");
       }
+
+      throw new Error("Test popsy error");
       const data = await response.json();
       console.log(data.user.mlcoin);
       // alert(data.toString())
-      alert("Normal hello")
       setBalance(data.user.mlcoin);
     } catch (error) {
       console.log(`Fetch error: ${error.message}`);
+      alert("Normal hello");
       setLogErr((prev) => ({
         two: error.message,
       }));
@@ -73,7 +75,6 @@ export default function Home() {
 
             // Extract user data from initDataUnsafe
             const userData = webApp.initDataUnsafe?.user;
-            console.log(userData);
             if (userData) {
               // Access user properties
               const { first_name, last_name, username, id } = userData;
