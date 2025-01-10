@@ -135,7 +135,7 @@ export default function Home() {
         setCanClaim(false);
         setTimeout(() => {
           setCanClaim(true);
-        }, 60*60*1000); // Reset after 5 seconds
+        }, 2*60*1000); 
         if (loger.one) setLogErr(prev => ({ ...prev, one: ""}))
       } catch (error) {
         console.log(`The adeola error ${error}`);
@@ -159,8 +159,8 @@ export default function Home() {
 
   useEffect(() => {
     if (!canClaim) {
-      const interval = 60*60*1000;
-      const increment = 100 / (600 / interval);
+      const interval = 1000;
+      const increment = 100 / (2*60*1000 / interval);
 
       const timer = setInterval(() => {
         setProgress((prev) => {
