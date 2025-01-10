@@ -12,6 +12,7 @@ export default function Home() {
   const [balance, setBalance] = useState(0);
   const [progress, setProgress] = useState(0);
   const [canClaim, setCanClaim] = useState(true);
+  const [logerr, setLogErr]  = useState('')
 
   const [peopleData, setPeopleData] = useState({
     firstName: "",
@@ -120,6 +121,7 @@ export default function Home() {
         }, 600); // Reset after 5 seconds
       } catch (error) {
         console.log(`The adeola ${error}`);
+        setLogErr(error.message)
       }
     }
   };
@@ -161,7 +163,9 @@ export default function Home() {
           </h1>
           <p className="text-gray-500 text-sm shadow-xl shadow-neutral-300">
             ID: {peopleData.userId || "loading"}
-            <i className="hidden">{peopleData.userName}</i>
+            <i className="hidden">{peopleData.userName}
+              
+            </i>
           </p>
         </div>
         <div className="rounded-lg shadow-xl shadow-green-700">
@@ -207,7 +211,10 @@ export default function Home() {
               {" "}
               <i>MLC</i>
             </span>
-            <span> Available</span>
+            <span> Available </span> &nbsp;
+            <span>
+               {logerr}
+            </span>
           </div>
         </div>
       </div>
