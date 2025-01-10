@@ -12,20 +12,18 @@ export default function Home() {
   const [balance, setBalance] = useState(0);
   const [progress, setProgress] = useState(0);
   const [canClaim, setCanClaim] = useState(true);
-  const [loger, setLogErr]  = useState({
-    one: '',
-    two: '',
-  })
+  const [loger, setLogErr] = useState({
+    one: "",
+    two: "",
+  });
   // const [firstName, setFirstName] = useState("")
 
   const [peopleData, setPeopleData] = useState({
     firstName: "",
     lastName: "",
     userName: "",
-    userId: ""
-  })
-
- 
+    userId: "",
+  });
 
   useEffect(() => {
     const loadTelegramSDK = () => {
@@ -41,26 +39,27 @@ export default function Home() {
 
             // Extract user data from initDataUnsafe
             const userData = webApp.initDataUnsafe?.user;
-
+            console.log(userData);
             if (userData) {
               // Access user properties
               const { first_name, last_name, username, id } = userData;
 
               webApp.ready();
 
-              setPeopleData(prev => ({...prev, 
-                firstName: first_name, 
+              setPeopleData((prev) => ({
+                ...prev,
+                firstName: first_name,
                 lastName: last_name,
                 userName: username,
-                userId: id
-              }))
+                userId: id,
+              }));
 
               fetchData({
-              firstName: first_name,
-              lastName: last_name,
-              userName: username,
-              userId: id
-              })
+                firstName: first_name,
+                lastName: last_name,
+                userName: username,
+                userId: id,
+              });
               // console.log("User's first name:", first_name);
             } else {
               console.log("User data not available.");
@@ -79,8 +78,6 @@ export default function Home() {
     loadTelegramSDK();
   }, []);
 
-
-
   const fetchData = async (data) => {
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
@@ -88,7 +85,7 @@ export default function Home() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
 
         // body: JSON.stringify({
         //   // firstName: firstName,
@@ -107,9 +104,9 @@ export default function Home() {
       setBalance(data.user.mlcoin);
     } catch (error) {
       console.log(`Fetch error: ${error.message}`);
-      setLogErr(prev => ({
-        two: error.message
-      }))
+      setLogErr((prev) => ({
+        two: error.message,
+      }));
     }
   };
 
@@ -137,10 +134,9 @@ export default function Home() {
         }, 600); // Reset after 5 seconds
       } catch (error) {
         console.log(`The adeola error ${error}`);
-        setLogErr(prev => ({
-          one: error.message
-        })
-      )
+        setLogErr((prev) => ({
+          one: error.message,
+        }));
       }
     }
   };
@@ -179,13 +175,12 @@ export default function Home() {
       <div className="flex justify-between items-start mb-4 p-2">
         <div>
           <h1 className="text-lg font-bold">
-            {peopleData.firstName || "loading"} {peopleData.lastName || "loading"}
+            {peopleData.firstName || "loading"}{" "}
+            {peopleData.lastName || "loading"}
           </h1>
           <p className="text-gray-500 text-sm shadow-xl shadow-neutral-300">
             ID: {peopleData.userId || "loading"}
-            <i className="hidden">{peopleData.userName}
-              
-            </i>
+            <i className="hidden">{peopleData.userName}</i>
           </p>
         </div>
         <div className="rounded-lg shadow-xl shadow-green-700">
@@ -233,8 +228,8 @@ export default function Home() {
             </span>
             <span> Available </span> &nbsp;
             <span>
-               {loger.one}
-               {loger.two}
+              {loger.one}
+              {loger.two}
             </span>
           </div>
         </div>
