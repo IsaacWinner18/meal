@@ -48,6 +48,8 @@ export default function Home() {
       }
       const data = await response.json();
       console.log(data.user.mlcoin);
+      // alert(data.toString())
+      alert("Normal hello")
       setBalance(data.user.mlcoin);
     } catch (error) {
       console.log(`Fetch error: ${error.message}`);
