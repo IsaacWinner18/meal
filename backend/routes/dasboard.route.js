@@ -34,9 +34,9 @@ const A = (date) => {
   const currentTime = new Date();
 
   // Check if 24 hours have passed
-  const hoursSinceLastUpdate = (currentTime - lastUpdated) / (1000 * 60 * 60); // Convert ms to hours
+  const hoursSinceLastUpdate = (currentTime - lastUpdated) / (1000 * 60); 
 
-  return hoursSinceLastUpdate >= 24;
+  return hoursSinceLastUpdate >= 1;
 }
 
 DashboardRoute.patch("/dashboard", async (req, res) => {

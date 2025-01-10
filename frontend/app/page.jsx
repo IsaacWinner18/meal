@@ -109,9 +109,9 @@ export default function Home() {
         setBalance(data.user.mlcoin);
       } catch (error) {
         console.log(`Fetch error: ${error.message}`);
-        setLogErr((prev) => ({
-          two: error.message,
-        }));
+        // setLogErr((prev) => ({
+        //   two: error.message,
+        // }));
       }
     };
   
@@ -131,7 +131,7 @@ export default function Home() {
         }
         const data = await response.json();
 
-        alert(data.user.lastClaimed)
+        
         setBalance(data.user.mlcoin);
         setProgress(0);
         setCanClaim(false);
@@ -141,9 +141,9 @@ export default function Home() {
         if (loger.one) setLogErr(prev => ({ ...prev, one: ""}))
       } catch (error) {
         console.log(`The adeola error ${error}`);
-        setLogErr((prev) => ({
-          one: error.message,
-        }));
+        // setLogErr((prev) => ({
+        //   one: error.message,
+        // }));
       }
     // }
   };
@@ -225,10 +225,10 @@ export default function Home() {
               <i>MLC</i>
             </span>
             <span> Available </span> &nbsp;
-            <span>
+            {/* <span>
               {loger.one}
               {loger.two}
-            </span>
+            </span> */}
           </div>
         </div>
       </div>
