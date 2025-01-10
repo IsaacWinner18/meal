@@ -25,10 +25,6 @@ export default function Home() {
     userId: "",
   });
 
-  const fet = async (newData) => {
-    setLogErr(newData.firstName)
-  }
-
   const fetchData = async (newData) => {
     try {
       const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
@@ -39,9 +35,9 @@ export default function Home() {
 
         body: JSON.stringify({
           // firstName: firstName,
-          firstName: peopleData.firstName,
-          lastName: peopleData.lastName,
-          usernamedb: peopleData.userName,
+          firstName: newData.firstName,
+          lastName: newData.lastName,
+          usernamedb: newData.userName,
           mlcoin: balance,
         }),
       });
@@ -94,7 +90,7 @@ export default function Home() {
                 userId: id,
               }));
 
-              fet(
+              fetchData(
                 {
                   firstName: first_name,
                   lastName: last_name,
