@@ -42,7 +42,6 @@ export default function Home() {
         }),
       });
 
-
       if (!response.ok) {
         // console.log(` this is the api url: ${process.env.NEXT_PUBLIC_API_URL}`)
         throw new Error("failed to register");
@@ -57,8 +56,6 @@ export default function Home() {
       setLogErr((prev) => ({
         two: error.message,
       }));
-
-   
     }
   };
 
@@ -90,14 +87,12 @@ export default function Home() {
                 userId: id,
               }));
 
-              fetchData(
-                {
-                  firstName: first_name,
-                  lastName: last_name,
-                  userName: username,
-                  userId: id,
-                }
-              );
+              fetchData({
+                firstName: first_name,
+                lastName: last_name,
+                userName: username,
+                userId: id,
+              });
               // console.log("User's first name:", first_name);
             } else {
               console.log("User data not available.");
