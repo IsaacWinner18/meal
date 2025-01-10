@@ -103,7 +103,8 @@ export default function Home() {
         }
   
         const data = await response.json();
-        console.log(data.user.mlcoin);
+        console.log(data.user);
+        alert(data.user.lastClaimed)
         // alert(data.toString())
         setBalance(data.user.mlcoin);
       } catch (error) {
