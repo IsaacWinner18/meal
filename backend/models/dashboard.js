@@ -20,8 +20,11 @@ const dashboardSchema = new mongoose.Schema({
   },
   lastClaimed: {
     type: Date,
-    default: null,
+    default: null
+    ,
   },
+  // referral: int 
+  // usersReferred: a list of user's they've referred...
 });
 
 // Create the model

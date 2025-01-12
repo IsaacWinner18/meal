@@ -38,6 +38,12 @@ export default function Home() {
           if (typeof Telegram !== "undefined" && Telegram.WebApp) {
             const webApp = Telegram.WebApp;
 
+            const urlParams = new URLSearchParams(window.location.search);
+            const code = urlParams.get("code");
+            alert(code)
+
+
+
             // Extract user data from initDataUnsafe
             const userData = webApp.initDataUnsafe?.user;
             if (userData) {
@@ -150,10 +156,11 @@ export default function Home() {
   useEffect(() => {
     if (lastClaimed) {
       const interval = 1000;
-      const date1 = new Date(lastClaimed); 
-      const date2 = new Date(); 
-      
-      const differenceInMinutes = (date2.getTime() - date1.getTime()) / (1000 * 60);
+      const date1 = new Date(lastClaimed);
+      const date2 = new Date();
+
+      const differenceInMinutes =
+        (date2.getTime() - date1.getTime()) / (1000 * 60);
       const increment = 100 / ((differenceInMinutes * 60 * 1000) / interval);
 
       const timer = setInterval(() => {
