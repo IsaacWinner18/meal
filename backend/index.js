@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const userRoute = require("./routes/dasboard.route")
+const telegramBot = require("node-telegram-bot-api")
+
 require('dotenv').config();
 const cors = require("cors");
 
@@ -23,4 +25,21 @@ app.listen(5000, async() => {
     } catch (error) {
         console.log(`This is a server connection error ${error}`)
     }
+})
+
+
+const token = "7933372816:AAHaz_nQBCyUqYiJiGYy4we7bRh222dglco"
+const bot = new telegramBot(token, {polling: true})
+bot.onText(/\/start/, (msg) => {
+    const chatId = msg.chat.id;
+    bot.sendMessage(chatId, " welcome to mealcoin coin", {
+        reply_markup: {
+            inline_keyboard: [
+                [{text: "visit mealcoin",
+                    url: "https://t.me/mealcoinbot/mealcoin"
+                }]
+            ]
+        }
+    })
+
 })

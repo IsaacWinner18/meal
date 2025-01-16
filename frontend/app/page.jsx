@@ -40,9 +40,7 @@ export default function Home() {
 
             const urlParams = new URLSearchParams(window.location.search);
             const code = urlParams.get("code");
-            alert(code)
-
-
+           
 
             // Extract user data from initDataUnsafe
             const userData = webApp.initDataUnsafe?.user;
@@ -108,7 +106,7 @@ export default function Home() {
 
       const data = await response.json();
       setLastClaimed(new Date(data.user.lastClaimed));
-      alert(data.user.lastClaimed);
+      
 
       // alert(data.toString())
       setBalance(data.user.mlcoin);
