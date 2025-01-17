@@ -102,7 +102,7 @@ export default function Home() {
 
       const data = await response.json();
       setLastClaimed(new Date(data.user.lastClaimed));
-      alert(new Date(data.user.lastClaimed))
+      
 
       // alert(data.toString())
       setBalance(data.user.mlcoin);

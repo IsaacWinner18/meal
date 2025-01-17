@@ -11,19 +11,21 @@ export default function Invite() {
 
       <div className="flex items-center justify-between mb-3">
       <Link href="/">
-        <Image src="/back-buttons-multimedia-svgrepo-com.svg" alt="svg back in earn" width={50} height={50} />
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" className="size-12">
+  <path fillRule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-4.28 9.22a.75.75 0 0 0 0 1.06l3 3a.75.75 0 1 0 1.06-1.06l-1.72-1.72h5.69a.75.75 0 0 0 0-1.5h-5.69l1.72-1.72a.75.75 0 0 0-1.06-1.06l-3 3Z" clipRule="evenodd" />
+</svg>
         </Link>
-      <h1 className="text-3xl font-bold ">Invite Friends</h1>
+      <h1 className="text-3xl font-bold font-sans text-white">Invite Friends</h1>
 
       </div>
       <Card className="bg-green border-white mb-6">
         <CardHeader>
-          <CardTitle className="text-green-700">Your Referral Code</CardTitle>
-          <CardDescription className="text-white opacity-60">Share this code with friends to earn rewards</CardDescription>
+          <CardTitle className="text-blue-700">Your Referral Code</CardTitle>
+          <CardDescription className="text-white opacity-55">Share this code with friends to earn rewards</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex gap-2">
-            <div className="bg-green-600 text-white p-3 rounded-lg flex-1 text-center font-mono">
+            <div className="bg-blue-600 text-white p-3 rounded-lg flex-1 text-center font-mono">
               WINNER123
             </div>
             <Button variant="outline" size="icon" className="shrink-0">
@@ -36,27 +38,27 @@ export default function Invite() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Trophy className="text-white" />
-            <p className="text-green-700">Rewards</p>
+            <p className="text-blue-700">Rewards</p>
           </CardTitle>
           <CardDescription className="text-white opacity-60">Earn for every friend who joins..</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex justify-between items-center">
             <span className="text-white">Per Referral</span>
-            <span className="text-green-900 font-bold">100 MLC</span>
+            <span className="text-blue-500 font-bold">100 MLC</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-white">Total Earned</span>
-            <span className="text-green-900 font-bold">500 MLC</span>
+            <span className="text-blue-500 font-bold">500 MLC</span>
           </div>
         </CardContent>
       </Card>
       <div className="grid gap-4">
-        <Button className="w-full bg-green-500 hover:bg-green-600">
+        <Button className="w-full bg-blue-500 hover:bg-blue-600">
           <Share2 className="mr-2 h-4 w-4" />
           Share via Social Media
         </Button>
-        <Button variant="outline" className="w-full text-green-400">
+        <Button variant="outline" className="w-full text-blue-400">
           <Copy className="mr-2 h-4 w-4" />
           Copy Invite Link
         </Button>

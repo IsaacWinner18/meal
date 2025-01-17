@@ -28,18 +28,18 @@ app.listen(5000, async() => {
 })
 
 
-const token = "7933372816:AAHaz_nQBCyUqYiJiGYy4we7bRh222dglco"
-const bot = new telegramBot(token, {polling: true})
-bot.onText(/\/start/, (msg) => {
-    const chatId = msg.chat.id;
-    bot.sendMessage(chatId, " welcome to mealcoin coin", {
-        reply_markup: {
-            inline_keyboard: [
-                [{text: "visit mealcoin",
-                    url: "https://t.me/mealcoinbot/mealcoin"
-                }]
-            ]
-        }
-    })
+// const token = "7933372816:AAHaz_nQBCyUqYiJiGYy4we7bRh222dglco"
+// const bot = new telegramBot(token, {polling: true})
+// bot.onText(/\/start/, (msg) => {
+//     const chatId = msg.chat.id;
+//     bot.sendMessage(chatId, " welcome to mealcoin coin", {
+//         reply_markup: {
+//             inline_keyboard: [
+//                 [{text: "visit mealcoin",
+//                     url: "https://t.me/mealcoinbot/mealcoin"
+//                 }]
+//             ]
+//         }
+//     })
 
-})
+// })
