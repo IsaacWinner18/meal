@@ -228,7 +228,7 @@ export default function Home() {
               {" "}
               <i>MLC</i>
             </span>
-            <span> Available {lastClaimed || "loading"} </span> &nbsp;
+            <span> Available </span> &nbsp;
             {/* <span>
               {loger.one}
               {loger.two}
