@@ -89,7 +89,6 @@ export default function Home() {
         },
 
         body: JSON.stringify({
-          // firstName: firstName,
           firstName: newData.firstName,
           lastName: newData.lastName,
           usernamedb: newData.userName,
@@ -98,13 +97,12 @@ export default function Home() {
       });
 
       if (!response.ok) {
-        // console.log(` this is the api url: ${process.env.NEXT_PUBLIC_API_URL}`)
         throw new Error("failed to register");
       }
 
       const data = await response.json();
       setLastClaimed(new Date(data.user.lastClaimed));
-      
+      alert(data.user.lastClaimed)
 
       // alert(data.toString())
       setBalance(data.user.mlcoin);
