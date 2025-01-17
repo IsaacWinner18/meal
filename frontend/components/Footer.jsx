@@ -5,7 +5,7 @@ import Link from "next/link"
 export default function Footer() {
 
     return (
-        <div className=' text-white mt-7 mb-2 py-2 bg-green-400 rounded-full shadow-xl shadow-green-800 font-mono absolute bottom-0 left-0 w-full'>
+        <div className=' text-white mt-7 mb-2 py-2 bg-neutral-800 rounded-full shadow-xl shadow-black font-mono fixed bottom-0 left-0 w-full'>
   <div className='flex justify-between mx-10 '>
 
       <button className="">

@@ -7,6 +7,8 @@ import { ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Footer from "@/components/Footer";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Gift, PlayCircle, Share2 } from "lucide-react";
 
 export default function Home() {
   const [balance, setBalance] = useState(0);
@@ -175,50 +177,50 @@ export default function Home() {
   }, [lastClaimed]);
 
   return (
-    <div className="max-w-md mx-auto min-h-screen flex flex-col p-1">
-      <div className="flex justify-between items-start mb-4 p-2">
+    <div className="max-w-md mx-auto min-h-screen flex flex-col">
+      <div className="flex justify-between items-start bg-black rounded-bl-lg rounded-br-lg mb- p-2">
         <div>
-          <h1 className="text-lg font-bold">
+          <h1 className="text-lg font-bold text-white">
             {peopleData.firstName || "loading"}{" "}
             {peopleData.lastName || "loading"}
           </h1>
-          <p className="text-gray-500 text-sm shadow-xl shadow-neutral-300">
+          <p className="text-gray-500 text-sm ">
             ID: {peopleData.userId || "loading"}
             <i className="hidden">{peopleData.userName}</i>
           </p>
         </div>
-        <div className="rounded-lg shadow-xl shadow-green-700">
+        <div className="rounded-lg shadow-xl shadow-blue-700">
           {/* <Flame className="text-blue-600" size={24} /> */}
           <Image src="/wallet.gif" alt="Wallet.gif" width={45} height={45} />
         </div>
       </div>
 
-      <div className="bg-gradient-to-r from-neutral-200 to-green-400 shadow-inner shadow-green-800 rounded-3xl p-3 ">
-        <h2 className="text-center mb-2 font-bold">Current Balance</h2>
+      <div className="bg-gradient-to-r from-neutral-900 to-black shadow-inner shadow-black rounded-3xl p-3 mx-2 my-1">
+        <h2 className="text-center mb-2 font-bold text-white">Current Balance</h2>
         <div className="flex items-center justify-center gap-2 text-3xl font-bold mb-2">
-          <ArrowUp className="text-blue-200 bg-green-600 rounded-full p-1" />
-          <span className="text-neutral-800">{balance}</span>
-          <span className="text-neutral-200 shadow-xl shadow-blue-100 hover:text-neutral-300">
+          <ArrowUp className="text-blue-200 bg-blue-600 rounded-full p-1" />
+          <span className="text-neutral-100">{balance}</span>
+          <span className="text-neutral-400 shadow-xl shadow-blue-100 hover:text-neutral-300">
             MLC
           </span>
         </div>
-        <div className="bg-green-300 rounded-full text-center my-4 shadow-inner shadow-green-600 inset-">
-          <span className="text-blue-950 text-xs font-mono">
+        <div className="bg-neutral-900 rounded-full text-center my-4 shadow-inner shadow-black inset-">
+          <span className="text-white text-sm font-mono">
             EARNING RATE +400.00 MLC/hr{" "}
           </span>
         </div>
 
         {/* Not a component but sha  */}
 
-        <div className="bg-gradient-to-t from-green-400 to-white rounded-3xl px-6 py-5 shadow-xl shadow-blue-00 mt-16">
-          <h2 className="text-lg text-center mb-3">Next GRAB!</h2>
-          <Progress value={progress} className="mb-4" />
+        <div className="bg-gradient-to-t from-neutral-900 to-black rounded-3xl px-6 py-5 shadow-xl shadow-blue-00 mt-16">
+          <h2 className="text-lg text-center text-white mb-3">Next GRAB!</h2>
+          <Progress value={progress} className="mb-4 bg-white text-white" />
           <div className="mx-16">
             <motion.div whileTap={{ scale: 0.95 }}>
               <Button
                 onClick={handleClaim}
                 disabled={!canClaim}
-                className="w-full py-6 text-xl bg-green-700 shadow-inner shadow-green-200 hover:bg-green-600 transition-colors"
+                className="w-full py-6 text-xl bg-blue-700 shadow-inner shadow-blue-200 hover:bg-blue-600 transition-colors"
               >
                 Claim
               </Button>
@@ -237,7 +239,39 @@ export default function Home() {
             </span> */}
           </div>
         </div>
+
       </div>
+<div>
+        <Card className="bg-gradient-to-b from-neutral-800 to-black border-black mx-2 mb-1">
+          <CardHeader>
+            <CardTitle className="flex items-center text-blue-600 gap-2">
+              <PlayCircle className="text-white" />
+              Watch Videos
+            </CardTitle>
+            <CardDescription>Earn up to 50 MLC per video watched</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button className="w-full bg-blue-600 hover:bg-blue-400">
+              Start Watching
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-b from-neutral-800 to-black border-black mx-2 mb-28">
+          <CardHeader>
+            <CardTitle className="flex items-center text-blue-600 gap-2">
+              <PlayCircle className="text-white" />
+              Watch Videos
+            </CardTitle>
+            <CardDescription>Earn up to 50 MLC per video watched</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button className="w-full bg-blue-600 hover:bg-blue-400">
+              Start Watching
+            </Button>
+          </CardContent>
+        </Card>
+        </div>
 
       <Footer />
     </div>
