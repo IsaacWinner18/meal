@@ -38,11 +38,7 @@ export default function Home() {
 
           // Example usage after SDK is loaded
           if (typeof Telegram !== "undefined" && Telegram.WebApp) {
-            const webApp = Telegram.WebApp;
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const code = urlParams.get("code");
-           
+            const webApp = Telegram.WebApp;           
 
             // Extract user data from initDataUnsafe
             const userData = webApp.initDataUnsafe?.user;
@@ -232,7 +228,7 @@ export default function Home() {
               {" "}
               <i>MLC</i>
             </span>
-            <span> Available </span> &nbsp;
+            <span> Available {lastClaimed || "loading"} </span> &nbsp;
             {/* <span>
               {loger.one}
               {loger.two}
