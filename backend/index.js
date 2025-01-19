@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const path = require("path");
 const userRoute = require("./routes/dasboard.route")
 const telegramBot = require("node-telegram-bot-api")
 
@@ -28,11 +29,14 @@ app.listen(5000, async() => {
 })
 
 
+app.use("/uploads", express.static(path.join(__dirname, "public/uploads")))
+console.log() 
 const token = "7933372816:AAHaz_nQBCyUqYiJiGYy4we7bRh222dglco"
 const bot = new telegramBot(token, {polling: true})
 bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
-    bot.sendMessage(chatId, " welcome to mealcoin coin", {
+    const photoUrl = "https://meal-production.up.railway.app/uploads/transformers-molie.jpeg"
+    bot.sendMessage(chatId, photoUrl, " welcome to mealcoin coin", {
         reply_markup: {
             inline_keyboard: [
                 [{text: "visit mealcoin",
