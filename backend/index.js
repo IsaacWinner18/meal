@@ -36,7 +36,8 @@ const bot = new telegramBot(token, {polling: true})
 bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
     const photoUrl = "https://meal-production.up.railway.app/uploads/transformers-molie.jpeg"
-    bot.sendMessage(chatId, photoUrl, " welcome to mealcoin coin", {
+    bot.sendPhoto(chatId, photoUrl, { 
+        caption: " Welcome to Mealcoin: A crypto dedicated to ending hunger worldwide.",
         reply_markup: {
             inline_keyboard: [
                 [{text: "visit mealcoin",
