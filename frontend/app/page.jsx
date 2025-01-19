@@ -7,25 +7,33 @@ import { ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Footer from "@/components/Footer";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Gift, PlayCircle, Share2 } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   const [balance, setBalance] = useState(0);
   const [progress, setProgress] = useState(0);
   const [canClaim, setCanClaim] = useState(true);
+  const [claimedVideos, setClaimedVideos] = useState([]);
   const [loger, setLogErr] = useState({
     one: "",
     two: "",
   });
-  // const [firstName, setFirstName] = useState()
+  const [videos, setVideos] = useState([]);
   const [lastClaimed, setLastClaimed] = useState(null);
 
   const [peopleData, setPeopleData] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
-    userId: "",
+    firstName: "winner",
+    lastName: "isaac",
+    userName: "samson12",
+    userId: "344556",
   });
 
   useEffect(() => {
@@ -38,7 +46,7 @@ export default function Home() {
 
           // Example usage after SDK is loaded
           if (typeof Telegram !== "undefined" && Telegram.WebApp) {
-            const webApp = Telegram.WebApp;           
+            const webApp = Telegram.WebApp;
 
             // Extract user data from initDataUnsafe
             const userData = webApp.initDataUnsafe?.user;
@@ -48,13 +56,13 @@ export default function Home() {
 
               webApp.ready();
 
-              setPeopleData((prev) => ({
-                ...prev,
-                firstName: first_name,
-                lastName: last_name,
-                userName: username,
-                userId: id,
-              }));
+              // setPeopleData((prev) => ({
+              //   ...prev,
+              //   firstName: first_name,
+              //   lastName: last_name,
+              //   userName: username,
+              //   userId: id,
+              // }));
 
               fetchData({
                 firstName: first_name,
@@ -62,7 +70,7 @@ export default function Home() {
                 userName: username,
                 userId: id,
               });
-              // console.log("User's first name:", first_name);
+              console.log("User's first name:", first_name);
             } else {
               console.log("User data not available.");
             }
@@ -80,21 +88,42 @@ export default function Home() {
     loadTelegramSDK();
   }, []);
 
-  const fetchData = async (newData) => {
-    try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+  useEffect(() => {
+    fetchData({
+      firstName: "winner",
+      lastName: "isaac",
+      userName: "samson12",
+      userId: "344556",
+    });
+    videoFunc();
+  }, []);
 
-        body: JSON.stringify({
-          firstName: newData.firstName,
-          lastName: newData.lastName,
-          usernamedb: newData.userName,
-          mlcoin: balance,
-        }),
-      });
+  const fetchData = async (newData) => {
+    setPeopleData((prev) => ({
+      ...prev,
+      firstName: "winner",
+      lastName: "isaac",
+      userName: "samson12",
+      userId: "344556",
+    }));
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify({
+            firstName: newData.firstName,
+            lastName: newData.lastName,
+            usernamedb: newData.userName,
+            mlcoin: balance,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("failed to register");
@@ -102,7 +131,6 @@ export default function Home() {
 
       const data = await response.json();
       setLastClaimed(new Date(data.user.lastClaimed));
-      
 
       // alert(data.toString())
       setBalance(data.user.mlcoin);
@@ -114,30 +142,43 @@ export default function Home() {
     }
   };
 
-  const handleClaim = async () => {
+  const handleClaim = async (videoId) => {
     // if (canClaim) {
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_API_URL, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
 
-        body: JSON.stringify({ usernamedb: peopleData.userName }),
-      });
+          body: JSON.stringify({
+            usernamedb: peopleData.userName,
+            videoId: videoId ? videoId : null,
+          }),
+          // body: JSON.stringify({ usernamedb: peopleData.userName }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("failed to update mlcoin");
       }
 
       const data = await response.json();
-
       setBalance(data.user.mlcoin);
       setProgress(0);
-      setCanClaim(false);
-      setTimeout(() => {
-        setCanClaim(true);
-      }, 2 * 60 * 1000);
+      
+      if (videoId) {
+        setClaimedVideos((prev) => [...prev, videoId]);
+      }
+
+      if (!videoId) {
+        setCanClaim(false);
+        setTimeout(() => {
+          setCanClaim(true);
+        }, 2 * 60 * 1000);
+      }
       if (loger.one) setLogErr((prev) => ({ ...prev, one: "" }));
     } catch (error) {
       console.log(`The adeola error ${error}`);
@@ -145,6 +186,16 @@ export default function Home() {
       //   one: error.message,
       // }));
     }
+  };
+
+  const videoFunc = async () => {
+    const responseVideo = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/videos`
+    );
+    if (!responseVideo.ok) throw Error("Somethign went wrong");
+    const { data } = await responseVideo.json();
+    // console.log(data);
+    setVideos(data);
   };
 
   useEffect(() => {
@@ -185,12 +236,21 @@ export default function Home() {
         </div>
         <div className="rounded-lg shadow-xl shadow-blue-700">
           {/* <Flame className="text-blue-600" size={24} /> */}
-          <Image src="/wallet.gif" alt="Wallet.gif" width={45} height={45} />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="white"
+            className="size-10"
+          >
+            <path d="M2.273 5.625A4.483 4.483 0 0 1 5.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 3H5.25a3 3 0 0 0-2.977 2.625ZM2.273 8.625A4.483 4.483 0 0 1 5.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 6H5.25a3 3 0 0 0-2.977 2.625ZM5.25 9a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h13.5a3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3H15a.75.75 0 0 0-.75.75 2.25 2.25 0 0 1-4.5 0A.75.75 0 0 0 9 9H5.25Z" />
+          </svg>
         </div>
       </div>
 
       <div className="bg-gradient-to-r from-neutral-900 to-black shadow-inner shadow-black rounded-3xl p-3 mx-2 my-1">
-        <h2 className="text-center mb-2 font-bold text-white">Current Balance</h2>
+        <h2 className="text-center mb-2 font-bold text-white">
+          Current Balance
+        </h2>
         <div className="flex items-center justify-center gap-2 text-3xl font-bold mb-2">
           <ArrowUp className="text-blue-200 bg-blue-600 rounded-full p-1" />
           <span className="text-neutral-100">{balance}</span>
@@ -212,7 +272,7 @@ export default function Home() {
           <div className="mx-16">
             <motion.div whileTap={{ scale: 0.95 }}>
               <Button
-                onClick={handleClaim}
+                onClick={() => handleClaim(undefined)}
                 disabled={!canClaim}
                 className="w-full py-6 text-xl bg-blue-700 shadow-inner shadow-blue-200 hover:bg-blue-600 transition-colors"
               >
@@ -233,39 +293,45 @@ export default function Home() {
             </span> */}
           </div>
         </div>
-
       </div>
-<div>
-        <Card className="bg-gradient-to-b from-neutral-800 to-black border-black mx-2 mb-1">
-          <CardHeader>
-            <CardTitle className="flex items-center text-blue-600 gap-2">
-              <PlayCircle className="text-white" />
-              Watch Videos
-            </CardTitle>
-            <CardDescription>Earn up to 50 MLC per video watched</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button className="w-full bg-blue-600 hover:bg-blue-400">
-              Start Watching
-            </Button>
-          </CardContent>
-        </Card>
+      <div>
 
-        <Card className="bg-gradient-to-b from-neutral-800 to-black border-black mx-2 mb-28">
-          <CardHeader>
-            <CardTitle className="flex items-center text-blue-600 gap-2">
-              <PlayCircle className="text-white" />
-              Watch Videos
-            </CardTitle>
-            <CardDescription>Earn up to 50 MLC per video watched</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Button className="w-full bg-blue-600 hover:bg-blue-400">
-              Start Watching
-            </Button>
-          </CardContent>
-        </Card>
-        </div>
+        {videos.map((video) => {
+          const videoClaimed = claimedVideos.includes(video._id);
+          return (
+            
+            <Link rel="noopener noreferrer" target="_blank" key={video._id}  href={video.videoUrl} className={videoClaimed ? 'hidden' : 'block'}>
+            <Card
+           
+              className="bg-gradient-to-b from-neutral-800 to-black border-black mx-2 mb-28"
+            >
+              <CardHeader>
+                <CardTitle className="flex items-center text-blue-600 gap-2">
+                  <PlayCircle className="text-white" />
+                  Watch Videos
+                </CardTitle>
+                <CardDescription>
+                  Earn up to {video.coin} MLC per video watched
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button
+                  onClick={() => {
+                    // Redirect to the video
+                    
+                    handleClaim(video._id);
+                  }}
+                  className="w-full bg-blue-600 hover:bg-blue-400 "
+                  disabled={videoClaimed}
+                  >
+                      {videoClaimed ? 'Start Watching' : 'Start Watching'}
+                      </Button>
+              </CardContent>
+            </Card>
+             </Link>
+          );
+        })}
+      </div>
 
       <Footer />
     </div>

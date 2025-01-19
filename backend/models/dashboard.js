@@ -20,9 +20,11 @@ const dashboardSchema = new mongoose.Schema({
   },
   lastClaimed: {
     type: Date,
-    default: null
-    ,
+    default: null,
   },
+  videoIds: {
+    type: Array,
+  }
   // referral: int 
   // usersReferred: a list of user's they've referred...
 });
