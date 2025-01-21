@@ -56,13 +56,13 @@ export default function Home() {
 
               webApp.ready();
 
-              // setPeopleData((prev) => ({
-              //   ...prev,
-              //   firstName: first_name,
-              //   lastName: last_name,
-              //   userName: username,
-              //   userId: id,
-              // }));
+              setPeopleData((prev) => ({
+                ...prev,
+                firstName: first_name,
+                lastName: last_name,
+                userName: username,
+                userId: id,
+              }));
 
               fetchData({
                 firstName: first_name,
@@ -89,23 +89,26 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    fetchData({
-      firstName: "winner",
-      lastName: "isaac",
-      userName: "samson12",
-      userId: "344556",
-    });
+           //I uncomment when testing locally
+    // fetchData({
+    //   firstName: "winner",
+    //   lastName: "isaac",
+    //   userName: "samson12",
+    //   userId: "344556",
+    // });
     videoFunc();
   }, []);
 
-  const fetchData = async (newData) => {
-    setPeopleData((prev) => ({
-      ...prev,
-      firstName: "winner",
-      lastName: "isaac",
-      userName: "samson12",
-      userId: "344556",
-    }));
+     //I uncomment when testing locally
+
+  // const fetchData = async (newData) => {
+  //   setPeopleData((prev) => ({
+  //     ...prev,
+  //     firstName: "winner",
+  //     lastName: "isaac",
+  //     userName: "samson12",
+  //     userId: "344556",
+  //   }));
 
     try {
       const response = await fetch(
