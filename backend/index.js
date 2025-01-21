@@ -29,10 +29,23 @@ app.listen(5000, async() => {
 })
 
 
+
+// {polling: true}
+
 app.use("/uploads", express.static(path.join(__dirname, "public/uploads")))
-console.log() 
+ 
 const token = "7933372816:AAHaz_nQBCyUqYiJiGYy4we7bRh222dglco"
-const bot = new telegramBot(token, {polling: true})
+const bot = new telegramBot(token);
+
+const webhookUrl = "https://meal-production.up.railway.app/bot" + token;
+
+bot.setWebHook(webhookUrl)
+
+app.post(`/bot${token}`, (req, res) => {
+    bot.processUpdate(req.body)
+    res.sendStatus(200);
+});
+
 bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
     const photoUrl = "https://meal-production.up.railway.app/uploads/transformers-molie.jpeg"
