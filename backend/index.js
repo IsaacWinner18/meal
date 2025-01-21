@@ -53,7 +53,7 @@ bot.onText(/\/start/, (msg) => {
         caption: " Welcome to Mealcoin: A crypto dedicated to ending hunger worldwide.",
         reply_markup: {
             inline_keyboard: [
-                [{text: "visit mealcoin",
+                [{text: "Visit Mealcoin",
                     url: "https://t.me/mealcoinbot/mealcoin"
                 }]
             ]
