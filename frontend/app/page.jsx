@@ -30,10 +30,10 @@ export default function Home() {
   const [lastClaimed, setLastClaimed] = useState(null);
 
   const [peopleData, setPeopleData] = useState({
-    firstName: "winner",
-    lastName: "isaac",
-    userName: "samson12",
-    userId: "344556",
+    firstName: "",
+    lastName: "",
+    userName: "",
+    userId: "",
   });
 
   useEffect(() => {
