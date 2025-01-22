@@ -50,6 +50,7 @@ const A = (date) => {
 
 DashboardRoute.patch("/dashboard", async (req, res) => {
   const { usernamedb, videoId } = req.body;
+  console.log(videoId)
 
   let user;
   try {

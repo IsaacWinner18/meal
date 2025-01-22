@@ -89,7 +89,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-           //I uncomment when testing locally
+           // I uncomment when testing locally
     // fetchData({
     //   firstName: "winner",
     //   lastName: "isaac",
@@ -99,9 +99,11 @@ export default function Home() {
     videoFunc();
   }, []);
 
-     //I uncomment when testing locally
 
   const fetchData = async (newData) => {
+    
+     // I uncomment when testing locally
+
     // setPeopleData((prev) => ({
     //   ...prev,
     //   firstName: "winner",
@@ -160,7 +162,7 @@ export default function Home() {
             usernamedb: peopleData.userName,
             videoId: videoId ? videoId : null,
           }),
-          // body: JSON.stringify({ usernamedb: peopleData.userName }),
+        
         }
       );
 
