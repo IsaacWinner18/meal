@@ -69,7 +69,7 @@ DashboardRoute.patch("/dashboard", async (req, res) => {
         { new: true }
       );
     } else {
-      const video = await UserVideo.findOne({ _id: videoId });
+      const video = await UserVideo.findOne({ videoId });
 
       if (!video) {
         return res.status(400).json({ message: "Invalid video ID provided" });
