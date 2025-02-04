@@ -12,10 +12,12 @@ import { Gift, PlayCircle, Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 
-export default function videoComp(handle) {
+export default function videoComp({handleClaimProps = () => {}, claimedVideos = [] }) {
 
-  const { handleClaimProps, claimedVideos } = handle;
-
+  // const { handleClaimProps, claimedVideos } = handle;
+  console.log("handleClaimProps:", handleClaimProps);
+  console.log("claimedVideos:", claimedVideos);
+  
   
   const [videos, setVideos] = useState([]);
   
