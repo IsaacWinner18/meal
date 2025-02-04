@@ -7,6 +7,7 @@ import { ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Footer from "@/components/Footer";
+import Videos from "@/components/videos";
 import {
   Card,
   CardContent,
@@ -21,14 +22,15 @@ export default function Home() {
   const [balance, setBalance] = useState(0);
   const [progress, setProgress] = useState(0);
   const [canClaim, setCanClaim] = useState(true);
-  const [claimedVideos, setClaimedVideos] = useState([]);
   const [loger, setLogErr] = useState({
     one: "",
     two: "",
   });
-  const [videos, setVideos] = useState([]);
+  // const [videos, setVideos] = useState([]);
   const [lastClaimed, setLastClaimed] = useState(null);
+  const [claimedVideos, setClaimedVideos] = useState([]);
 
+  console.log("This is the videoId that needs to be stored frontend", claimedVideos);
   const [peopleData, setPeopleData] = useState({
     firstName: "",
     lastName: "",
@@ -89,20 +91,17 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-           // I uncomment when testing locally
-    // fetchData({
-    //   firstName: "winner",
-    //   lastName: "isaac",
-    //   userName: "samson12",
-    //   userId: "344556",
-    // });
-    videoFunc();
-  }, []);
-
+    // I uncomment when testing locally
+  //   fetchData({
+  //     firstName: "winner",
+  //     lastName: "isaac",
+  //     userName: "samson12",
+  //     userId: "344556",
+  //   });
+  // }, []);
 
   const fetchData = async (newData) => {
-    
-     // I uncomment when testing locally
+    // I uncomment when testing locally
 
     // setPeopleData((prev) => ({
     //   ...prev,
@@ -135,7 +134,9 @@ export default function Home() {
       }
 
       const data = await response.json();
+      console.log(data)
       setLastClaimed(new Date(data.user.lastClaimed));
+      setClaimedVideos(data.user.videoIds)
 
       // alert(data.toString())
       setBalance(data.user.mlcoin);
@@ -162,7 +163,6 @@ export default function Home() {
             usernamedb: peopleData.userName,
             videoId: videoId ? videoId : null,
           }),
-        
         }
       );
 
@@ -173,7 +173,7 @@ export default function Home() {
       const data = await response.json();
       setBalance(data.user.mlcoin);
       setProgress(0);
-      
+
       if (videoId) {
         setClaimedVideos((prev) => [...prev, videoId]);
       }
@@ -191,16 +191,6 @@ export default function Home() {
       //   one: error.message,
       // }));
     }
-  };
-
-  const videoFunc = async () => {
-    const responseVideo = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/videos`
-    );
-    if (!responseVideo.ok) throw Error("Somethign went wrong");
-    const { data } = await responseVideo.json();
-    // console.log(data);
-    setVideos(data);
   };
 
   useEffect(() => {
@@ -299,45 +289,12 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div>
 
-        {videos.map((video) => {
-          const videoClaimed = claimedVideos.includes(video._id);
-          return (
-            
-            <Link rel="noopener noreferrer" target="_blank" key={video._id}  href={video.videoUrl} className={videoClaimed ? 'hidden' : 'block'}>
-            <Card
-           
-              className="bg-gradient-to-b from-neutral-800 to-black border-black mx-2 mb-28"
-            >
-              <CardHeader>
-                <CardTitle className="flex items-center text-blue-600 gap-2">
-                  <PlayCircle className="text-white" />
-                  Watch Videos
-                </CardTitle>
-                <CardDescription>
-                  Earn up to {video.coin} MLC per video watched
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <Button
-                  onClick={() => {
-                    // Redirect to the video
-                    
-                    handleClaim(video._id);
-                  }}
-                  className="w-full bg-blue-600 hover:bg-blue-400 "
-                  disabled={videoClaimed}
-                  >
-                      {videoClaimed ? 'Start Watching' : 'Start Watching'}
-                      </Button>
-              </CardContent>
-            </Card>
-             </Link>
-          );
-        })}
-      </div>
-
+     
+      <Videos
+        handleClaimProps={(id) => handleClaim(id)}
+        claimedVideos={claimedVideos}
+      />
       <Footer />
     </div>
   );

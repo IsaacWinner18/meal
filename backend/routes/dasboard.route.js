@@ -6,7 +6,7 @@ const DashboardRoute = express.Router();
 
 DashboardRoute.post("/dashboard", async (req, res) => {
   const { firstName, lastName, usernamedb, mlcoin } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
 
   try {
     const existingUser = await UserDashboard.findOne({ usernamedb });
@@ -16,6 +16,7 @@ DashboardRoute.post("/dashboard", async (req, res) => {
         user: {
           usernamedb: existingUser.usernamedb,
           mlcoin: existingUser.mlcoin,
+          videoIds: existingUser.videoIds
         },
       });
     }
@@ -50,7 +51,7 @@ const A = (date) => {
 
 DashboardRoute.patch("/dashboard", async (req, res) => {
   const { usernamedb, videoId } = req.body;
-  console.log(videoId)
+  console.log("This is the videoId that needs to be stored at backend", videoId)
 
   let user;
   try {
@@ -70,6 +71,7 @@ DashboardRoute.patch("/dashboard", async (req, res) => {
       );
     } else {
       const video = await UserVideo.findOne({ _id: videoId });
+      // console.log(video)
 
       if (!video) {
         return res.status(400).json({ message: "Invalid video ID provided" });
@@ -79,6 +81,7 @@ DashboardRoute.patch("/dashboard", async (req, res) => {
         { usernamedb },
         {
           $inc: { mlcoin: video.coin },
+          $addToSet: {videoIds: videoId}
         },
         { new: true }
       );

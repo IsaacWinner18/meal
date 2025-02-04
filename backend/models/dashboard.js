@@ -16,7 +16,7 @@ const dashboardSchema = new mongoose.Schema({
   },
   mlcoin: {
     type: Number,
-    default: null, // Default value is null if mlcoin is not provided
+    default: 0, // Default value is null if mlcoin is not provided
   },
   lastClaimed: {
     type: Date,
@@ -24,6 +24,7 @@ const dashboardSchema = new mongoose.Schema({
   },
   videoIds: {
     type: Array,
+    unique: true,
   }
   // referral: int 
   // usersReferred: a list of user's they've referred...
