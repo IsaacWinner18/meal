@@ -5,18 +5,18 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
-import Image from "next/image";
+// import Image from "next/image";
 import Footer from "@/components/Footer";
 import Videos from "@/components/videos";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Gift, PlayCircle, Share2 } from "lucide-react";
-import Link from "next/link";
+// import {
+//   Card,
+//   CardContent,
+//   CardDescription,
+//   CardHeader,
+//   CardTitle,
+// } from "@/components/ui/card";
+// import { Gift, PlayCircle, Share2 } from "lucide-react";
+// import Link from "next/link";
 
 export default function Home() {
   const [balance, setBalance] = useState(0);
@@ -90,7 +90,7 @@ export default function Home() {
     loadTelegramSDK();
   }, []);
 
-  useEffect(() => {
+  // useEffect(() => {
     // I uncomment when testing locally
   //   fetchData({
   //     firstName: "winner",
@@ -298,4 +298,4 @@ export default function Home() {
       <Footer />
     </div>
   );
-}
+  }
