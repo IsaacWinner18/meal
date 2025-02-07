@@ -67,22 +67,22 @@ export default function Home() {
 
               webApp.ready();
 
-              // setPeopleData((prev) => ({
-              //   ...prev,
-              //   firstName: first_name,
-              //   lastName: last_name,
-              //   userName: username,
-              //   userId: id,
-              //   referralCode: id,
-              // }));
+              setPeopleData((prev) => ({
+                ...prev,
+                firstName: first_name,
+                lastName: last_name,
+                userName: username,
+                userId: id,
+                referralCode: id,
+              }));
 
-              // fetchData({
-              //   firstName: first_name,
-              //   lastName: last_name,
-              //   userName: username,
-              //   userId: id,
-              //   referralCode: id,
-              // });
+              fetchData({
+                firstName: first_name,
+                lastName: last_name,
+                userName: username,
+                userId: id,
+                referralCode: id,
+              });
               console.log("User's first name:", first_name);
             } else {
               console.log("User data not available.");
@@ -111,28 +111,28 @@ export default function Home() {
     }
   }, [searchParams]);
 
-  useEffect(() => {
-    // I uncomment when testing locally
-    fetchData({
-      firstName: "winner",
-      lastName: "isaac",
-      userName: "samson12",
-      userId: "344556",
-      referralCode: "1234567",
-    });
-  }, []);
+  // useEffect(() => {
+  //   // I uncomment when testing locally
+  //   fetchData({
+  //     firstName: "winner",
+  //     lastName: "isaac",
+  //     userName: "samson12",
+  //     userId: "344556",
+  //     referralCode: "1234567",
+  //   });
+  // }, []);
 
   const fetchData = async (newData) => {
     // I uncomment when testing locally
 
-    setPeopleData((prev) => ({
-      ...prev,
-      firstName: "winner",
-      lastName: "isaac",
-      userName: "samson12",
-      userId: "344556",
-      referralCode: "1234567",
-    }));
+    // setPeopleData((prev) => ({
+    //   ...prev,
+    //   firstName: "winner",
+    //   lastName: "isaac",
+    //   userName: "samson12",
+    //   userId: "344556",
+    //   referralCode: "1234567",
+    // }));
 
     try {
       const response = await fetch(
