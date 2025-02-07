@@ -1,5 +1,5 @@
 "use client";
-
+import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,8 @@ import { motion } from "framer-motion";
 // import Image from "next/image";
 import Footer from "@/components/Footer";
 import Videos from "@/components/videos";
+import { useRouter } from "next/router";
+
 // import {
 //   Card,
 //   CardContent,
@@ -19,6 +21,7 @@ import Videos from "@/components/videos";
 // import Link from "next/link";
 
 export default function Home() {
+  const searchParams = useSearchParams();
   const [balance, setBalance] = useState(0);
   const [progress, setProgress] = useState(0);
   const [canClaim, setCanClaim] = useState(true);
@@ -29,14 +32,20 @@ export default function Home() {
   // const [videos, setVideos] = useState([]);
   const [lastClaimed, setLastClaimed] = useState(null);
   const [claimedVideos, setClaimedVideos] = useState([]);
+  const router = useRouter();
 
-  console.log("This is the videoId that needs to be stored frontend", claimedVideos);
+  console.log(
+    "This is the videoId that needs to be stored frontend",
+    claimedVideos
+  );
   const [peopleData, setPeopleData] = useState({
     firstName: "",
     lastName: "",
     userName: "",
     userId: "",
+    referralCode: "",
   });
+  const [referredBy, setReferredBy] = useState();
 
   useEffect(() => {
     const loadTelegramSDK = () => {
@@ -58,20 +67,22 @@ export default function Home() {
 
               webApp.ready();
 
-              setPeopleData((prev) => ({
-                ...prev,
-                firstName: first_name,
-                lastName: last_name,
-                userName: username,
-                userId: id,
-              }));
+              // setPeopleData((prev) => ({
+              //   ...prev,
+              //   firstName: first_name,
+              //   lastName: last_name,
+              //   userName: username,
+              //   userId: id,
+              //   referralCode: id,
+              // }));
 
-              fetchData({
-                firstName: first_name,
-                lastName: last_name,
-                userName: username,
-                userId: id,
-              });
+              // fetchData({
+              //   firstName: first_name,
+              //   lastName: last_name,
+              //   userName: username,
+              //   userId: id,
+              //   referralCode: id,
+              // });
               console.log("User's first name:", first_name);
             } else {
               console.log("User data not available.");
@@ -88,28 +99,40 @@ export default function Home() {
     };
 
     loadTelegramSDK();
-  }, []);
+  }, [router.pathname]);
 
-  // useEffect(() => {
+  useEffect(() => {
+    // Extract the "start" parameter (Telegram referral code)
+    const startParam = searchParams.get("start");
+
+    if (startParam) {
+      setReferredBy(startParam);
+      console.log("Extracted Referral Code:", startParam);
+    }
+  }, [searchParams]);
+
+  useEffect(() => {
     // I uncomment when testing locally
-  //   fetchData({
-  //     firstName: "winner",
-  //     lastName: "isaac",
-  //     userName: "samson12",
-  //     userId: "344556",
-  //   });
-  // }, []);
+    fetchData({
+      firstName: "winner",
+      lastName: "isaac",
+      userName: "samson12",
+      userId: "344556",
+      referralCode: "1234567",
+    });
+  }, []);
 
   const fetchData = async (newData) => {
     // I uncomment when testing locally
 
-    // setPeopleData((prev) => ({
-    //   ...prev,
-    //   firstName: "winner",
-    //   lastName: "isaac",
-    //   userName: "samson12",
-    //   userId: "344556",
-    // }));
+    setPeopleData((prev) => ({
+      ...prev,
+      firstName: "winner",
+      lastName: "isaac",
+      userName: "samson12",
+      userId: "344556",
+      referralCode: "1234567",
+    }));
 
     try {
       const response = await fetch(
@@ -124,6 +147,8 @@ export default function Home() {
             firstName: newData.firstName,
             lastName: newData.lastName,
             usernamedb: newData.userName,
+            referralCode: newData.referralCode,
+            referredBy: newData.referralCode,
             mlcoin: balance,
           }),
         }
@@ -134,9 +159,9 @@ export default function Home() {
       }
 
       const data = await response.json();
-      console.log(data)
+      console.log(data);
       setLastClaimed(new Date(data.user.lastClaimed));
-      setClaimedVideos(data.user.videoIds)
+      setClaimedVideos(data.user.videoIds);
 
       // alert(data.toString())
       setBalance(data.user.mlcoin);
@@ -290,7 +315,6 @@ export default function Home() {
         </div>
       </div>
 
-     
       <Videos
         handleClaimProps={(id) => handleClaim(id)}
         claimedVideos={claimedVideos}
@@ -298,4 +322,4 @@ export default function Home() {
       <Footer />
     </div>
   );
-  }
+}

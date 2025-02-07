@@ -15,8 +15,8 @@ import { Button } from "@/components/ui/button";
 export default function videoComp({handleClaimProps = () => {}, claimedVideos = [] }) {
 
   // const { handleClaimProps, claimedVideos } = handle;
-  console.log("handleClaimProps:", handleClaimProps);
-  console.log("claimedVideos:", claimedVideos);
+  // console.log("handleClaimProps:", handleClaimProps);
+  // console.log("claimedVideos:", claimedVideos);
   
   
   const [videos, setVideos] = useState([]);

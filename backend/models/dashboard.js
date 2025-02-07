@@ -25,9 +25,19 @@ const dashboardSchema = new mongoose.Schema({
   videoIds: {
     type: Array,
     unique: true,
+  },
+  referralCode: {
+    type: String,
+    unique: true,
+  },
+  referredBy: {
+    type: String,
+    default: null
+  },
+  referrals: {
+    type: Number,
+    default: 0,
   }
-  // referral: int 
-  // usersReferred: a list of user's they've referred...
 });
 
 // Create the model

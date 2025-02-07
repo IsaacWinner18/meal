@@ -1,11 +1,16 @@
 const express = require("express");
 const UserDashboard = require("../models/dashboard");
 const UserVideo = require("../models/video.model");
-
+// const crypto = require("crypto"); 
 const DashboardRoute = express.Router();
 
+// not generating random code no more 
+
+
+
+
 DashboardRoute.post("/dashboard", async (req, res) => {
-  const { firstName, lastName, usernamedb, mlcoin } = req.body;
+  const { firstName, lastName, usernamedb, mlcoin, referralCode, referredBy } = req.body;
   // console.log(req.body);
 
   try {
@@ -16,7 +21,8 @@ DashboardRoute.post("/dashboard", async (req, res) => {
         user: {
           usernamedb: existingUser.usernamedb,
           mlcoin: existingUser.mlcoin,
-          videoIds: existingUser.videoIds
+          videoIds: existingUser.videoIds,
+          referralCode: existingUser.videoIds
         },
       });
     }
@@ -26,6 +32,7 @@ DashboardRoute.post("/dashboard", async (req, res) => {
       lastName,
       usernamedb,
       mlcoin,
+      referralCode
     });
     const savedUser = await userDashboard.save();
 
@@ -51,6 +58,7 @@ const A = (date) => {
 
 DashboardRoute.patch("/dashboard", async (req, res) => {
   const { usernamedb, videoId } = req.body;
+  console.log(req.body)
   console.log("This is the videoId that needs to be stored at backend", videoId)
 
   let user;
