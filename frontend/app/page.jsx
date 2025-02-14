@@ -67,6 +67,8 @@ export default function Home() {
 
               webApp.ready();
 
+              // I uncomment anytime i want to deploy
+
               setPeopleData((prev) => ({
                 ...prev,
                 firstName: first_name,
@@ -83,6 +85,7 @@ export default function Home() {
                 userId: id,
                 referralCode: id,
               });
+
               console.log("User's first name:", first_name);
             } else {
               console.log("User data not available.");
@@ -101,9 +104,9 @@ export default function Home() {
     loadTelegramSDK();
   }, []);
 
-
+   // // I uncomment when testing locally
   // useEffect(() => {
-  //   // I uncomment when testing locally
+   
   //   fetchData({
   //     firstName: "winner",
   //     lastName: "isaac",
