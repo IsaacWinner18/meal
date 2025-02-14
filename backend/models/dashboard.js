@@ -24,7 +24,7 @@ const dashboardSchema = new mongoose.Schema({
   },
   videoIds: {
     type: Array,
-    unique: true,
+    default: [],
   },
   referralCode: {
     type: String,
