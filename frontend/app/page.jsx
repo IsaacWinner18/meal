@@ -7,18 +7,14 @@ import { motion } from "framer-motion";
 // import Image from "next/image";
 import Footer from "@/components/Footer";
 import Videos from "@/components/videos";
-
-// import {
-//   Card,
-//   CardContent,
-//   CardDescription,
-//   CardHeader,
-//   CardTitle,
-// } from "@/components/ui/card";
-// import { Gift, PlayCircle, Share2 } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 // import Link from "next/link";
 
 export default function Home() {
+  const searchParams = useSearchParams();
+  const startApp = searchParams.get("startapp");
+
+
   const [balance, setBalance] = useState(0);
   const [progress, setProgress] = useState(0);
   const [canClaim, setCanClaim] = useState(true);
@@ -262,7 +258,7 @@ export default function Home() {
 
       <div className="bg-gradient-to-r from-neutral-900 to-black shadow-inner shadow-black rounded-3xl p-3 mx-2 my-1">
         <h2 className="text-center mb-2 font-bold text-white">
-          Current Balance
+          Current Balance { startApp }
         </h2>
         <div className="flex items-center justify-center gap-2 text-3xl font-bold mb-2">
           <ArrowUp className="text-blue-200 bg-blue-600 rounded-full p-1" />
