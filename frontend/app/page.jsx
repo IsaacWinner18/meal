@@ -307,6 +307,7 @@ export default function Home() {
       <Videos
         handleClaimProps={(id) => handleClaim(id)}
         claimedVideos={claimedVideos}
+        referralId={userData?.id}
       />
       <Footer />
     </div>

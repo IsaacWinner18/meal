@@ -6,7 +6,7 @@ import { Copy, Share2, Trophy } from "lucide-react"
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Invite() {
+export default function Invite({ referralId }) {
   return (
     (<div className="max-w-md mx-auto p-4 min-h-screen flex flex-col">
 
@@ -27,7 +27,7 @@ export default function Invite() {
         <CardContent>
           <div className="flex gap-2">
             <div className="bg-blue-600 text-white p-3 rounded-lg flex-1 text-center font-mono overflow-x-scroll">
-            {`https://t.me/mealcoinbot/mealcoin?startapp=ref_`}
+            {`https://t.me/mealcoinbot/mealcoin?startapp=ref_${referralId}`}
             </div>
             <Button variant="outline" size="icon" className="shrink-0">
               <Copy className="h-4 w-4" />
