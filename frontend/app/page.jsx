@@ -14,7 +14,7 @@ export default function Home() {
   const searchParams = useSearchParams();
   const startApp = searchParams.get("startapp");
 
-const [startUrl, setStartUrl] = useState("")
+
   const [balance, setBalance] = useState(0);
   const [progress, setProgress] = useState(0);
   const [canClaim, setCanClaim] = useState(true);
@@ -26,7 +26,7 @@ const [startUrl, setStartUrl] = useState("")
   const [lastClaimed, setLastClaimed] = useState(null);
   const [claimedVideos, setClaimedVideos] = useState([]);
   
-  setStartUrl(startApp);
+
   console.log(
     "This is the videoId that needs to be stored frontend",
     claimedVideos
@@ -258,7 +258,7 @@ const [startUrl, setStartUrl] = useState("")
 
       <div className="bg-gradient-to-r from-neutral-900 to-black shadow-inner shadow-black rounded-3xl p-3 mx-2 my-1">
         <h2 className="text-center mb-2 font-bold text-white">
-          Current Balance { startApp & startUrl || "loading2"}
+          Current Balance { startApp || "loading2"}
         </h2>
         <div className="flex items-center justify-center gap-2 text-3xl font-bold mb-2">
           <ArrowUp className="text-blue-200 bg-blue-600 rounded-full p-1" />
