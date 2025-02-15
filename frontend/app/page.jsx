@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 // import Image from "next/image";
 import Footer from "@/components/Footer";
 import Videos from "@/components/videos";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 // import {
 //   Card,
@@ -32,7 +32,11 @@ export default function Home() {
   // const [videos, setVideos] = useState([]);
   const [lastClaimed, setLastClaimed] = useState(null);
   const [claimedVideos, setClaimedVideos] = useState([]);
-  // const router = useRouter();
+  const router = useRouter();
+
+  useEffect(() => {
+    alert(router.query.startapp);
+  }, [router.query]);
 
   console.log(
     "This is the videoId that needs to be stored frontend",
@@ -104,9 +108,9 @@ export default function Home() {
     loadTelegramSDK();
   }, []);
 
-   // // I uncomment when testing locally
+  // // I uncomment when testing locally
   // useEffect(() => {
-   
+
   //   fetchData({
   //     firstName: "winner",
   //     lastName: "isaac",
