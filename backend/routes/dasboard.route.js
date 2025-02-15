@@ -32,7 +32,8 @@ DashboardRoute.post("/dashboard", async (req, res) => {
       lastName,
       usernamedb,
       mlcoin,
-      referralCode
+      referralCode,
+      videoIds: []
     });
     const savedUser = await userDashboard.save();
 
@@ -65,6 +66,13 @@ DashboardRoute.patch("/dashboard", async (req, res) => {
   try {
     if (!videoId) {
       const usertime = await UserDashboard.findOne({ usernamedb });
+
+      if (!usertime) {
+        return res.status(404).json({ message: "User not found" });
+        console.log("User not found")
+      }
+    
+
       if (!A(usertime.lastClaimed)) {
         return res.status(404).json({ message: "time left" });
       }
