@@ -1,5 +1,4 @@
 "use client";
-import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
@@ -8,7 +7,6 @@ import { motion } from "framer-motion";
 // import Image from "next/image";
 import Footer from "@/components/Footer";
 import Videos from "@/components/videos";
-// import { useRouter } from "next/router";
 
 // import {
 //   Card,
@@ -21,7 +19,6 @@ import Videos from "@/components/videos";
 // import Link from "next/link";
 
 export default function Home() {
-  const searchParams = useSearchParams();
   const [balance, setBalance] = useState(0);
   const [progress, setProgress] = useState(0);
   const [canClaim, setCanClaim] = useState(true);
@@ -32,11 +29,7 @@ export default function Home() {
   // const [videos, setVideos] = useState([]);
   const [lastClaimed, setLastClaimed] = useState(null);
   const [claimedVideos, setClaimedVideos] = useState([]);
-  // const router = useRouter();
-
-  useEffect(() => {
-    alert(searchParams.getAll());
-  }, []);
+  
 
   console.log(
     "This is the videoId that needs to be stored frontend",
@@ -65,6 +58,8 @@ export default function Home() {
 
             // Extract user data from initDataUnsafe
             const userData = webApp.initDataUnsafe?.user;
+            // const initData = window.Telegram.WebApp.initDataUnsafe;
+
             if (userData) {
               // Access user properties
               const { first_name, last_name, username, id } = userData;
