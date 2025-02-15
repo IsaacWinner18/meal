@@ -1,5 +1,5 @@
 "use client";
-// import { useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 // import Image from "next/image";
 import Footer from "@/components/Footer";
 import Videos from "@/components/videos";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 
 // import {
 //   Card,
@@ -21,7 +21,7 @@ import { useRouter } from "next/router";
 // import Link from "next/link";
 
 export default function Home() {
-  // const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
   const [balance, setBalance] = useState(0);
   const [progress, setProgress] = useState(0);
   const [canClaim, setCanClaim] = useState(true);
@@ -32,11 +32,11 @@ export default function Home() {
   // const [videos, setVideos] = useState([]);
   const [lastClaimed, setLastClaimed] = useState(null);
   const [claimedVideos, setClaimedVideos] = useState([]);
-  const router = useRouter();
+  // const router = useRouter();
 
   useEffect(() => {
-    alert(router.query.startapp);
-  }, [router.query]);
+    alert(searchParams.getAll());
+  }, []);
 
   console.log(
     "This is the videoId that needs to be stored frontend",
