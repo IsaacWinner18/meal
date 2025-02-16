@@ -1,44 +1,14 @@
 "use client";
-import { useState, useEffect } from "react";
-import { Progress } from "@/components/ui/progress";
-import { Button } from "@/components/ui/button";
-import { ArrowUp } from "lucide-react";
-import { motion } from "framer-motion";
-// import Image from "next/image";
-import Footer from "@/components/Footer";
-import Videos from "@/components/videos";
+
 import { useSearchParams } from "next/navigation";
-// import Link from "next/link";
+import { useState, useEffect } from "react";
+import Main from "@/app/veiw/page"
 
 export default function Home() {
   const searchParams = useSearchParams();
   const startApp = searchParams.get("startapp");
 
-
-  const [balance, setBalance] = useState(0);
-  const [progress, setProgress] = useState(0);
-  const [canClaim, setCanClaim] = useState(true);
-  const [loger, setLogErr] = useState({
-    one: "",
-    two: "",
-  });
-  // const [videos, setVideos] = useState([]);
-  const [lastClaimed, setLastClaimed] = useState(null);
-  const [claimedVideos, setClaimedVideos] = useState([]);
-  
-
-  console.log(
-    "This is the videoId that needs to be stored frontend",
-    claimedVideos
-  );
-  const [peopleData, setPeopleData] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
-    userId: "",
-    referralCode: "",
-  });
-  const [referredBy, setReferredBy] = useState();
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const loadTelegramSDK = () => {
@@ -54,32 +24,18 @@ export default function Home() {
 
             // Extract user data from initDataUnsafe
             const userData = webApp.initDataUnsafe?.user;
-            // const initData = window.Telegram.WebApp.initDataUnsafe;
+            
 
             if (userData) {
               // Access user properties
-              const { first_name, last_name, username, id } = userData;
+              setUserData({
+                firstName: userData.first_name,
+                lastName: userData.last_name,
+                userName: userData.username,
+                userId: userData.id,
+              });
 
               webApp.ready();
-
-              // I uncomment anytime i want to deploy
-
-              setPeopleData((prev) => ({
-                ...prev,
-                firstName: first_name,
-                lastName: last_name,
-                userName: username,
-                userId: id,
-                referralCode: id,
-              }));
-
-              fetchData({
-                firstName: first_name,
-                lastName: last_name,
-                userName: username,
-                userId: id,
-                referralCode: id,
-              });
 
               console.log("User's first name:", first_name);
             } else {
@@ -99,217 +55,10 @@ export default function Home() {
     loadTelegramSDK();
   }, []);
 
-  // // I uncomment when testing locally
-  // useEffect(() => {
-
-  //   fetchData({
-  //     firstName: "winner",
-  //     lastName: "isaac",
-  //     userName: "samson12",
-  //     userId: "344556",
-  //     referralCode: "1234567",
-  //   });
-  // }, []);
-
-  const fetchData = async (newData) => {
-    // I uncomment when testing locally
-
-    // setPeopleData((prev) => ({
-    //   ...prev,
-    //   firstName: "winner",
-    //   lastName: "isaac",
-    //   userName: "samson12",
-    //   userId: "344556",
-    //   referralCode: "1234567",
-    // }));
-
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/dashboard`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify({
-            firstName: newData.firstName,
-            lastName: newData.lastName,
-            usernamedb: newData.userName,
-            referralCode: newData.referralCode,
-            referredBy: newData.referralCode,
-            mlcoin: balance,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("failed to register");
-      }
-
-      const data = await response.json();
-      console.log(data);
-      setLastClaimed(new Date(data.user.lastClaimed));
-      setClaimedVideos(data.user.videoIds);
-
-      // alert(data.toString())
-      setBalance(data.user.mlcoin);
-    } catch (error) {
-      console.log(`Fetch error: ${error.message}`);
-      // setLogErr((prev) => ({
-      //   two: error.message,
-      // }));
-    }
-  };
-
-  const handleClaim = async (videoId) => {
-    // if (canClaim) {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/dashboard`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify({
-            usernamedb: peopleData.userName,
-            videoId: videoId ? videoId : null,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("failed to update mlcoin");
-      }
-
-      const data = await response.json();
-      setBalance(data.user.mlcoin);
-      setProgress(0);
-
-      if (videoId) {
-        setClaimedVideos((prev) => [...prev, videoId]);
-      }
-
-      if (!videoId) {
-        setCanClaim(false);
-        setTimeout(() => {
-          setCanClaim(true);
-        }, 2 * 60 * 1000);
-      }
-      if (loger.one) setLogErr((prev) => ({ ...prev, one: "" }));
-    } catch (error) {
-      console.log(`The adeola error ${error}`);
-      // setLogErr((prev) => ({
-      //   one: error.message,
-      // }));
-    }
-  };
-
-  useEffect(() => {
-    if (lastClaimed) {
-      const interval = 1000;
-      const date1 = new Date(lastClaimed);
-      const date2 = new Date();
-
-      const differenceInMinutes =
-        (date2.getTime() - date1.getTime()) / (1000 * 60);
-      const increment = 100 / ((differenceInMinutes * 60 * 1000) / interval);
-
-      const timer = setInterval(() => {
-        setProgress((prev) => {
-          if (prev >= 100) {
-            clearInterval(timer);
-            return 100;
-          }
-          return prev + increment;
-        });
-      }, interval);
-      return () => clearInterval(timer);
-    }
-  }, [lastClaimed]);
-
   return (
-    <div className="max-w-md mx-auto min-h-screen flex flex-col">
-      <div className="flex justify-between items-start bg-black rounded-bl-lg rounded-br-lg mb- p-2">
-        <div>
-          <h1 className="text-lg font-bold text-white">
-            {peopleData.firstName || "loading"}{" "}
-            {peopleData.lastName || "loading"}
-          </h1>
-          <p className="text-gray-500 text-sm ">
-            ID: {peopleData.userId || "loading"}
-            <i className="hidden">{peopleData.userName}</i>
-          </p>
-        </div>
-        <div className="rounded-lg shadow-xl shadow-blue-700">
-          {/* <Flame className="text-blue-600" size={24} /> */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="white"
-            className="size-10"
-          >
-            <path d="M2.273 5.625A4.483 4.483 0 0 1 5.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 3H5.25a3 3 0 0 0-2.977 2.625ZM2.273 8.625A4.483 4.483 0 0 1 5.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 6H5.25a3 3 0 0 0-2.977 2.625ZM5.25 9a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h13.5a3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3H15a.75.75 0 0 0-.75.75 2.25 2.25 0 0 1-4.5 0A.75.75 0 0 0 9 9H5.25Z" />
-          </svg>
-        </div>
-      </div>
-
-      <div className="bg-gradient-to-r from-neutral-900 to-black shadow-inner shadow-black rounded-3xl p-3 mx-2 my-1">
-        <h2 className="text-center mb-2 font-bold text-white">
-          Current Balance { startApp || "loading2"}
-        </h2>
-        <div className="flex items-center justify-center gap-2 text-3xl font-bold mb-2">
-          <ArrowUp className="text-blue-200 bg-blue-600 rounded-full p-1" />
-          <span className="text-neutral-100">{balance}</span>
-          <span className="text-neutral-400 shadow-xl shadow-blue-100 hover:text-neutral-300">
-            MLC
-          </span>
-        </div>
-        <div className="bg-neutral-900 rounded-full text-center my-4 shadow-inner shadow-black inset-">
-          <span className="text-white text-sm font-mono">
-            EARNING RATE +400.00 MLC/hr{" "}
-          </span>
-        </div>
-
-        {/* Not a component but sha  */}
-
-        <div className="bg-gradient-to-t from-neutral-900 to-black rounded-3xl px-6 py-5 shadow-xl shadow-blue-00 mt-16">
-          <h2 className="text-lg text-center text-white mb-3">Next GRAB!</h2>
-          <Progress value={progress} className="mb-4 bg-white text-white" />
-          <div className="mx-16">
-            <motion.div whileTap={{ scale: 0.95 }}>
-              <Button
-                onClick={() => handleClaim(undefined)}
-                disabled={!canClaim}
-                className="w-full py-6 text-xl bg-blue-700 shadow-inner shadow-blue-200 hover:bg-blue-600 transition-colors"
-              >
-                Claim
-              </Button>
-            </motion.div>
-          </div>
-          <div className="text-center text-white font-bold font-mono mt-1">
-            1000
-            <span>
-              {" "}
-              <i>MLC</i>
-            </span>
-            <span> Available </span> &nbsp;
-            {/* <span>
-              {loger.one}
-              {loger.two}
-            </span> */}
-          </div>
-        </div>
-      </div>
-
-      <Videos
-        handleClaimProps={(id) => handleClaim(id)}
-        claimedVideos={claimedVideos}
-        referralId={userData?.id}
-      />
-      <Footer />
-    </div>
+    <>
+    {/* {userData ? <Main userData={userData} /> : <p>Loading...</p>} */}
+    <Main userData={userData} />
+    </>
   );
 }
