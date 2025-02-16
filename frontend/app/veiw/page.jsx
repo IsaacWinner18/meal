@@ -28,9 +28,9 @@ export default function View({ userData }) {
   //   claimedVideos
   // );
   const [peopleData, setPeopleData] = useState({
-    firstName: " ",
-    lastName: " ",
-    userId: " ",
+    firstName: "",
+    lastName: "",
+    userId: "",
     referralCode: "",
   });
   const [referredBy, setReferredBy] = useState();
@@ -140,11 +140,11 @@ export default function View({ userData }) {
           },
 
           body: JSON.stringify({
-            firstName: newData.firstName,
-            lastName: newData.lastName,
-            userId: newData.userId,
-            referralCode: newData.referralCode,
-            referredBy: newData.referralCode,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            userId: userData.userId,
+            referralCode: userData.referralCode,
+            referredBy: "null",
             mlcoin: balance,
           }),
         }
