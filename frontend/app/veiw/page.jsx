@@ -6,11 +6,11 @@ import { ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
 import Footer from "@/components/Footer";
 import Videos from "@/components/videos";
-// import Image from "next/image";
-
 import { useSearchParams } from "next/navigation";
 
-export default function Main({ userData }) {
+
+
+export default function View({ userData }) {
   const searchParams = useSearchParams();
   const startApp = searchParams.get("startapp");
 
@@ -25,16 +25,16 @@ export default function Main({ userData }) {
   const [lastClaimed, setLastClaimed] = useState(null);
   const [claimedVideos, setClaimedVideos] = useState([]);
 
-  console.log(
-    "This is the videoId that needs to be stored frontend",
-    claimedVideos
-  );
+  // console.log(
+  //   "This is the videoId that needs to be stored frontend",
+  //   claimedVideos
+  // );
   const [peopleData, setPeopleData] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
-    userId: "",
-    referralCode: "",
+    firstName: "winner ",
+    lastName: "samson",
+    userName: "isaacwinner",
+    userId: "09127",
+    referralCode: "08456",
   });
   const [referredBy, setReferredBy] = useState();
 
@@ -109,32 +109,23 @@ export default function Main({ userData }) {
   //   });
   // }, []);
 
-  // useEffect(() => {
-  //   if (userData) {
-  //     setPeopleData({
-  //       firstName: userData.firstName || "",
-  //       lastName: userData.lastName || "",
-  //       userName: userData.userName || "",
-  //       userId: userData.userId || "",
-  //       referralCode: userData.userId || "", // Use user ID as referral code
-  //     });
-  //   }
-  // }, [userData]);
+  useEffect(() => {
+    if (userData) {
+      setPeopleData({
+        firstName: userData.firstName || " loading ",
+        lastName: userData.lastName || " loading ",
+        userName: userData.userName || " loading ",
+        userId: userData.userId || " loading ",
+        referralCode: userData.userId || " loading ", // Use user ID as referral code
+      });
+    }
+  }, [userData]);
 
 
 
   // const fetchData = async (newData) => {
     async function fetchData(newData) {
-    // I uncomment when testing locally
 
-    setPeopleData((prev) => ({
-      ...prev,
-      firstName: "winner",
-      lastName: "isaac",
-      userName: "samson12",
-      userId: "344556",
-      referralCode: "1234567",
-    }));
 
     try {
       const response = await fetch(
@@ -260,7 +251,7 @@ export default function Main({ userData }) {
       <div className="flex justify-between items-start bg-black rounded-bl-lg rounded-br-lg mb- p-2">
         <div>
           <h1 className="text-lg font-bold text-white">
-            {peopleData.firstName || "loading"}{" "}
+            {peopleData.firstName || "loading "}
             {peopleData.lastName || "loading"}
           </h1>
           <p className="text-gray-500 text-sm ">

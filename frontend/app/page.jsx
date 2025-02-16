@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import Main from "@/app/veiw/page"
+import View from './veiw/page';
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -58,7 +58,7 @@ export default function Home() {
   return (
     <>
     {/* {userData ? <Main userData={userData} /> : <p>Loading...</p>} */}
-    <Main userData={userData} />
+    <View userData={userData} />
     </>
   );
 }
