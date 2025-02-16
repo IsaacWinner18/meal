@@ -1,17 +1,25 @@
 const express = require("express");
 const UserDashboard = require("../models/dashboard");
 const UserVideo = require("../models/video.model");
-// const crypto = require("crypto"); 
+// const crypto = require("crypto");
 const DashboardRoute = express.Router();
 
-// not generating random code no more 
-
-
-
+// not generating random code no more
 
 DashboardRoute.post("/dashboard", async (req, res) => {
-  const { firstName, lastName, usernamedb, mlcoin, referralCode, referredBy } = req.body;
+  const { firstName, lastName, usernamedb, mlcoin, referralCode, referredBy } =
+    req.body;
   // console.log(req.body);
+
+  if (
+    firstName.length === 0 ||
+    lastName.length === 0 ||
+    usernamedb.length === 0
+  ) {
+    return res
+      .status(500)
+      .json({ message: "Invalid info provided", error: err.message });
+  }
 
   try {
     const existingUser = await UserDashboard.findOne({ usernamedb });
@@ -22,7 +30,7 @@ DashboardRoute.post("/dashboard", async (req, res) => {
           usernamedb: existingUser.usernamedb,
           mlcoin: existingUser.mlcoin,
           videoIds: existingUser.videoIds,
-          referralCode: existingUser.videoIds
+          referralCode: existingUser.videoIds,
         },
       });
     }
@@ -59,7 +67,7 @@ const A = (date) => {
 
 DashboardRoute.patch("/dashboard", async (req, res) => {
   const { usernamedb, videoId } = req.body;
-  console.log(req.body)
+  console.log(req.body);
   // console.log("This is the videoId that needs to be stored at backend", videoId)
 
   let user;
@@ -68,10 +76,9 @@ DashboardRoute.patch("/dashboard", async (req, res) => {
       const usertime = await UserDashboard.findOne({ usernamedb });
 
       if (!usertime) {
-        console.log("User not found")
+        console.log("User not found");
         return res.status(404).json({ message: "User not found" });
       }
-    
 
       if (!A(usertime.lastClaimed)) {
         return res.status(404).json({ message: "time left" });
@@ -97,7 +104,7 @@ DashboardRoute.patch("/dashboard", async (req, res) => {
         { usernamedb },
         {
           $inc: { mlcoin: video.coin },
-          $addToSet: {videoIds: videoId}
+          $addToSet: { videoIds: videoId },
         },
         { new: true }
       );

@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
-import View from './veiw/page';
+import View from "./veiw/page";
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -24,7 +24,6 @@ export default function Home() {
 
             // Extract user data from initDataUnsafe
             const userData = webApp.initDataUnsafe?.user;
-            
 
             if (userData) {
               // Access user properties
@@ -57,8 +56,9 @@ export default function Home() {
 
   return (
     <>
-    {/* {userData ? <Main userData={userData} /> : <p>Loading...</p>} */}
-    <View userData={userData} />
+      <p>{startApp}</p>
+      {userData ? <View userData={userData} /> : <p>Loading...</p>}
+      {/* {<View userData={userData} />} */}
     </>
   );
 }
