@@ -19,7 +19,9 @@ DashboardRoute.post("/dashboard", async (req, res) => {
 
   try {
     const existingUser = await UserDashboard.findOne({ userId });
+    console.log(existingUser ? "user exists" : "nope");
     console.log(existingUser);
+
     if (existingUser) {
       return res.status(200).json({
         message: "User exists",
