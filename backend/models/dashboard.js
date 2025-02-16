@@ -10,8 +10,8 @@ const dashboardSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  usernamedb: {
-    type: String,
+  userId: {
+    type: Number,
     required: true,
   },
   mlcoin: {

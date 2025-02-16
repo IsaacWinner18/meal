@@ -7,14 +7,14 @@ const DashboardRoute = express.Router();
 // not generating random code no more
 
 DashboardRoute.post("/dashboard", async (req, res) => {
-  const { firstName, lastName, usernamedb, mlcoin, referralCode, referredBy } =
+  const { firstName, lastName, userId, mlcoin, referralCode, referredBy } =
     req.body;
   // console.log(req.body);
 
   if (
     firstName.length === 0 ||
     lastName.length === 0 ||
-    usernamedb.length === 0
+    userId.length === 0
   ) {
     return res
       .status(500)
@@ -22,12 +22,12 @@ DashboardRoute.post("/dashboard", async (req, res) => {
   }
 
   try {
-    const existingUser = await UserDashboard.findOne({ usernamedb });
+    const existingUser = await UserDashboard.findOne({ userId });
     if (existingUser) {
       return res.status(200).json({
         message: "User exists",
         user: {
-          usernamedb: existingUser.usernamedb,
+          userId: existingUser.userId,
           mlcoin: existingUser.mlcoin,
           videoIds: existingUser.videoIds,
           referralCode: existingUser.videoIds,
@@ -38,7 +38,7 @@ DashboardRoute.post("/dashboard", async (req, res) => {
     const userDashboard = new UserDashboard({
       firstName,
       lastName,
-      usernamedb,
+      userId,
       mlcoin,
       referralCode,
       // videoIds: []
@@ -66,14 +66,14 @@ const A = (date) => {
 };
 
 DashboardRoute.patch("/dashboard", async (req, res) => {
-  const { usernamedb, videoId } = req.body;
+  const { userId, videoId } = req.body;
   console.log(req.body);
   // console.log("This is the videoId that needs to be stored at backend", videoId)
 
   let user;
   try {
     if (!videoId) {
-      const usertime = await UserDashboard.findOne({ usernamedb });
+      const usertime = await UserDashboard.findOne({ userId });
 
       if (!usertime) {
         console.log("User not found");
@@ -85,7 +85,7 @@ DashboardRoute.patch("/dashboard", async (req, res) => {
       }
 
       user = await UserDashboard.findOneAndUpdate(
-        { usernamedb },
+        { userId },
         {
           $inc: { mlcoin: 1000 },
           lastClaimed: new Date(),
@@ -101,7 +101,7 @@ DashboardRoute.patch("/dashboard", async (req, res) => {
       }
 
       user = await UserDashboard.findOneAndUpdate(
-        { usernamedb },
+        { userId },
         {
           $inc: { mlcoin: video.coin },
           $addToSet: { videoIds: videoId },
@@ -111,7 +111,7 @@ DashboardRoute.patch("/dashboard", async (req, res) => {
     }
 
     if (!user) {
-      return res.status(404).json({ message: "usernamedb not found" });
+      return res.status(404).json({ message: "userId not found" });
     }
     res.json({ message: "mlcoin updated successfully", user });
   } catch (err) {

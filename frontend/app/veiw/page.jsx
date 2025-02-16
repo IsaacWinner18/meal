@@ -30,7 +30,6 @@ export default function View({ userData }) {
   const [peopleData, setPeopleData] = useState({
     firstName: " ",
     lastName: " ",
-    userName: " ",
     userId: " ",
     referralCode: "",
   });
@@ -112,7 +111,6 @@ export default function View({ userData }) {
       setPeopleData({
         firstName: userData.firstName || " loading ",
         lastName: userData.lastName || " loading ",
-        userName: userData.userName || " loading ",
         userId: userData.userId || " loading ",
         referralCode: userData.userId || " loading ", // Use user ID as referral code
       });
@@ -144,7 +142,7 @@ export default function View({ userData }) {
           body: JSON.stringify({
             firstName: newData.firstName,
             lastName: newData.lastName,
-            usernamedb: newData.userName,
+            userId: newData.userId,
             referralCode: newData.referralCode,
             referredBy: newData.referralCode,
             mlcoin: balance,
@@ -176,7 +174,6 @@ export default function View({ userData }) {
       fetchData({
         firstName: peopleData.firstName,
         lastName: peopleData.lastName,
-        userName: peopleData.userName,
         userId: peopleData.userId,
         referralCode: peopleData.referralCode,
       });
@@ -195,7 +192,7 @@ export default function View({ userData }) {
           },
 
           body: JSON.stringify({
-            usernamedb: peopleData.userName,
+            userId: peopleData.userId,
             videoId: videoId ? videoId : null,
           }),
         }
@@ -258,11 +255,9 @@ export default function View({ userData }) {
           <h1 className="text-lg font-bold text-white">
             {peopleData.firstName || "loading "}{" "}
             {peopleData.lastName || "loading"}
-            {peopleData.userName || "ben own"}
           </h1>
           <p className="text-gray-500 text-sm ">
             ID: {peopleData.userId || "loading"}
-            <i className="">{peopleData.userName}</i>
           </p>
         </div>
         <div className="rounded-lg shadow-xl shadow-blue-700">
