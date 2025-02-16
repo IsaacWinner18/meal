@@ -8,8 +8,6 @@ import Footer from "@/components/Footer";
 import Videos from "@/components/videos";
 import { useSearchParams } from "next/navigation";
 
-
-
 export default function View({ userData }) {
   const searchParams = useSearchParams();
   const startApp = searchParams.get("startapp");
@@ -132,11 +130,8 @@ export default function View({ userData }) {
   //   });
   // }, [])
 
-
   // const fetchData = async (newData) => {
-    async function fetchData(newData) {
-
-
+  async function fetchData(newData) {
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/dashboard`,
@@ -174,7 +169,7 @@ export default function View({ userData }) {
       //   two: error.message,
       // }));
     }
-  };
+  }
 
   useEffect(() => {
     if (peopleData.userId) {
@@ -261,12 +256,13 @@ export default function View({ userData }) {
       <div className="flex justify-between items-start bg-black rounded-bl-lg rounded-br-lg mb- p-2">
         <div>
           <h1 className="text-lg font-bold text-white">
-            { peopleData.firstName || "loading " } {" "}
-            { peopleData.lastName || "loading" }
+            {peopleData.firstName || "loading "}{" "}
+            {peopleData.lastName || "loading"}
+            {peopleData.userName || "ben own"}
           </h1>
           <p className="text-gray-500 text-sm ">
             ID: {peopleData.userId || "loading"}
-            <i className="hidden">{peopleData.userName}</i>
+            <i className="">{peopleData.userName}</i>
           </p>
         </div>
         <div className="rounded-lg shadow-xl shadow-blue-700">
