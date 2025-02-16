@@ -28,16 +28,16 @@ const dashboardSchema = new mongoose.Schema({
   },
   referralCode: {
     type: String,
-    unique: true,
+    unique: false,
   },
   referredBy: {
     type: String,
-    default: null
+    default: null,
   },
   referrals: {
     type: Number,
     default: 0,
-  }
+  },
 });
 
 // Create the model
