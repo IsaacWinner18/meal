@@ -30,11 +30,11 @@ export default function View({ userData }) {
   //   claimedVideos
   // );
   const [peopleData, setPeopleData] = useState({
-    firstName: "winner ",
-    lastName: "samson",
-    userName: "isaacwinner",
-    userId: "09127",
-    referralCode: "08456",
+    firstName: "",
+    lastName: "",
+    userName: "",
+    userId: "",
+    referralCode: "",
   });
   const [referredBy, setReferredBy] = useState();
 
@@ -121,6 +121,16 @@ export default function View({ userData }) {
     }
   }, [userData]);
 
+  // useEffect(() => {
+
+  //   setPeopleData({
+  //     firstName: " Arinze ",
+  //     lastName: " Nwa ",
+  //     userName: "bitloaaded",
+  //     userId: "09876",
+  //     referralCode: "09876", // Use user ID as referral code
+  //   });
+  // }, [])
 
 
   // const fetchData = async (newData) => {
