@@ -9,7 +9,7 @@ const DashboardRoute = express.Router();
 DashboardRoute.post("/dashboard", async (req, res) => {
   const { firstName, userId, mlcoin, referralCode, referredBy } =
     req.body;
-  console.log(req.body);
+  // console.log(req.body);
 
   if (firstName.length === 0 || userId.length === 0) {
     return res
@@ -19,8 +19,8 @@ DashboardRoute.post("/dashboard", async (req, res) => {
 
   try {
     const existingUser = await UserDashboard.findOne({ userId });
-    console.log(existingUser ? "user exists" : "nope");
-    console.log(existingUser);
+    // console.log(existingUser ? "user exists" : "nope");
+    // console.log(existingUser);
 
     if (existingUser) {
       return res.status(200).json({
@@ -39,7 +39,6 @@ DashboardRoute.post("/dashboard", async (req, res) => {
       userId,
       mlcoin,
       referralCode,
-      // videoIds: []
     });
     const savedUser = await userDashboard.save();
 
