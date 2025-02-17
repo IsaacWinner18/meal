@@ -6,10 +6,6 @@ const dashboardSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  lastName: {
-    type: String,
-    required: true,
-  },
   userId: {
     type: Number,
     required: true,
@@ -28,7 +24,6 @@ const dashboardSchema = new mongoose.Schema({
   },
   referralCode: {
     type: String,
-    unique: false,
   },
   referredBy: {
     type: String,

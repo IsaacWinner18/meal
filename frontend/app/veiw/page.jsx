@@ -29,7 +29,6 @@ export default function View({ userData }) {
   // );
   const [peopleData, setPeopleData] = useState({
     firstName: "",
-    lastName: "",
     userId: "",
     referralCode: "",
   });
@@ -62,7 +61,6 @@ export default function View({ userData }) {
   //             setPeopleData((prev) => ({
   //               ...prev,
   //               firstName: first_name,
-  //               lastName: last_name,
   //               userName: username,
   //               userId: id,
   //               referralCode: id,
@@ -70,7 +68,7 @@ export default function View({ userData }) {
 
   //             fetchData({
   //               firstName: first_name,
-  //               lastName: last_name,
+
   //               userName: username,
   //               userId: id,
   //               referralCode: id,
@@ -99,7 +97,6 @@ export default function View({ userData }) {
 
   //   fetchData({
   //     firstName: "winner",
-  //     lastName: "isaac",
   //     userName: "samson12",
   //     userId: "344556",
   //     referralCode: "1234567",
@@ -110,7 +107,6 @@ export default function View({ userData }) {
     if (userData) {
       setPeopleData({
         firstName: userData.firstName || " loading ",
-        lastName: userData.lastName || " loading ",
         userId: userData.userId || " loading ",
         referralCode: userData.userId || " loading ", // Use user ID as referral code
       });
@@ -121,7 +117,6 @@ export default function View({ userData }) {
 
   //   setPeopleData({
   //     firstName: " Arinze ",
-  //     lastName: " Nwa ",
   //     userName: "bitloaaded",
   //     userId: "09876",
   //     referralCode: "09876", // Use user ID as referral code
@@ -141,7 +136,6 @@ export default function View({ userData }) {
 
           body: JSON.stringify({
             firstName: userData.firstName,
-            lastName: userData.lastName,
             userId: userData.userId,
             referralCode: userData.referralCode,
             referredBy: "null",
@@ -173,7 +167,6 @@ export default function View({ userData }) {
     if (peopleData.userId) {
       fetchData({
         firstName: peopleData.firstName,
-        lastName: peopleData.lastName,
         userId: peopleData.userId,
         referralCode: peopleData.referralCode,
       });
@@ -254,7 +247,7 @@ export default function View({ userData }) {
         <div>
           <h1 className="text-lg font-bold text-white">
             {peopleData.firstName || "loading fn"}{" "}
-            {peopleData.lastName || "loading ln"}
+            Meal
           </h1>
           <p className="text-gray-500 text-sm ">
             ID: {peopleData.userId || "loading id"}

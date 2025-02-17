@@ -29,7 +29,6 @@ export default function Home() {
               // Access user properties
               setUserData({
                 firstName: userData.first_name,
-                lastName: userData.last_name,
                 userName: userData.username,
                 userId: userData.id,
               });

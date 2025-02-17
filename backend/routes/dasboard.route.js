@@ -7,11 +7,11 @@ const DashboardRoute = express.Router();
 // not generating random code no more
 
 DashboardRoute.post("/dashboard", async (req, res) => {
-  const { firstName, lastName, userId, mlcoin, referralCode, referredBy } =
+  const { firstName, userId, mlcoin, referralCode, referredBy } =
     req.body;
   console.log(req.body);
 
-  if (firstName.length === 0 || lastName.length === 0 || userId.length === 0) {
+  if (firstName.length === 0 || userId.length === 0) {
     return res
       .status(500)
       .json({ message: "Invalid info provided", error: error.message });
@@ -36,7 +36,6 @@ DashboardRoute.post("/dashboard", async (req, res) => {
 
     const userDashboard = new UserDashboard({
       firstName,
-      lastName,
       userId,
       mlcoin,
       referralCode,
