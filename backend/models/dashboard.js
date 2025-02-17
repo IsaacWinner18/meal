@@ -22,10 +22,10 @@ const dashboardSchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
-  // videoIds: {
-  //   type: Array,
-  //   default: [],
-  // },
+  videoIds: {
+    type: Array,
+    default: [],
+  },
   referralCode: {
     type: String,
     unique: false,

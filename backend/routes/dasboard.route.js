@@ -14,7 +14,7 @@ DashboardRoute.post("/dashboard", async (req, res) => {
   if (firstName.length === 0 || lastName.length === 0 || userId.length === 0) {
     return res
       .status(500)
-      .json({ message: "Invalid info provided", error: err.message });
+      .json({ message: "Invalid info provided", error: error.message });
   }
 
   try {

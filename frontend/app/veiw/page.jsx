@@ -253,11 +253,11 @@ export default function View({ userData }) {
       <div className="flex justify-between items-start bg-black rounded-bl-lg rounded-br-lg mb- p-2">
         <div>
           <h1 className="text-lg font-bold text-white">
-            {peopleData.firstName || "loading "}{" "}
-            {peopleData.lastName || "loading"}
+            {peopleData.firstName || "loading fn"}{" "}
+            {peopleData.lastName || "loading ln"}
           </h1>
           <p className="text-gray-500 text-sm ">
-            ID: {peopleData.userId || "loading"}
+            ID: {peopleData.userId || "loading id"}
           </p>
         </div>
         <div className="rounded-lg shadow-xl shadow-blue-700">
