@@ -173,50 +173,50 @@ export default function View({ userData }) {
     }
   }, [peopleData.userId]);
 
-  // const handleClaim = async (videoId) => {
-  //   // if (canClaim) {
-  //   try {
-  //     const response = await fetch(
-  //       `${process.env.NEXT_PUBLIC_API_URL}/dashboard`,
-  //       {
-  //         method: "PATCH",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
+  const handleClaim = async (videoId) => {
+    // if (canClaim) {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/dashboard`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
 
-  //         body: JSON.stringify({
-  //           userId: peopleData.userId,
-  //           videoId: videoId ? videoId : null,
-  //         }),
-  //       }
-  //     );
+          body: JSON.stringify({
+            userId: peopleData.userId,
+            videoId: videoId ? videoId : null,
+          }),
+        }
+      );
 
-  //     if (!response.ok) {
-  //       throw new Error("failed to update mlcoin");
-  //     }
+      if (!response.ok) {
+        throw new Error("failed to update mlcoin");
+      }
 
-  //     const data = await response.json();
-  //     setBalance(data.user.mlcoin);
-  //     setProgress(0);
+      const data = await response.json();
+      setBalance(data.user.mlcoin);
+      setProgress(0);
 
-  //     if (videoId) {
-  //       setClaimedVideos((prev) => [...prev, videoId]);
-  //     }
+      if (videoId) {
+        setClaimedVideos((prev) => [...prev, videoId]);
+      }
 
-  //     if (!videoId) {
-  //       setCanClaim(false);
-  //       setTimeout(() => {
-  //         setCanClaim(true);
-  //       }, 2 * 60 * 1000);
-  //     }
-  //     if (loger.one) setLogErr((prev) => ({ ...prev, one: "" }));
-  //   } catch (error) {
-  //     console.log(`The adeola error ${error}`);
-  //     // setLogErr((prev) => ({
-  //     //   one: error.message,
-  //     // }));
-  //   }
-  // };
+      if (!videoId) {
+        setCanClaim(false);
+        setTimeout(() => {
+          setCanClaim(true);
+        }, 2 * 60 * 1000);
+      }
+      if (loger.one) setLogErr((prev) => ({ ...prev, one: "" }));
+    } catch (error) {
+      console.log(`The adeola error ${error}`);
+      // setLogErr((prev) => ({
+      //   one: error.message,
+      // }));
+    }
+  };
 
   useEffect(() => {
     if (lastClaimed) {
@@ -268,7 +268,7 @@ export default function View({ userData }) {
 
       <div className="bg-gradient-to-r from-neutral-900 to-black shadow-inner shadow-black rounded-3xl p-3 mx-2 my-1">
         <h2 className="text-center mb-2 font-bold text-white">
-          Current Balance {startApp || "loading2"}
+          Current Balance
         </h2>
         <div className="flex items-center justify-center gap-2 text-3xl font-bold mb-2">
           <ArrowUp className="text-blue-200 bg-blue-600 rounded-full p-1" />

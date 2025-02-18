@@ -6,9 +6,7 @@
 // import Link from 'next/link';
 import Videos from "@/components/videos";
 
-
-export default function Earn() {
-
+export default function Earn({ updatePage }) {
   // const handleClaim = async (videoId) => {
   //   try {
   //     const response = await fetch(
@@ -37,9 +35,9 @@ export default function Earn() {
   //   }
   // }
   return (
-    (<div className="max-w-md mx-auto p-4 min-h-screen flex flex-col">
+    <div className="max-w-md mx-auto p-4 min-h-screen flex flex-col">
       <div className="flex items-center justify-between mb-3">
-      <svg
+        <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="white"
@@ -52,12 +50,10 @@ export default function Earn() {
             clipRule="evenodd"
           />
         </svg>
-              <h1 className="text-3xl font-bold font-sans text-white">Earn MLC</h1>
+        <h1 className="text-3xl font-bold font-sans text-white">Earn MLC</h1>
       </div>
-     
-     <Videos />
 
-    </div>)
+      <Videos />
+    </div>
   );
 }
-
