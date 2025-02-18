@@ -173,50 +173,50 @@ export default function View({ userData }) {
     }
   }, [peopleData.userId]);
 
-  const handleClaim = async (videoId) => {
-    // if (canClaim) {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/dashboard`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
+  // const handleClaim = async (videoId) => {
+  //   // if (canClaim) {
+  //   try {
+  //     const response = await fetch(
+  //       `${process.env.NEXT_PUBLIC_API_URL}/dashboard`,
+  //       {
+  //         method: "PATCH",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
 
-          body: JSON.stringify({
-            userId: peopleData.userId,
-            videoId: videoId ? videoId : null,
-          }),
-        }
-      );
+  //         body: JSON.stringify({
+  //           userId: peopleData.userId,
+  //           videoId: videoId ? videoId : null,
+  //         }),
+  //       }
+  //     );
 
-      if (!response.ok) {
-        throw new Error("failed to update mlcoin");
-      }
+  //     if (!response.ok) {
+  //       throw new Error("failed to update mlcoin");
+  //     }
 
-      const data = await response.json();
-      setBalance(data.user.mlcoin);
-      setProgress(0);
+  //     const data = await response.json();
+  //     setBalance(data.user.mlcoin);
+  //     setProgress(0);
 
-      if (videoId) {
-        setClaimedVideos((prev) => [...prev, videoId]);
-      }
+  //     if (videoId) {
+  //       setClaimedVideos((prev) => [...prev, videoId]);
+  //     }
 
-      if (!videoId) {
-        setCanClaim(false);
-        setTimeout(() => {
-          setCanClaim(true);
-        }, 2 * 60 * 1000);
-      }
-      if (loger.one) setLogErr((prev) => ({ ...prev, one: "" }));
-    } catch (error) {
-      console.log(`The adeola error ${error}`);
-      // setLogErr((prev) => ({
-      //   one: error.message,
-      // }));
-    }
-  };
+  //     if (!videoId) {
+  //       setCanClaim(false);
+  //       setTimeout(() => {
+  //         setCanClaim(true);
+  //       }, 2 * 60 * 1000);
+  //     }
+  //     if (loger.one) setLogErr((prev) => ({ ...prev, one: "" }));
+  //   } catch (error) {
+  //     console.log(`The adeola error ${error}`);
+  //     // setLogErr((prev) => ({
+  //     //   one: error.message,
+  //     // }));
+  //   }
+  // };
 
   useEffect(() => {
     if (lastClaimed) {
@@ -318,7 +318,7 @@ export default function View({ userData }) {
         handleClaimProps={(id) => handleClaim(id)}
         claimedVideos={claimedVideos}
       />
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

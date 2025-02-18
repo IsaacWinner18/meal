@@ -3,10 +3,13 @@
 import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import View from "./veiw/page";
+import Invite from "./invite/page";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const searchParams = useSearchParams();
   const startApp = searchParams.get("startapp");
+  const [pageState, setPageState] = useState(1);
 
   const [userData, setUserData] = useState(null);
 
@@ -56,8 +59,16 @@ export default function Home() {
   return (
     <>
       <p>{startApp}</p>
-      {userData ? <View userData={userData} /> : <p>Loading...</p>}
+
+      {page === 1 && userData ? (
+        <View userData={userData} />
+      ) : (
+        <p>Loading...</p>
+      )}
+      {page === 2 && <Invite />}
       {/* {<View userData={userData} />} */}
+
+      {page === 1 && <Footer updatePage={setPageState}/>}
     </>
   );
 }

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Footer() {
+export default function Footer({ updatePage: setPageState }) {
   return (
     <div className=" text-white mt-7 mb-2 py-2 bg-neutral-800 rounded-full shadow-xl shadow-black font-mono fixed bottom-0 left-0 w-full">
       <div className="flex justify-between mx-10 ">
@@ -68,6 +68,10 @@ export default function Footer() {
             </p>
             <p className="text-xs opacity-85">INVITE</p>
           </a>
+        </button>
+
+        <button onClick={() => setPageState(2)}>
+          <p>test home</p>
         </button>
       </div>
     </div>
