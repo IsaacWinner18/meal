@@ -60,15 +60,15 @@ export default function Home() {
     <>
       <p>{startApp}</p>
 
-      {page === 1 && userData ? (
+      {pageState === 1 && userData ? (
         <View userData={userData} />
       ) : (
         <p>Loading...</p>
       )}
-      {page === 2 && <Invite />}
+      {pageState === 2 && <Invite updatePage={setPageState} />}
       {/* {<View userData={userData} />} */}
 
-      {page === 1 && <Footer updatePage={setPageState}/>}
+      {pageState === 1 && <Footer updatePage={setPageState}/>}
     </>
   );
 }
