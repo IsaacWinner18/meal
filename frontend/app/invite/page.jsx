@@ -17,12 +17,13 @@ export default function Invite({ updatePage, referralId = 1 }) {
     <div className="max-w-md mx-auto p-4 min-h-screen flex flex-col">
       <div className="flex items-center justify-between mb-3">
         {/* <Link href="/"> */}
-        <Button onClick={() => updatePage(1)}>1</Button>
+        {/* <Button onClick={() => updatePage(1)}>1</Button> */}
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="white"
           className="size-12"
+          onClick={() => updatePage(1)}
         >
           <path
             fillRule="evenodd"

@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import View from "./veiw/page";
 import Invite from "./invite/page";
 import Footer from "@/components/Footer";
+import Earn from "./earn/page";
 
 export default function Home() {
   const searchParams = useSearchParams();
@@ -59,16 +60,15 @@ export default function Home() {
   return (
     <>
       <p>{startApp}</p>
-
-      {pageState === 1 && userData ? (
-        <View userData={userData} />
-      ) : (
-        <p>Loading...</p>
-      )}
-      {pageState === 2 && <Invite updatePage={setPageState} />}
+      
+      { userData ? <>
+      {pageState === 1 && <View userData={userData} />}
       {/* {<View userData={userData} />} */}
+      {pageState === 2 && <Earn updatePage={setPageState} />}
+      {pageState === 3 && <Invite updatePage={setPageState} />}
+      {pageState === 1 && <Footer updatePage={setPageState} />}</>: (
+      <p>Loading...</p>) }
 
-      {pageState === 1 && <Footer updatePage={setPageState}/>}
     </>
   );
 }

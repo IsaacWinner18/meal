@@ -5,8 +5,8 @@ export default function Footer({ updatePage: setPageState }) {
   return (
     <div className=" text-white mt-7 mb-2 py-2 bg-neutral-800 rounded-full shadow-xl shadow-black font-mono fixed bottom-0 left-0 w-full">
       <div className="flex justify-between mx-10 ">
-        <button className="">
-          <Link href="/" className="flex flex-col items-center">
+      <button onClick={() => setPageState(1)}>
+          {/* <Link href="/" className="flex flex-col items-center"> */}
             <p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -24,11 +24,11 @@ export default function Footer({ updatePage: setPageState }) {
               </svg>
             </p>
             <p className="text-xs opacity-85">HOME</p>
-          </Link>
+          {/* </Link> */}
         </button>
 
-        <button className="">
-          <Link href="/earn" className="flex flex-col items-center">
+        <button onClick={() => setPageState(2)}>
+          {/* <Link href="/earn" className="flex flex-col items-center"> */}
             <p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -46,10 +46,10 @@ export default function Footer({ updatePage: setPageState }) {
               </svg>
             </p>
             <p className="text-xs opacity-85">EARN</p>
-          </Link>
+          {/* </Link> */}
         </button>
-        <button className="">
-          <a href="/invite" className="flex flex-col items-center">
+        <button onClick={() => setPageState(3)}>
+          {/* <Link href="/invite" className="flex flex-col items-center"> */}
             <p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -67,12 +67,12 @@ export default function Footer({ updatePage: setPageState }) {
               </svg>
             </p>
             <p className="text-xs opacity-85">INVITE</p>
-          </a>
+          {/* </Link> */}
         </button>
 
-        <button onClick={() => setPageState(2)}>
+        {/* <button onClick={() => setPageState(2)}>
           <p>test home</p>
-        </button>
+        </button> */}
       </div>
     </div>
   );
