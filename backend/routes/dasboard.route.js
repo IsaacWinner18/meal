@@ -37,7 +37,7 @@ DashboardRoute.post("/dashboard", async (req, res) => {
     let validatedRefUser = null
 
     if (referredBy) {
-      const referedUser = await UserDashboard.findOne({ userId: referredBy });
+      const referedUser = await UserDashboard.findOne({ userId: Number(referredBy) });
 
       if (referedUser) validatedRefUser=referredBy 
       

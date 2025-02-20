@@ -23,10 +23,10 @@ const dashboardSchema = new mongoose.Schema({
     default: [],
   },
   referralCode: {
-    type: String,
+    type: Number,
   },
   referredBy: {
-    type: String,
+    type: Number,
     default: null,
   },
   referrals: {
