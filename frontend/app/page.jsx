@@ -7,7 +7,6 @@ import Footer from "@/components/Footer";
 import Earn from "./earn/page";
 
 export default function Home() {
-  const searchParams = useSearchParams();
   const [pageState, setPageState] = useState(1);
   const [refCode, setRefcode] = useState(null)
   const [userData, setUserData] = useState(null);
