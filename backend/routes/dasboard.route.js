@@ -36,7 +36,7 @@ DashboardRoute.post("/dashboard", async (req, res) => {
 
     let validatedRefUser = null
 
-    if (referredBy) {
+    if (referredBy && !isNaN(Number(referredBy))) {
       const referedUser = await UserDashboard.findOne({ userId: Number(referredBy) });
 
       if (referedUser) validatedRefUser=referredBy 
