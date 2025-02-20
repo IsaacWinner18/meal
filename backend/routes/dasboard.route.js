@@ -29,16 +29,26 @@ DashboardRoute.post("/dashboard", async (req, res) => {
           userId: existingUser.userId,
           mlcoin: existingUser.mlcoin,
           videoIds: existingUser.videoIds,
-          referralCode: existingUser.videoIds,
+          // referralCode: existingUser.videoIds,
         },
       });
+    }
+
+    let validatedRefUser = null
+
+    if (referredBy) {
+      const referedUser = await UserDashboard.findOne({ userId: referredBy });
+
+      if (referedUser) validatedRefUser=referredBy 
+      
     }
 
     const userDashboard = new UserDashboard({
       firstName,
       userId,
       mlcoin,
-      referralCode,
+      referredBy: validatedRefUser,
+      // referralCode,
     });
     const savedUser = await userDashboard.save();
 
