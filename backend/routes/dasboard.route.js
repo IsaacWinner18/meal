@@ -123,6 +123,7 @@ DashboardRoute.get("/videos", async (req, res) => {
   const videos = await UserVideo.find();
 
   return res.status(200).json({ data: videos });
+  
 });
 
 module.exports = DashboardRoute;

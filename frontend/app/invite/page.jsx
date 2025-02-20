@@ -12,7 +12,7 @@ import { Copy, Share2, Trophy } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Invite({ updatePage, referralId = 1 }) {
+export default function Invite({ updatePage, referralId = 123456 }) {
   return (
     <div className="max-w-md mx-auto p-4 min-h-screen flex flex-col">
       <div className="flex items-center justify-between mb-3">

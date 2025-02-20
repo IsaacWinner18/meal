@@ -39,6 +39,9 @@ export default function Home() {
 
               webApp.ready();
 
+              let startParam = window.Telegram.WebApp.initDataUnsafe.start_param
+              alert(startParam)
+
               console.log("User's first name:", first_name);
             } else {
               console.log("User data not available.");
