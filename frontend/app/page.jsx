@@ -1,6 +1,5 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import View from "./veiw/page";
 import Invite from "./invite/page";
@@ -9,7 +8,6 @@ import Earn from "./earn/page";
 
 export default function Home() {
   const searchParams = useSearchParams();
-  const startApp = searchParams.get("startapp");
   const [pageState, setPageState] = useState(1);
   const [refCode, setRefcode] = useState(null)
   const [userData, setUserData] = useState(null);
@@ -65,7 +63,7 @@ export default function Home() {
       <p>{refCode}</p>
       
       { userData ? <>
-      {pageState === 1 && <View userData={userData} />}
+      {pageState === 1 && <View userData={userData} refCode={refCode} />}
       {/* {<View userData={userData} />} */}
       {pageState === 2 && <Earn updatePage={setPageState} />}
       {pageState === 3 && <Invite updatePage={setPageState} />}

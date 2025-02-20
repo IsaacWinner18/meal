@@ -4,14 +4,10 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
-import Footer from "@/components/Footer";
 import Videos from "@/components/videos";
 import { useSearchParams } from "next/navigation";
 
-export default function View({ userData }) {
-  const searchParams = useSearchParams();
-  const startApp = searchParams.get("startapp");
-
+export default function View({ userData, refCode }) {
   const [balance, setBalance] = useState(0);
   const [progress, setProgress] = useState(0);
   const [canClaim, setCanClaim] = useState(true);
@@ -138,7 +134,7 @@ export default function View({ userData }) {
             firstName: userData.firstName,
             userId: userData.userId,
             referralCode: userData.referralCode,
-            referredBy: "null",
+            referredBy: refCode,
             mlcoin: balance,
           }),
         }
