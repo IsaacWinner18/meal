@@ -11,7 +11,7 @@ export default function Home() {
   const searchParams = useSearchParams();
   const startApp = searchParams.get("startapp");
   const [pageState, setPageState] = useState(1);
-
+  const [refCode, setRefcode] = useState(null)
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function Home() {
               webApp.ready();
 
               let startParam = window.Telegram.WebApp.initDataUnsafe.start_param
-              alert(startParam)
+              if (startParam) setRefcode(startParam)
 
               console.log("User's first name:", first_name);
             } else {
@@ -62,7 +62,7 @@ export default function Home() {
 
   return (
     <>
-      <p>{startApp}</p>
+      <p>{refCode}</p>
       
       { userData ? <>
       {pageState === 1 && <View userData={userData} />}
