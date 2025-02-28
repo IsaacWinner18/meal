@@ -68,7 +68,7 @@ export default function Home() {
 
   return (
     <>
-      <p>{refCode}</p>
+      {/* <p>{refCode}</p> */}
       
       { userData ? <>
       {pageState === 1 && <View userData={userData} refCode={refCode} />}

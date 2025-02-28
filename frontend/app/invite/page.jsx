@@ -9,10 +9,16 @@ import {
 import { Button } from "@/components/ui/button";
 import { Copy, Share2, Trophy } from "lucide-react";
 
-import Link from "next/link";
-import Image from "next/image";
 
 export default function Invite({ updatePage, userData }) {
+  const referralLink = `https://t.me/mealcoinbot/mealcoin?startapp=${userData?.userId}`;
+
+const copyLinkToClipboard = async () => {
+  await navigator.clipboard.writeText(referralLink)
+
+}
+
+
   return (
     <div className="max-w-md mx-auto p-4 min-h-screen flex flex-col">
       <div className="flex items-center justify-between mb-3">
@@ -46,9 +52,9 @@ export default function Invite({ updatePage, userData }) {
         <CardContent>
           <div className="flex gap-2">
             <div className="bg-blue-600 text-white p-3 rounded-lg flex-1 text-center font-mono overflow-x-scroll">
-              {`https://t.me/mealcoinbot/mealcoin?startapp=ref_${userData?.userId}`}
+              {`https://t.me/mealcoinbot/mealcoin?startapp=${userData?.userId}`}
             </div>
-            <Button variant="outline" size="icon" className="shrink-0">
+            <Button onClick={copyLinkToClipboard} variant="outline" size="icon" className="shrink-0">
               <Copy className="h-4 w-4" />
             </Button>
           </div>
