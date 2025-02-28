@@ -32,7 +32,7 @@ DashboardRoute.post("/dashboard", async (req, res) => {
       });
     }
 
-    let validatedRefUser = validatedRefUser !== null ? validatedRefUser : null; // Initialize to null
+    let validatedRefUser = null; // Initialize to null
 
 if (referredBy && !isNaN(Number(referredBy))) {
   const referedUser = await UserDashboard.findOne({ userId: Number(referredBy) });
@@ -44,7 +44,7 @@ if (referredBy && !isNaN(Number(referredBy))) {
       firstName,
       userId,
       mlcoin,
-      referredBy: validatedRefUser,
+      referredBy: validatedRefUser !== null ? validatedRefUser :  null,
 
     });
     console.log("UserDashboard", userDashboard);
