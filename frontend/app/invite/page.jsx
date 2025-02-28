@@ -46,7 +46,7 @@ export default function Invite({ updatePage, userData }) {
         <CardContent>
           <div className="flex gap-2">
             <div className="bg-blue-600 text-white p-3 rounded-lg flex-1 text-center font-mono overflow-x-scroll">
-              {`https://t.me/mealcoinbot/mealcoin?startapp=ref_${userData.userId}`}
+              {`https://t.me/mealcoinbot/mealcoin?startapp=ref_${userData?.userId}`}
             </div>
             <Button variant="outline" size="icon" className="shrink-0">
               <Copy className="h-4 w-4" />

@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
 import Videos from "@/components/videos";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 
 export default function View({ userData, refCode }) {
   const [balance, setBalance] = useState(0);
