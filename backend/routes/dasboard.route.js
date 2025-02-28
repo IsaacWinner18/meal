@@ -1,13 +1,11 @@
 const express = require("express");
 const UserDashboard = require("../models/dashboard");
 const UserVideo = require("../models/video.model");
-// const crypto = require("crypto");
 const DashboardRoute = express.Router();
 
-// not generating random code no more
 
 DashboardRoute.post("/dashboard", async (req, res) => {
-  const { firstName, userId, mlcoin, referralCode, referredBy } =
+  const { firstName, userId, mlcoin, referralCode, referredBy, referrrals } =
     req.body;
   console.log(req.body);
 
@@ -48,7 +46,7 @@ DashboardRoute.post("/dashboard", async (req, res) => {
       userId,
       mlcoin,
       referredBy: validatedRefUser,
-      // referralCode,
+
     });
     const savedUser = await userDashboard.save();
 

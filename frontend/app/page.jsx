@@ -5,6 +5,7 @@ import View from "./veiw/page";
 import Invite from "./invite/page";
 import Footer from "@/components/Footer";
 import Earn from "./earn/page";
+import Image from "next/image";
 
 export default function Home() {
   const [pageState, setPageState] = useState(1);
@@ -30,16 +31,17 @@ export default function Home() {
               // Access user properties
               setUserData({
                 firstName: userData.first_name,
-                userName: userData.username,
                 userId: userData.id,
               });
+
 
               webApp.ready();
 
               let startParam = window.Telegram.WebApp.initDataUnsafe.start_param
-              if (startParam) setRefcode(startParam)
+              if (startParam) setRefcode(Number(startParam))
 
               console.log("User's first name:", first_name);
+
             } else {
               console.log("User data not available.");
             }
@@ -57,6 +59,13 @@ export default function Home() {
     loadTelegramSDK();
   }, []);
 
+  // useEffect(() => {
+  //   setUserData({
+  //     firstName: " Winner ",
+  //     userId: 409876,
+  //   });
+  // }, [])
+
   return (
     <>
       <p>{refCode}</p>
@@ -67,7 +76,7 @@ export default function Home() {
       {pageState === 2 && <Earn updatePage={setPageState} />}
       {pageState === 3 && <Invite updatePage={setPageState} />}
       {pageState === 1 && <Footer updatePage={setPageState} />}</>: (
-      <p>Loading...</p>) }
+      <Image src="/real-estate-unscreen.gif" alt="transformer" width={100} height={100} className=""/>) }
 
     </>
   );

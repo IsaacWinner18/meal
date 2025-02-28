@@ -19,10 +19,6 @@ export default function View({ userData, refCode }) {
   const [lastClaimed, setLastClaimed] = useState(null);
   const [claimedVideos, setClaimedVideos] = useState([]);
 
-  // console.log(
-  //   "This is the videoId that needs to be stored frontend",
-  //   claimedVideos
-  // );
   const [peopleData, setPeopleData] = useState({
     firstName: "",
     userId: "",
@@ -109,17 +105,7 @@ export default function View({ userData, refCode }) {
     }
   }, [userData]);
 
-  // useEffect(() => {
 
-  //   setPeopleData({
-  //     firstName: " Arinze ",
-  //     userName: "bitloaaded",
-  //     userId: "09876",
-  //     referralCode: "09876", // Use user ID as referral code
-  //   });
-  // }, [])
-
-  // const fetchData = async (newData) => {
   async function fetchData(newData) {
     try {
       const response = await fetch(
@@ -136,6 +122,7 @@ export default function View({ userData, refCode }) {
             referralCode: userData.referralCode,
             referredBy: refCode,
             mlcoin: balance,
+            referrals: 0
           }),
         }
       );

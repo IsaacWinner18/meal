@@ -24,6 +24,7 @@ const dashboardSchema = new mongoose.Schema({
   },
   referralCode: {
     type: Number,
+    default: null,
   },
   referredBy: {
     type: Number,
