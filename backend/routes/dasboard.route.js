@@ -32,20 +32,18 @@ DashboardRoute.post("/dashboard", async (req, res) => {
       });
     }
 
-    let validatedRefUser = null; // Initialize to null
+//     let validatedRefUser = null;
 
-if (referredBy && !isNaN(Number(referredBy))) {
-  const referedUser = await UserDashboard.findOne({ userId: Number(referredBy) });
+// if (referredBy && !isNaN(Number(referredBy))) {
+//   const referedUser = await UserDashboard.findOne({ userId: Number(referredBy) });
 
-  if (referedUser) validatedRefUser = Number(referredBy); // Convert to Number
-}
+  // if (referedUser) validatedRefUser = Number(referredBy); 
 
     const userDashboard = new UserDashboard({
       firstName,
       userId,
       mlcoin,
-      referredBy: validatedRefUser !== null ? validatedRefUser :  null,
-
+      referredBy
     });
     console.log("UserDashboard", userDashboard);
     const savedUser = await userDashboard.save();
