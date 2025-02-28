@@ -74,7 +74,7 @@ export default function Home() {
       {pageState === 1 && <View userData={userData} refCode={refCode} />}
       {/* {<View userData={userData} />} */}
       {pageState === 2 && <Earn updatePage={setPageState} />}
-      {pageState === 3 && <Invite updatePage={setPageState} />}
+      {pageState === 3 && <Invite updatePage={setPageState} userData={userData} />}
       {pageState === 1 && <Footer updatePage={setPageState} />}</>: (
       <Image src="/real-estate-unscreen.gif" alt="transformer" width={100} height={100} className=""/>) }
 

@@ -32,22 +32,14 @@ DashboardRoute.post("/dashboard", async (req, res) => {
       });
     }
 
-//     let validatedRefUser = null;
-
-// if (referredBy && !isNaN(Number(referredBy))) {
-//   const referedUser = await UserDashboard.findOne({ userId: Number(referredBy) });
-
-  // if (referedUser) validatedRefUser = Number(referredBy); 
-
     const userDashboard = new UserDashboard({
       firstName,
       userId,
       mlcoin,
       referredBy
     });
-    console.log("UserDashboard", userDashboard);
     const savedUser = await userDashboard.save();
-console.log("savedUser", savedUser);
+    
     res.status(201).json({
       message: "Info saved successfully",
       user: savedUser,
