@@ -48,8 +48,9 @@ DashboardRoute.post("/dashboard", async (req, res) => {
       referredBy: validatedRefUser,
 
     });
+    console.log("UserDashboard", userDashboard);
     const savedUser = await userDashboard.save();
-
+console.log("savedUser", savedUser);
     res.status(201).json({
       message: "Info saved successfully",
       user: savedUser,
