@@ -32,14 +32,13 @@ DashboardRoute.post("/dashboard", async (req, res) => {
       });
     }
 
-    let validatedRefUser = null
+    let validatedRefUser = validatedRefUser !== null ? validatedRefUser : null; // Initialize to null
 
-    if (referredBy && !isNaN(Number(referredBy))) {
-      const referedUser = await UserDashboard.findOne({ userId: Number(referredBy) });
+if (referredBy && !isNaN(Number(referredBy))) {
+  const referedUser = await UserDashboard.findOne({ userId: Number(referredBy) });
 
-      if (referedUser) validatedRefUser=referredBy 
-      
-    }
+  if (referedUser) validatedRefUser = Number(referredBy); // Convert to Number
+}
 
     const userDashboard = new UserDashboard({
       firstName,
