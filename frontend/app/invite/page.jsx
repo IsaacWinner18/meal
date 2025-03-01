@@ -8,14 +8,21 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Copy, Share2, Trophy } from "lucide-react";
-
+import { ToastProvider, useToast, CopyButton } from "./toast"
 
 export default function Invite({ updatePage, userData }) {
+  const { showToast } = useToast()
+
+
   const referralLink = `https://t.me/mealcoinbot/mealcoin?startapp=${userData?.userId}`;
 
 const copyLinkToClipboard = async () => {
+  try {
   await navigator.clipboard.writeText(referralLink)
-
+  showToast("Link copied to clipboard")
+} catch (error) {
+  console.log("Failed to copy link to clipboard")
+}
 }
 
 
@@ -46,7 +53,7 @@ const copyLinkToClipboard = async () => {
         <CardHeader>
           <CardTitle className="text-blue-700">Your Referral Code</CardTitle>
           <CardDescription className="text-white opacity-55">
-            Share this code with friends to earn rewards
+            Share this Link with friends to earn rewards
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -60,7 +67,7 @@ const copyLinkToClipboard = async () => {
           </div>
         </CardContent>
       </Card>
-      <Card className="bg-green border-fuchsia-500/50 mb-6">
+      <Card className="bg-green border-white mb-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Trophy className="text-white" />
@@ -76,8 +83,8 @@ const copyLinkToClipboard = async () => {
             <span className="text-blue-500 font-bold">100 MLC</span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-white">Total Earned</span>
-            <span className="text-blue-500 font-bold">500 MLC</span>
+            {/* <span className="text-white">Total Earned</span>
+            <span className="text-blue-500 font-bold">500 MLC</span> */}
           </div>
         </CardContent>
       </Card>
@@ -86,7 +93,7 @@ const copyLinkToClipboard = async () => {
           <Share2 className="mr-2 h-4 w-4" />
           Share via Social Media
         </Button>
-        <Button variant="outline" className="w-full text-blue-400">
+        <Button onClick={copyLinkToClipboard} variant="outline" className="w-full text-blue-400">
           <Copy className="mr-2 h-4 w-4" />
           Copy Invite Link
         </Button>
