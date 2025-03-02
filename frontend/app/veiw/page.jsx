@@ -95,6 +95,7 @@ export default function View({ userData, refCode }) {
   //   });
   // }, []);
 
+  
   useEffect(() => {
     if (userData) {
       setPeopleData({

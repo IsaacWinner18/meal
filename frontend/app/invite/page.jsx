@@ -12,9 +12,23 @@ import { ToastProvider, useToast, CopyButton } from "./toast"
 
 export default function Invite({ updatePage, userData }) {
   const { showToast } = useToast()
-
-
+  
   const referralLink = `https://t.me/mealcoinbot/mealcoin?startapp=${userData?.userId}`;
+  
+  const shareOnTelegram = () => {
+    Telegram.WebApp.showPopup({
+      title: "Share this!",
+      message: "Invite your friends to join!",
+      buttons: [
+        { text: "Share", type: "default", onClick: () => {
+          Telegram.WebApp.openTelegramLink(
+            `https://t.me/share/url?url=${encodeURIComponent(referralLink)}`
+          );
+        }},
+        { text: "Cancel", type: "close" },
+      ],
+    });
+  };
 
 const copyLinkToClipboard = async () => {
   try {
@@ -89,7 +103,7 @@ const copyLinkToClipboard = async () => {
         </CardContent>
       </Card>
       <div className="grid gap-4">
-        <Button className="w-full bg-blue-500 hover:bg-blue-600">
+        <Button onClick={shareOnTelegram} className="w-full bg-blue-500 hover:bg-blue-600">
           <Share2 className="mr-2 h-4 w-4" />
           Share via Social Media
         </Button>
