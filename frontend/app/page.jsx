@@ -67,6 +67,10 @@ export default function Home() {
   //     userId: 409876,
   //   });
   // }, [])
+  // useEffect(() => {
+  //   setRefcode(234567)
+  // }, [])
+  console.log("This is the userData", userData)
 
   return (
     <>

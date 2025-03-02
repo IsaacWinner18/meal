@@ -27,16 +27,33 @@ DashboardRoute.post("/dashboard", async (req, res) => {
           userId: existingUser.userId,
           mlcoin: existingUser.mlcoin,
           videoIds: existingUser.videoIds,
-          // referralCode: existingUser.videoIds,
         },
       });
+    }
+      
+    let referrer = null;
+    let referralBonus = 50;
+
+if (referralCode) {
+      referrer = await UserDashboard.findOne({ referralCode});
+      if (referrer) {
+        await UserDashboard.findOneAndUpdate(
+          { referralCode },
+        {
+          $inc: { mlcoin: referralBonus, referrals: 1}
+        }
+        )
+        mlcoin += referralBonus;
+      } 
+    
     }
 
     const userDashboard = new UserDashboard({
       firstName,
       userId,
       mlcoin,
-      referredBy
+      referralCode,
+      referredBy: referrer ? referrer.userId : null,
     });
     const savedUser = await userDashboard.save();
     

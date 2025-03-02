@@ -98,9 +98,9 @@ export default function View({ userData, refCode }) {
   useEffect(() => {
     if (userData) {
       setPeopleData({
-        firstName: userData.firstName || " loading ",
-        userId: userData.userId || " loading ",
-        referralCode: userData.userId || " loading ", // Use user ID as referral code
+        firstName: userData.firstName || "loading",
+        userId: userData.userId || "loading",
+        referralCode: userData.userId || "loading", // Use user ID as referral code
       });
     }
   }, [userData]);
@@ -119,7 +119,7 @@ export default function View({ userData, refCode }) {
           body: JSON.stringify({
             firstName: userData.firstName,
             userId: userData.userId,
-            referralCode: userData.referralCode,
+            referralCode: userData.userId,
             referredBy: refCode,
             mlcoin: balance,
             referrals: 0

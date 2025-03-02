@@ -39,7 +39,7 @@ export default function videoComp({handleClaimProps = () => {}, claimedVideos = 
 
     
     return (
-        <div>
+        <div className="mb-28">
 
         {videos.map((video) => {
           const videoClaimed = claimedVideos.includes(video._id);
@@ -48,7 +48,7 @@ export default function videoComp({handleClaimProps = () => {}, claimedVideos = 
             <Link rel="noopener noreferrer" target="_blank" key={video._id}  href={video.videoUrl} className={videoClaimed ? 'hidden' : 'block'}>
             <Card
            
-              className="bg-gradient-to-b from-neutral-800 to-black border-black mx-2 mb-28"
+              className="bg-gradient-to-b from-neutral-800 to-black border-black mx-2 mt-2 mb-6"
             >
               <CardHeader>
                 <CardTitle className="flex items-center text-blue-600 gap-2">
