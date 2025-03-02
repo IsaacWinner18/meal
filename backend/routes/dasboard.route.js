@@ -35,15 +35,23 @@ DashboardRoute.post("/dashboard", async (req, res) => {
     let referralBonus = 50;
     let mlcoin = 0;
 
-if (referralCode) {
+if (referredBy) {
       referrer = await UserDashboard.findOne({ userId: referredBy });
+
       if (referrer) {
-        await UserDashboard.findOneAndUpdate(
-          { referralCode },
-        {
-          $inc: { mlcoin: referralBonus}
-        }
-        )
+        console.log("Referrer found:", referrer.userId, "with mlcoin:", referrer.mlcoin);
+            // Update referrer and store the result
+    const updatedReferrer = await UserDashboard.findOneAndUpdate(
+      { userId: referredBy },  
+      { $inc: { mlcoin: referralBonus } },  
+      { new: true }  // Returns the updated document
+    );
+
+    if (updatedReferrer) {
+      console.log("Referrer mlcoin after update:", updatedReferrer.mlcoin);
+    } else {
+      console.log("❌ Referrer update failed.");
+    }
         mlcoin += referralBonus;
       } 
     
