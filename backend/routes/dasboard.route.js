@@ -33,6 +33,7 @@ DashboardRoute.post("/dashboard", async (req, res) => {
       
     let referrer = null;
     let referralBonus = 50;
+    let mlcoin = 0;
 
 if (referralCode) {
       referrer = await UserDashboard.findOne({ userId: referredBy });
@@ -43,7 +44,7 @@ if (referralCode) {
           $inc: { mlcoin: referralBonus}
         }
         )
-        mlcoin = (mlcoin || 0) + referralBonus;
+        mlcoin += referralBonus;
       } 
     
     }
