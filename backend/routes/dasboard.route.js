@@ -12,7 +12,7 @@ DashboardRoute.post("/dashboard", async (req, res) => {
   if (firstName.length === 0 || userId.length === 0) {
     return res
       .status(500)
-      .json({ message: "Invalid info provided", error: error.message });
+      .json({ message: "Invalid info provided" });
   }
 
   try {
@@ -40,13 +40,16 @@ if (referralCode) {
         await UserDashboard.findOneAndUpdate(
           { referralCode },
         {
-          $inc: { mlcoin: referralBonus, referrals: 1}
+          $inc: { mlcoin: referralBonus}
         }
         )
-        mlcoin += referralBonus;
+        mlcoin = (mlcoin || 0) + referralBonus;
       } 
     
     }
+    console.log("New user mlcoin:", mlcoin);
+console.log("Referrer:", referrer ? referrer.userId : "No referrer");
+
 
     const userDashboard = new UserDashboard({
       firstName,
