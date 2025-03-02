@@ -35,7 +35,7 @@ DashboardRoute.post("/dashboard", async (req, res) => {
     let referralBonus = 50;
 
 if (referralCode) {
-      referrer = await UserDashboard.findOne({ referralCode});
+      referrer = await UserDashboard.findOne({ userId: referredBy });
       if (referrer) {
         await UserDashboard.findOneAndUpdate(
           { referralCode },
