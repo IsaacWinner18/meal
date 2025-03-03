@@ -16,7 +16,9 @@ export default function Invite({ updatePage, userData }) {
   const referralLink = `https://t.me/mealcoinbot/mealcoin?startapp=${userData?.userId}`;
   
   const shareOnTelegram = () => {
-    Telegram.WebApp.openTelegramLink(`https://t.me/share/url?url=${encodeURIComponent(referralLink)}`);
+    const referralText = `Hey! I just joined MealCoin and I'm loving it. You should join too!`;
+    const fullUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(referralText)}`;
+    Telegram.WebApp.openTelegramLink(fullUrl);
   };
 
 const copyLinkToClipboard = async () => {
