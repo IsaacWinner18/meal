@@ -5,8 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
 import Videos from "@/components/videos";
-// import { useSearchParams } from "next/navigation";
-
+import Wallet from "./wallet";
 export default function View({ userData, refCode }) {
   const [balance, setBalance] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -237,17 +236,7 @@ export default function View({ userData, refCode }) {
             ID: {peopleData.userId || "loading id"}
           </p>
         </div>
-        <div className="rounded-lg shadow-xl shadow-blue-700">
-          {/* <Flame className="text-blue-600" size={24} /> */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="white"
-            className="size-10"
-          >
-            <path d="M2.273 5.625A4.483 4.483 0 0 1 5.25 4.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 3H5.25a3 3 0 0 0-2.977 2.625ZM2.273 8.625A4.483 4.483 0 0 1 5.25 7.5h13.5c1.141 0 2.183.425 2.977 1.125A3 3 0 0 0 18.75 6H5.25a3 3 0 0 0-2.977 2.625ZM5.25 9a3 3 0 0 0-3 3v6a3 3 0 0 0 3 3h13.5a3 3 0 0 0 3-3v-6a3 3 0 0 0-3-3H15a.75.75 0 0 0-.75.75 2.25 2.25 0 0 1-4.5 0A.75.75 0 0 0 9 9H5.25Z" />
-          </svg>
-        </div>
+        <Wallet />
       </div>
 
       <div className="bg-gradient-to-r from-neutral-900 to-black shadow-inner shadow-black rounded-3xl p-3 mx-2 my-1">
@@ -277,7 +266,7 @@ export default function View({ userData, refCode }) {
               <Button
                 onClick={() => handleClaim(undefined)}
                 disabled={!canClaim}
-                className="w-full py-6 text-xl bg-blue-700 shadow-inner shadow-blue-200 hover:bg-blue-600 transition-colors"
+                className="w-full py-6 text-xl bg-blue-500 shadow-inner shadow-blue-200 hover:bg-blue-700 transition-colors"
               >
                 Claim
               </Button>
