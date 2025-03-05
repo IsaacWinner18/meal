@@ -16,12 +16,12 @@ export default function Wallet() {
         });
       }
 
-      // Subscribe to wallet status changes
       const unsubscribe = tonConnectUIInstance.onStatusChange((wallet) => {
         if (wallet?.account) {
           const rawAddress = wallet.account.address;
           const friendlyAddress = Address.parse(rawAddress).toString({ urlSafe: true });
-          setWalletAddress(friendlyAddress);
+          const shortenedAdd = `${friendlyAddress.slice(0, 3)}..${friendlyAddress.slice(-3)}`;
+          setWalletAddress(shortenedAdd);
         } else {
           setWalletAddress(null);
         }
