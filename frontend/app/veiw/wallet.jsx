@@ -1,6 +1,7 @@
 "use client";
 import { TonConnectUI } from "@tonconnect/ui";
 import { useState, useEffect } from "react";
+import { Address } from "@ton/core"
 
 let tonConnectUIInstance = null;
 
@@ -18,7 +19,9 @@ export default function Wallet() {
       // Subscribe to wallet status changes
       const unsubscribe = tonConnectUIInstance.onStatusChange((wallet) => {
         if (wallet?.account) {
-          setWalletAddress(wallet.account.address);
+          const rawAddress = wallet.account.address;
+          const friendlyAddress = Address.parse(rawAddress).toString({ urlSafe: true });
+          setWalletAddress(friendlyAddress);
         } else {
           setWalletAddress(null);
         }
@@ -30,6 +33,8 @@ export default function Wallet() {
       };
     }
   }, []);
+
+  
 
   const connectWallet = async () => {
     if (tonConnectUIInstance) {

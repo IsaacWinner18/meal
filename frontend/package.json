@@ -12,6 +12,7 @@
   "dependencies": {
     "@radix-ui/react-progress": "^1.1.1",
     "@radix-ui/react-slot": "^1.1.1",
+    "@ton/core": "^0.60.1",
     "@tonconnect/sdk": "^3.0.6",
     "@tonconnect/ui": "^2.0.11",
     "class-variance-authority": "^0.7.1",
