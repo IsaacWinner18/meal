@@ -36,15 +36,25 @@ export default function Wallet() {
 
   
 
-  const connectWallet = async () => {
+  const handleWalletClick = async () => {
     if (tonConnectUIInstance) {
-      await tonConnectUIInstance.openModal();
-    }
+      if (walletAddress) {
+        const confirmDisconnect = window.confirm("Do you want to disconnect?");
+        if (confirmDisconnect) {
+          await tonConnectUIInstance.disconnect();
+          setWalletAddress(null);
+          await tonConnectUIInstance.openModal();
+        }
+        
+      } else {
+        await tonConnectUIInstance.openModal();
+      }
   };
+};
 
   return (
     <>
-    <div  onClick={connectWallet} className="flex flex-col justify-center items-center">
+    <div onClick={ handleWalletClick } className="flex flex-col justify-center items-center">
 <div>
     <button>
       <div className="bg-blue-600 rounded-lg shadow-xl shadow-blue-700">
