@@ -2,7 +2,6 @@
 import { TonConnectUI } from "@tonconnect/ui";
 import { useState, useEffect } from "react";
 
-// Global instance to prevent multiple initializations
 let tonConnectUIInstance = null;
 
 export default function Wallet() {
@@ -58,7 +57,7 @@ export default function Wallet() {
     </button>
 </div>
     <div>
-      <p className="text-white">{walletAddress ? `Con..ted` : "Connect" }</p>
+      <p className="text-white">{walletAddress ? `${walletAddress}` : "Connect" }</p>
     </div>
     </div>
     </>
