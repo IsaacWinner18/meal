@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import Videos from "@/components/videos";
 import Wallet from "./wallet";
 export default function View({ userData, refCode }) {
+
   const [balance, setBalance] = useState(0);
   const [progress, setProgress] = useState(0);
   const [canClaim, setCanClaim] = useState(true);

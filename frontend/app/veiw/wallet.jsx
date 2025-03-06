@@ -15,15 +15,24 @@ export default function Wallet() {
           manifestUrl: "https://res.cloudinary.com/dkfmaqtpy/raw/upload/v1741105016/tonconnect-manifest_igpbk0.json",
         });
       }
-
+      const savedAddress = localStorage.getItem("savedWalletAddress");
+      if (savedAddress) {
+        const friendlyAddress = Address.parse(savedAddress).toString({ urlSafe: true });
+        const shortenedAdd = `${friendlyAddress.slice(0, 3)}..${friendlyAddress.slice(-3)}`;
+        setWalletAddress(shortenedAdd);
+        
+      }
+      
       const unsubscribe = tonConnectUIInstance.onStatusChange((wallet) => {
         if (wallet?.account) {
           const rawAddress = wallet.account.address;
+          localStorage.setItem("savedWalletAddress", rawAddress);
           const friendlyAddress = Address.parse(rawAddress).toString({ urlSafe: true });
-          const shortenedAdd = `${friendlyAddress.slice(0, 3)}..${friendlyAddress.slice(-3)}`;
-          setWalletAddress(shortenedAdd);
+        const shortenedAdd = `${friendlyAddress.slice(0, 3)}..${friendlyAddress.slice(-3)}`;
+        setWalletAddress(shortenedAdd);
         } else {
           setWalletAddress(null);
+          localStorage.removeItem("savedWalletAddress");
         }
       });
 
@@ -43,6 +52,7 @@ export default function Wallet() {
         if (confirmDisconnect) {
           await tonConnectUIInstance.disconnect();
           setWalletAddress(null);
+          localStorage.removeItem("savedWalletAddress");
           await tonConnectUIInstance.openModal();
         }
         
