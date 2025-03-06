@@ -90,7 +90,7 @@ export default function Wallet() {
       </div>
 
       {showConfirmDialog && (
-        <div className="fixed bottom-40 inset-0 flex items-center justify-center bg-black bg-opacity-70">
+        <div className="fixed top-20 inset-0 flex items-center justify-center bg-black bg-opacity-70">
           <div className="bg-white p-4 rounded-lg shadow-lg">
             <p>Do you want to disconnect?</p>
             <div className="flex justify-end space-x-2 mt-4">

@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import Earn from "./earn/page";
 import Image from "next/image";
 import { ToastProvider, useToast, CopyButton } from "../app/invite/toast"
+import Loader from "./loader/page";
 
 
 export default function Home() {
@@ -83,8 +84,7 @@ export default function Home() {
       <ToastProvider>
       {pageState === 3 && <Invite updatePage={setPageState} userData={userData} />}
       </ToastProvider>
-      {pageState === 1 && <Footer updatePage={setPageState} />}</>: (
-      <Image src="/real-estate-unscreen.gif" alt="transformer" width={100} height={100} className=""/>) }
+      {pageState === 1 && <Footer updatePage={setPageState} />}</>: (<Loader />) }
 
     </>
   );
