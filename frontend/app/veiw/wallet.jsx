@@ -46,13 +46,8 @@ export default function Wallet() {
   const handleWalletClick = async () => {
     if (tonConnectUIInstance) {
       if (walletAddress) {
-        setConfirmCallback(async () => {
-          await tonConnectUIInstance.disconnect();
-          setWalletAddress(null);
-          localStorage.removeItem("savedWalletAddress");
-          await tonConnectUIInstance.openModal();
-        });
         setShowConfirmDialog(true);
+
       } else {
         await tonConnectUIInstance.openModal();
       }
@@ -60,8 +55,10 @@ export default function Wallet() {
   };
 
   const handleConfirm = async () => {
-    if (confirmCallback) {
-      await confirmCallback();
+    if (tonConnectUIInstance) {  
+        await tonConnectUIInstance.disconnect();
+        setWalletAddress(null);
+        localStorage.removeItem("savedWalletAddress");
     }
     setShowConfirmDialog(false);
   };
@@ -93,7 +90,7 @@ export default function Wallet() {
       </div>
 
       {showConfirmDialog && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed bottom-40 inset-0 flex items-center justify-center bg-black bg-opacity-70">
           <div className="bg-white p-4 rounded-lg shadow-lg">
             <p>Do you want to disconnect?</p>
             <div className="flex justify-end space-x-2 mt-4">
