@@ -50,7 +50,7 @@ if (referredBy) {
     if (updatedReferrer) {
       console.log("Referrer mlcoin after update:", updatedReferrer.mlcoin);
     } else {
-      console.log("❌ Referrer update failed.");
+      console.log("Referrer update failed.");
     }
         mlcoin += referralBonus;
       } 

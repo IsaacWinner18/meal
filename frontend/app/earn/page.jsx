@@ -8,8 +8,10 @@ export default function Earn({ updatePage }) {
   const handleTransfer = () => {
     setError('');
     
-    const deepLinkURL = "ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer%20Fund";
-    window.location.href = deepLinkURL;
+    // const deepLinkURL = "ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer%20Fund";
+    // window.location.href = deepLinkURL;
+    
+    window.Telegram.WebApp.openLink('ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer%20Fund');
 
     setTimeout(() => {
       setError('It seems your wallet is not installed or the transaction was cancelled. Please try again.');
