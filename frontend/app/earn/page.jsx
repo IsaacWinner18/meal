@@ -8,9 +8,7 @@ export default function Earn({ updatePage }) {
   const handleTransfer = () => {
     setError('');
     
-    const deepLinkURL = "ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=100000000&text=Transfer";
-    window.location.href = deepLinkURL;
-
+    window.Telegram.WebApp.openLink('https://meal-coin.vercel.app/tonredirect');
 
     setTimeout(() => {
       setError('It seems your wallet is not installed or the transaction was cancelled. Please try again.');
@@ -50,11 +48,7 @@ export default function Earn({ updatePage }) {
       </div>
 
 <div className="text-white m-4">Buy Custom Rare Givers to increase earning💎
-    <a className="mt-3" href="ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer">
-            transfer fund
-            </a>
-
-            <Link href="ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer"> transfer link </Link>
+    
             </div>
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 px-2">
             {cards.map((card) => (
