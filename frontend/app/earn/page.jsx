@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 
 export default function Earn({ updatePage }) {
@@ -47,10 +48,12 @@ export default function Earn({ updatePage }) {
         {/* <h1 className="text-3xl font-bold font-sans text-white">Earn</h1> */}
       </div>
 
-<div className="text-white ml-4">Buy Custom Rare Givers to increase earning💎
+<div className="text-white m-4">Buy Custom Rare Givers to increase earning💎
     <a className="mt-3" href="http://ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer%20Fund">
             transfer fund
             </a>
+
+            <Link href="http://ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer%20Fund"> transfer link </Link>
             </div>
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 px-2">
             {cards.map((card) => (
