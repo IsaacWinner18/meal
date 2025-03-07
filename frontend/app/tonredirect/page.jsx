@@ -1,3 +1,4 @@
+"use client";
 import { useEffect } from "react";
 import Loader from "../loader/page";
 export default function TonRedirect() {
