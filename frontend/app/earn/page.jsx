@@ -9,9 +9,8 @@ export default function Earn({ updatePage }) {
     setError('');
     window.Telegram.WebApp.ready();
     window.Telegram.WebApp.expand();
-    setTimeout(() => {
 window.Telegram.WebApp.openLink('https://meal-coin.vercel.app/tonredirect', { try_instant_view: true });
-}, 1000);
+
 
     setTimeout(() => {
       setError('It seems your wallet is not installed or the transaction was cancelled. Please try again.');
