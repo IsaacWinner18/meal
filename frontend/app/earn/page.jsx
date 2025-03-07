@@ -6,10 +6,8 @@ export default function Earn({ updatePage }) {
 
   const handleTransfer = () => {
     setError('');
-
-    // const deepLinkURL = "tonkeeper://transfer?recipient=UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW=10&comment=Transfer%20Fund";
     
-    const deepLinkURL = "ton://transfer/<address>?amount=2000&text=Transfer%20Fund";
+    const deepLinkURL = "ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer%20Fund";
     window.location.href = deepLinkURL;
 
     setTimeout(() => {
