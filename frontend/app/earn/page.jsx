@@ -8,7 +8,7 @@ export default function Earn({ updatePage }) {
   const handleTransfer = () => {
     setError('');
     
-    const deepLinkURL = "ton://UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW/transfer?amount=2000000000&text=Transfer";
+    const deepLinkURL = "ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer";
     window.location.href = deepLinkURL;
 
 
@@ -50,11 +50,11 @@ export default function Earn({ updatePage }) {
       </div>
 
 <div className="text-white m-4">Buy Custom Rare Givers to increase earning💎
-    <a className="mt-3" href="ton://UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW/transfer?amount=2000000000&text=Transfer">
+    <a className="mt-3" href="ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer">
             transfer fund
             </a>
 
-            <Link href="ton://UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW/transfer?amount=2000000000&text=Transfer"> transfer link </Link>
+            <Link href="ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer"> transfer link </Link>
             </div>
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 px-2">
             {cards.map((card) => (
