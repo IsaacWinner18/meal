@@ -10,9 +10,7 @@ export default function Earn({ updatePage }) {
     
     const deepLinkURL = "ton://UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW/transfer?amount=2000000000&text=Transfer";
     window.location.href = deepLinkURL;
-    
-    // ton://EQCD39VS5jcptHL8vMjEXrzGaRcCVYto7HUn4bpAOg8xqB2N/transfer?amount=1&text=hello
-    // window.Telegram.WebApp.openLink('tonsite://app.tonkeeper.com/transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer%20Fund');
+
 
     setTimeout(() => {
       setError('It seems your wallet is not installed or the transaction was cancelled. Please try again.');
@@ -52,11 +50,11 @@ export default function Earn({ updatePage }) {
       </div>
 
 <div className="text-white m-4">Buy Custom Rare Givers to increase earning💎
-    <a className="mt-3" href="http://ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer%20Fund">
+    <a className="mt-3" href="ton://UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW/transfer?amount=2000000000&text=Transfer">
             transfer fund
             </a>
 
-            <Link href="http://ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer%20Fund"> transfer link </Link>
+            <Link href="ton://UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW/transfer?amount=2000000000&text=Transfer"> transfer link </Link>
             </div>
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 px-2">
             {cards.map((card) => (
