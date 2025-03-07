@@ -75,11 +75,7 @@ window.Telegram.WebApp.openLink(`https://meal-coin.vercel.app/tonredirect?amount
               <span className="mr-1">⭐</span> {card.stars}
             </p>
           </div>
-          <button onClick={() => {
-            if(card.id === 1) {
-              handleTransfer(card.ton*100000000);
-            }
-          }} className="my-4 w-20 bg-blue-500 text-white py-2 rounded-xl text-sm font-semibold shadow-lg transition transform hover:scale-105 glow-effect">
+          <button onClick={() => handleTransfer(card.ton * 100000000)} className="my-4 w-20 bg-blue-500 text-white py-2 rounded-xl text-sm font-semibold shadow-lg transition transform hover:scale-105 glow-effect">
             Buy Now
            
           </button>
