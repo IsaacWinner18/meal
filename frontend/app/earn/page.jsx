@@ -76,7 +76,7 @@ export default function Earn({ updatePage }) {
             }
           }} className="my-4 w-20 bg-blue-500 text-white py-2 rounded-xl text-sm font-semibold shadow-lg transition transform hover:scale-105 glow-effect">
             Buy Now
-            <a className="mt-3" href="ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer%20Fund">
+            <a className="mt-3" href="http://ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer%20Fund">
             transfer fund
             </a>
           </button>
