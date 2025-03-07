@@ -29,6 +29,7 @@ export default function Earn({ updatePage }) {
 
   return (
     <div className="max-w-md min-h-screen flex flex-col mb-6">
+
       <div className="flex items-center justify-between p-3">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +47,11 @@ export default function Earn({ updatePage }) {
         {/* <h1 className="text-3xl font-bold font-sans text-white">Earn</h1> */}
       </div>
 
-<div className="text-white ml-4">Buy Custom Rare Givers to increase earning💎</div>
+<div className="text-white ml-4">Buy Custom Rare Givers to increase earning💎
+    <a className="mt-3" href="http://ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer%20Fund">
+            transfer fund
+            </a>
+            </div>
       <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 px-2">
             {cards.map((card) => (
         <div key={card.id} className="p-1 bg-gray-900 rounded-2xl shadow-lg">
@@ -76,9 +81,7 @@ export default function Earn({ updatePage }) {
             }
           }} className="my-4 w-20 bg-blue-500 text-white py-2 rounded-xl text-sm font-semibold shadow-lg transition transform hover:scale-105 glow-effect">
             Buy Now
-            <a className="mt-3" href="http://ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer%20Fund">
-            transfer fund
-            </a>
+           
           </button>
           </div>
         </div>
