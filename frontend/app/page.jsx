@@ -14,6 +14,19 @@ export default function Home() {
   const [pageState, setPageState] = useState(1);
   const [refCode, setRefcode] = useState(null)
   const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [delayedUserData, setDelayedUserData] = useState(null);
+
+  useEffect(() => {
+    if(!userData) return;
+
+    const timer = setTimeout(() => {
+      setDelayedUserData(userData);
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer)
+  }, [userData]);
 
   useEffect(() => {
     const loadTelegramSDK = () => {
@@ -71,21 +84,24 @@ export default function Home() {
   // useEffect(() => {
   //   setRefcode(234567)
   // }, [])
-  // // console.log("This is the userData", userData)
+ // console.log("This is the userData", userData)
 
   return (
     <>
-      {/* <p>{refCode}</p> */}
-      
-      { userData ? <>
+     {loading || !delayedUserData ? (
+        <Loader /> 
+      ) : (
+
+    <>
       {pageState === 1 && <View userData={userData} refCode={refCode} />}
-      {/* {<View userData={userData} />} */}
       {pageState === 2 && <Earn updatePage={setPageState} />}
       <ToastProvider>
       {pageState === 3 && <Invite updatePage={setPageState} userData={userData} />}
       </ToastProvider>
-      {pageState === 1 && <Footer updatePage={setPageState} />}</>: (<Loader />) }
-
+      {pageState === 1 && <Footer updatePage={setPageState} />}
+      </> 
+      )}
+      
     </>
   );
 }
