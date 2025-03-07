@@ -8,7 +8,7 @@ export default function Earn({ updatePage }) {
   const handleTransfer = () => {
     setError('');
     
-    const deepLinkURL = "tonsite://app.tonkeeper.com/transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer%20Fund";
+    const deepLinkURL = "tonsite://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer%20Fund";
     window.location.href = deepLinkURL;
     
     // window.Telegram.WebApp.openLink('tonsite://app.tonkeeper.com/transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer%20Fund');
