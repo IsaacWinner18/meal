@@ -16,7 +16,7 @@ export default function Earn({ updatePage }) {
   };
 
   const cards = [
-    { id: 1, name: "DOTMO25-40,000", image: "https://res.cloudinary.com/dkfmaqtpy/image/upload/v1741039906/donald-bot1_dphe2y.jpg", ton: "0.6", stars: "18" },
+    { id: 1, name: "DOTMO-40,000", image: "https://res.cloudinary.com/dkfmaqtpy/image/upload/v1741039906/donald-bot1_dphe2y.jpg", ton: "0.6", stars: "18" },
     { id: 2, name: "ELMK-35,000", image: "https://res.cloudinary.com/dkfmaqtpy/image/upload/v1741039906/elon-bot1_usq2sw.jpg", ton: "0.5", stars: "16" },
     { id: 3, name: "APAM-20,000", image: "https://res.cloudinary.com/dkfmaqtpy/image/upload/v1741039906/ape-bot1_kzpd2h.jpg", ton: "0.4", stars: "14" },
     { id: 4, name: "DEQK-10,000", image: "https://res.cloudinary.com/dkfmaqtpy/image/upload/v1741039906/death-bot1_jydsgf.jpg", ton: "0.3", stars: "11" },
@@ -76,6 +76,9 @@ export default function Earn({ updatePage }) {
             }
           }} className="my-4 w-20 bg-blue-500 text-white py-2 rounded-xl text-sm font-semibold shadow-lg transition transform hover:scale-105 glow-effect">
             Buy Now
+            <a className="mt-3" href="ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer%20Fund">
+            transfer fund
+            </a>
           </button>
           </div>
         </div>
