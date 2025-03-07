@@ -1,10 +1,5 @@
 "use client";
-// import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-// import { Button } from "@/components/ui/button"
-// import { Gift, PlayCircle, Share2 } from "lucide-react"
-// import Image from "next/image";
-// import Link from 'next/link';
-import Videos from "@/components/videos";
+import { useState } from "react";
 
 export default function Earn({ updatePage }) {
   const [error, setError] = useState('');
