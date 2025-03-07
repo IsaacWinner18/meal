@@ -7,33 +7,20 @@
 import Videos from "@/components/videos";
 
 export default function Earn({ updatePage }) {
-  // const handleClaim = async (videoId) => {
-  //   try {
-  //     const response = await fetch(
-  //       `${process.env.NEXT_PUBLIC_API_URL}/dashboard`,
-  //       {
-  //         method: "PATCH",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
+  const [error, setError] = useState('');
 
-  //         body: JSON.stringify({
-  //           userId: peopleData.userId,
-  //           videoId: videoId,
-  //         }),
-  //       }
-  //     );
+  const handleTransfer = () => {
+    setError('');
 
-  //     if (!response.ok) {
-  //       throw new Error("failed to update mlcoin");
-  //     }
+    // const deepLinkURL = "tonkeeper://transfer?recipient=UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW=10&comment=Transfer%20Fund";
+    
+    const deepLinkURL = "ton://transfer/<address>?amount=2000&text=Transfer%20Fund";
+    window.location.href = deepLinkURL;
 
-  //     const data = await response.json();
-  //     alert("Successfully claimed")
-  //   } catch (error) {
-  //     console.log(`The adeola123 error ${error}`);
-  //   }
-  // }
+    setTimeout(() => {
+      setError('It seems your wallet is not installed or the transaction was cancelled. Please try again.');
+    }, 2000);
+  };
 
   const cards = [
     { id: 1, name: "DOTMO25-40,000", image: "https://res.cloudinary.com/dkfmaqtpy/image/upload/v1741039906/donald-bot1_dphe2y.jpg", ton: "0.6", stars: "18" },
@@ -90,7 +77,11 @@ export default function Earn({ updatePage }) {
               <span className="mr-1">⭐</span> {card.stars}
             </p>
           </div>
-          <button className="my-4 w-20 bg-blue-500 text-white py-2 rounded-xl text-sm font-semibold shadow-lg transition transform hover:scale-105 glow-effect">
+          <button onClick={() => {
+            if(card.id === 1) {
+              handleTransfer();
+            }
+          }} className="my-4 w-20 bg-blue-500 text-white py-2 rounded-xl text-sm font-semibold shadow-lg transition transform hover:scale-105 glow-effect">
             Buy Now
           </button>
           </div>
