@@ -5,11 +5,11 @@ import { useState } from "react";
 export default function Earn({ updatePage }) {
   const [error, setError] = useState('');
 
-  const handleTransfer = () => {
+  const handleTransfer = (amount) => {
     setError('');
     window.Telegram.WebApp.ready();
     window.Telegram.WebApp.expand();
-window.Telegram.WebApp.openLink('https://meal-coin.vercel.app/tonredirect', { try_instant_view: true });
+window.Telegram.WebApp.openLink(`https://meal-coin.vercel.app/tonredirect?amount=${amount}`, { try_instant_view: true });
 
 
     setTimeout(() => {
@@ -77,7 +77,7 @@ window.Telegram.WebApp.openLink('https://meal-coin.vercel.app/tonredirect', { tr
           </div>
           <button onClick={() => {
             if(card.id === 1) {
-              handleTransfer();
+              handleTransfer(card.ton*100000000);
             }
           }} className="my-4 w-20 bg-blue-500 text-white py-2 rounded-xl text-sm font-semibold shadow-lg transition transform hover:scale-105 glow-effect">
             Buy Now
