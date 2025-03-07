@@ -8,7 +8,7 @@ export default function Earn({ updatePage }) {
   const handleTransfer = () => {
     setError('');
     
-    const deepLinkURL = "ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=2000000000&text=Transfer";
+    const deepLinkURL = "ton://transfer/UQDE7SRvOuBokRenwICsFw3XOUWcx1SYiHKu_ssrewOQfEtW?amount=100000000&text=Transfer";
     window.location.href = deepLinkURL;
 
 
