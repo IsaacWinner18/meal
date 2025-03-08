@@ -16,8 +16,7 @@ export default function TonRedirect() {
 
         window.location.href = `ton://transfer/0QDMoTcRiP_ciARdO2CFDvAlZ_-V70wyVl4w2na66b_oHjzV?amount=${amount}&text=${userId}`;
     }
-  }, [userData]);
-  console.log("TonRedirect userData:", userData);
+  }, []);
 
   return (
     <>
