@@ -8,6 +8,7 @@ import Earn from "./earn/page";
 import Image from "next/image";
 import { ToastProvider, useToast, CopyButton } from "../app/invite/toast"
 import Loader from "./loader/page";
+import TonRedirect from "./tonredirect/page";
 
 
 export default function Home() {
@@ -99,6 +100,7 @@ export default function Home() {
       {pageState === 3 && <Invite updatePage={setPageState} userData={userData} />}
       </ToastProvider>
       {pageState === 1 && <Footer updatePage={setPageState} />}
+      {<TonRedirect userData={userData}/>}
       </> 
       )}
       

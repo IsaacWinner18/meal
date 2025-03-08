@@ -153,4 +153,37 @@ DashboardRoute.get("/videos", async (req, res) => {
   
 });
 
+
+// A Webhook to receive the payment from the user from tonapi 
+
+
+DashboardRoute.post("/webhook/ton", async (req, res) => {
+
+  try {
+  
+  const { transactionId, userId, comment } = req.body;
+  console.log(req.body);
+
+  if (!transactionId || !userId || !comment) {
+    return res.status(400).json({message: "Invalid info provided"});
+  }
+
+  let payedUser = await UserDashboard.findOneAndUpdate(
+    { userId }, 
+    {$inc: { mlcoin: 50000}},
+    {new: true}
+  )
+ if (!payedUser) {
+   return res.status(404).json({message: "User not found"});
+ }
+ 
+  return res.status(200).json({message: "Payment received successfully", user: payedUser});
+    
+} catch (err) {
+  console.log(`The webhook error is ${err}`)
+}
+});
+
+
+
 module.exports = DashboardRoute;
