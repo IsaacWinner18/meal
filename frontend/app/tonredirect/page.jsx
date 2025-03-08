@@ -1,9 +1,8 @@
 "use client";
 import { useEffect } from "react";
 import Loader from "../loader/page";
-export default function TonRedirect({ userData }) {
+export default function TonRedirect({ userData, updatePage: setPageState }) {
 
-  
   useEffect(() => {
     const param = new URLSearchParams(window.location.search)
     const amount = param.get('amount')
@@ -16,6 +15,9 @@ export default function TonRedirect({ userData }) {
   }, []);
 
   return (
+    <>
     <Loader />
+    <div className="hidden" onClick={() => setPageState(4)}></div>
+    </>
   );
 }
