@@ -7,10 +7,7 @@ export default function Earn({ updatePage }) {
 
   async function startPolling() {
     try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/start-polling`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-        });
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/start-polling`);
 
         const result = await response.json();
         console.log(result.message);
@@ -18,7 +15,6 @@ export default function Earn({ updatePage }) {
         console.error("Error starting polling:", error);
     }
 }
-
 
 
 

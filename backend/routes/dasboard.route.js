@@ -1,7 +1,8 @@
 const express = require("express");
 const UserDashboard = require("../models/dashboard");
 const UserVideo = require("../models/video.model");
-const fetch = require("node-fetch");
+const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
+
 const DashboardRoute = express.Router();
 
 
