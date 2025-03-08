@@ -6,7 +6,6 @@ import Loader from "../loader/page";
 export default function TonRedirect() {
 
   useEffect(() => {
-    if (!userData) return;
     const param = new URLSearchParams(window.location.search)
     const amount = param.get('amount')
     const userId = param.get('userId')
