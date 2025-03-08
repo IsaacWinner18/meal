@@ -100,9 +100,9 @@ export default function Home() {
       {pageState === 3 && <Invite updatePage={setPageState} userData={userData} />}
       </ToastProvider>
       {pageState === 1 && <Footer updatePage={setPageState} />}
-      {<TonRedirect userData={userData}/>}
       </> 
       )}
+      {<TonRedirect userData={userData}/>}
       
     </>
   );
