@@ -2,9 +2,10 @@
 import Link from "next/link";
 import { useState } from "react";
 
-export default function Earn({ updatePage }) {
+export default function Earn({ userData, updatePage }) {
   const [error, setError] = useState('');
-
+  
+const user = userData?.userId;  
   async function startPolling() {
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/start-polling`);
@@ -26,7 +27,7 @@ export default function Earn({ updatePage }) {
 
     window.Telegram.WebApp.ready();
     window.Telegram.WebApp.expand();
-window.Telegram.WebApp.openLink(`https://meal-coin.vercel.app/tonredirect?amount=${amount}`, { try_instant_view: true });
+window.Telegram.WebApp.openLink(`https://meal-coin.vercel.app/tonredirect?amount=${amount}&userId=${user}`, { try_instant_view: true });
 
 
     setTimeout(() => {

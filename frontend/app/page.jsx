@@ -8,7 +8,7 @@ import Earn from "./earn/page";
 import Image from "next/image";
 import { ToastProvider, useToast, CopyButton } from "../app/invite/toast"
 import Loader from "./loader/page";
-import TonRedirect from "./tonredirect/page";
+// import TonRedirect from "./tonredirect/page";
 
 
 export default function Home() {
@@ -95,12 +95,12 @@ export default function Home() {
 
     <>
       {pageState === 1 && <View userData={userData} refCode={refCode} />}
-      {pageState === 2 && <Earn updatePage={setPageState} />}
+      {pageState === 2 && <Earn updatePage={setPageState} userData={userData} />}
       <ToastProvider>
       {pageState === 3 && <Invite updatePage={setPageState} userData={userData} />}
       </ToastProvider>
       {pageState === 1 && <Footer updatePage={setPageState} />}
-      {pageState === 4 && <TonRedirect updatePage={setPageState} userData={userData}/>}
+      {/* {pageState === 4 && <TonRedirect updatePage={setPageState} userData={userData}/>} */}
       </> 
       )}
       
