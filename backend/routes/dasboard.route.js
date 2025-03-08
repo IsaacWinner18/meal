@@ -1,6 +1,7 @@
 const express = require("express");
 const UserDashboard = require("../models/dashboard");
 const UserVideo = require("../models/video.model");
+const fetch = require("node-fetch");
 const DashboardRoute = express.Router();
 
 
@@ -157,32 +158,83 @@ DashboardRoute.get("/videos", async (req, res) => {
 // A Webhook to receive the payment from the user from tonapi 
 
 
-DashboardRoute.post("/webhook/ton", async (req, res) => {
+const userAddress = "0QDMoTcRiP_ciARdO2CFDvAlZ_-V70wyVl4w2na66b_oHjzV";
+let lastProcessedTxLT = 0;
+let pollingInterval = null;
 
-  try {
-  
-  const { transactionId, userId, comment } = req.body;
-  console.log(req.body);
+// Function to fetch and process transactions
+async function checkUserPayments() {
+    let fetchMore = true;
+    let offsetLT = null;
 
-  if (!transactionId || !userId || !comment) {
-    return res.status(400).json({message: "Invalid info provided"});
-  }
+    while (fetchMore) {
+        try {
+            let url = `https://testnet.toncenter.com/api/v2/getTransactions?address=${userAddress}&limit=10`;
+            if (offsetLT) {
+                url += `&lt=${offsetLT}`;
+            }
 
-  let payedUser = await UserDashboard.findOneAndUpdate(
-    { userId }, 
-    {$inc: { mlcoin: 50000}},
-    {new: true}
-  )
- if (!payedUser) {
-   return res.status(404).json({message: "User not found"});
- }
- 
-  return res.status(200).json({message: "Payment received successfully", user: payedUser});
-    
-} catch (err) {
-  console.log(`The webhook error is ${err}`)
+            const response = await fetch(url);
+            const { result: transactions } = await response.json();
+
+            if (!transactions || transactions.length === 0) {
+                break;
+            }
+
+            for (const tx of transactions) {
+                const txLT = tx.transaction_id.lt;
+                if (txLT <= lastProcessedTxLT) {
+                    fetchMore = false;
+                    break;
+                }
+
+                const userId = tx.in_msg?.message; // Extract Telegram user ID from the "message" field
+
+                if (userId) {
+                    console.log(`✅ Payment detected from user ${userId}:`, tx);
+
+                    // ✅ Update user balance in database
+                    await updateUserBalance(userId, tx);
+
+                    // Update last processed transaction LT
+                    lastProcessedTxLT = txLT;
+                }
+            }
+
+            offsetLT = transactions[transactions.length - 1].transaction_id.lt;
+        } catch (error) {
+            console.error("Error fetching transactions:", error.message);
+            break;
+        }
+    }
 }
+
+// Function to update user balance in your database
+async function updateUserBalance(userId, transaction) {
+    console.log(`Updating balance for user ${userId}...`);
+
+    const rewardUser = await UserDashboard.findOneAndUpdate(
+      { userId },
+      {
+        $inc: { mlcoin: 50000 }
+      },
+      { new: true }
+    );
+}
+
+// Route for frontend to trigger polling
+DashboardRoute.post("/start-polling", (req, res) => {
+    if (!pollingInterval) {
+        pollingInterval = setInterval(checkUserPayments, 3000);
+        console.log("🚀 Started polling for transactions...");
+        res.json({ success: true, message: "Polling started." });
+    } else {
+        res.json({ success: false, message: "Polling is already running." });
+    }
 });
+
+
+
 
 
 

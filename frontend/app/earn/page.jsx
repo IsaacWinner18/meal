@@ -5,8 +5,28 @@ import { useState } from "react";
 export default function Earn({ updatePage }) {
   const [error, setError] = useState('');
 
+  async function startPolling() {
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/start-polling`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+        });
+
+        const result = await response.json();
+        console.log(result.message);
+    } catch (error) {
+        console.error("Error starting polling:", error);
+    }
+}
+
+
+
+
   const handleTransfer = (amount) => {
     setError('');
+
+    startPolling();
+
     window.Telegram.WebApp.ready();
     window.Telegram.WebApp.expand();
 window.Telegram.WebApp.openLink(`https://meal-coin.vercel.app/tonredirect?amount=${amount}`, { try_instant_view: true });

@@ -2,6 +2,8 @@
 import { useEffect } from "react";
 import Loader from "../loader/page";
 export default function TonRedirect({ userData }) {
+
+  
   useEffect(() => {
     const param = new URLSearchParams(window.location.search)
     const amount = param.get('amount')
