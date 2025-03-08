@@ -11,6 +11,7 @@ export default function Earn({ updatePage }) {
 
         const result = await response.json();
         console.log(result.message);
+        console.log(`started polling`)
     } catch (error) {
         console.error("Error starting polling:", error);
     }
