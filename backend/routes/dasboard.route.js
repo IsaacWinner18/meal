@@ -7,7 +7,7 @@ const DashboardRoute = express.Router();
 
 
 DashboardRoute.post("/dashboard", async (req, res) => {
-  const { firstName, userId, mlcoin, referralCode, referredBy, referrrals } =
+  const { firstName, userId, mlcoin, referralCode, referredBy, referrals } =
     req.body;
   console.log(req.body);
 
@@ -45,9 +45,8 @@ if (referredBy) {
             // Update referrer and store the result
     const updatedReferrer = await UserDashboard.findOneAndUpdate(
       { userId: referredBy },  
-      { $inc: { mlcoin: referralBonus } },  
+      { $inc: { mlcoin: referralBonus, referrals: 1 } },  
       { new: true },  // Returns the updated document
-      referrrals = referrrals + 1
     );
 
     if (updatedReferrer) {
@@ -69,6 +68,7 @@ console.log("Referrer:", referrer ? referrer.userId : "No referrer");
       mlcoin,
       referralCode,
       referredBy: referrer ? referrer.userId : null,
+      referrals
     });
     const savedUser = await userDashboard.save();
     
