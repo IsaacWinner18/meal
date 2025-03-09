@@ -46,7 +46,8 @@ if (referredBy) {
     const updatedReferrer = await UserDashboard.findOneAndUpdate(
       { userId: referredBy },  
       { $inc: { mlcoin: referralBonus } },  
-      { new: true }  // Returns the updated document
+      { new: true },  // Returns the updated document
+      referrrals = referrrals + 1
     );
 
     if (updatedReferrer) {
