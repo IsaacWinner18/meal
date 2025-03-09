@@ -17,7 +17,7 @@ export default function TonRedirect() {
     }
 
     setTimeout(() => {
-        window.close();
+      window.location.href = "https://t.me/mealcoinbot/mealcoin";
     }, 7000);
   }, []);
 
