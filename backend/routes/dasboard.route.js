@@ -29,6 +29,7 @@ DashboardRoute.post("/dashboard", async (req, res) => {
           userId: existingUser.userId,
           mlcoin: existingUser.mlcoin,
           videoIds: existingUser.videoIds,
+          referrals: existingUser.referrals,
         },
       });
     }

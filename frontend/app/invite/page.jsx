@@ -9,9 +9,30 @@ import {
 import { Button } from "@/components/ui/button";
 import { Copy, Share2, Trophy } from "lucide-react";
 import { ToastProvider, useToast, CopyButton } from "./toast"
+import { useEffect } from "react";
 
 export default function Invite({ updatePage, userData }) {
   const { showToast } = useToast()
+  const [count, setCount] = useState(0);
+
+  async function getCount() {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/dashboard`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: userData?.userId, firstName: userData?.firstName }),
+    });
+    const data = await response.json();
+    console.log(data)
+    setCount(data.user.referrals);
+  }
+
+  useEffect(() => {
+    if (userData?.userId) {
+      getCount();
+    }
+  }, [userData]);
   
   const referralLink = `https://t.me/mealcoinbot/mealcoin?startapp=${userData?.userId}`;
   
@@ -85,11 +106,11 @@ const copyLinkToClipboard = async () => {
         <CardContent className="space-y-4">
           <div className="flex justify-between items-center">
             <span className="text-white">Per Referral</span>
-            <span className="text-blue-500 font-bold">100 MLC</span>
+            <span className="text-blue-500 font-bold">10 MLC</span>
           </div>
           <div className="flex justify-between items-center">
-            {/* <span className="text-white">Total Earned</span>
-            <span className="text-blue-500 font-bold">500 MLC</span> */}
+            <span className="text-white">Total Referrals</span>
+            <span className="text-blue-500 font-bold">{count}</span>
           </div>
         </CardContent>
       </Card>
