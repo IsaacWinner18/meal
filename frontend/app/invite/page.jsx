@@ -9,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Copy, Share2, Trophy } from "lucide-react";
 import { ToastProvider, useToast, CopyButton } from "./toast"
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function Invite({ updatePage, userData }) {
   const { showToast } = useToast()
