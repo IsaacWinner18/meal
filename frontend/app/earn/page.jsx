@@ -1,11 +1,11 @@
 "use client";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 export default function Earn({ userData, updatePage }) {
-  const [error, setError] = useState('');
-  
-const user = userData?.userId;  
+  const [error, setError] = useState(''); 
+
   async function startPolling() {
     try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/start-polling`);
@@ -27,7 +27,7 @@ const user = userData?.userId;
 
     window.Telegram.WebApp.ready();
     window.Telegram.WebApp.expand();
-window.Telegram.WebApp.openLink(`https://meal-coin.vercel.app/tonredirect?amount=${amount}&userId=${user}`, { try_instant_view: true });
+window.Telegram.WebApp.openLink(`https://meal-coin.vercel.app/tonredirect?amount=${amount}&userId=${userData?.userId}`, { try_instant_view: true });
 
 
     setTimeout(() => {
@@ -87,7 +87,10 @@ window.Telegram.WebApp.openLink(`https://meal-coin.vercel.app/tonredirect?amount
           </h2>
           <div className="flex justify-between items-center mt-2">
             <p className="text-gray-300 flex items-center">
-              <span className="mr-1">💎</span> {card.ton}
+                {card.ton}
+              <span className="ml-1">
+                <Image src={"/ton_symbol.png"} alt="ton logo" width={19} height={19} />
+                </span> 
             </p>
             <p className="text-gray-300 flex items-center">
               <span className="mr-1">⭐</span> {card.stars}

@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
     <>
       <html lang="en">
         <body
-          className={`${geistSans.variable} ${geistMono.variable} bg-gradient-to-b from-neutral-900 to-black antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} bg-gradient-to-b from-neutral-900 to-black antialiased sm:hidden`}
         >
           <Suspense>
             
