@@ -158,9 +158,6 @@ DashboardRoute.get("/videos", async (req, res) => {
 });
 
 
-// A Webhook to receive the payment from the user from tonapi 
-
-
 const userAddress = "0QDMoTcRiP_ciARdO2CFDvAlZ_-V70wyVl4w2na66b_oHjzV";
 let lastProcessedTxLT = 0;
 let pollingInterval = null;
@@ -191,13 +188,14 @@ async function checkUserPayments() {
                     break;
                 }
 
-                const userId = tx.in_msg?.message; // Extract Telegram user ID from the "message" field
+                const userId = tx.in_msg?.message;
+                const value = tx.in_msg?.value; 
 
                 if (userId) {
                     console.log(`✅ Payment detected from user ${userId}:`, tx);
 
                     // ✅ Update user balance in database
-                    await updateUserBalance(userId, tx);
+                    await updateUserBalance(userId, value, tx);
 
                     // Update last processed transaction LT
                     lastProcessedTxLT = txLT;
@@ -213,16 +211,43 @@ async function checkUserPayments() {
 }
 
 // Function to update user balance in your database
-async function updateUserBalance(userId, transaction) {
+async function updateUserBalance(userId, value, transaction) {
     console.log(`Updating balance for user ${userId}...`);
 
-    const rewardUser = await UserDashboard.findOneAndUpdate(
-      { userId },
-      {
-        $inc: { mlcoin: 50000 }
-      },
-      { new: true }
-    );
+    const rewardTiers = [
+      {ton: 100000000, mlcoin: 100000},
+      {ton: 90000000, mlcoin: 90000},
+      {ton: 80000000, mlcoin: 80000},
+      {ton: 70000000, mlcoin: 70000},
+      {ton: 60000000, mlcoin: 60000},
+      {ton: 50000000, mlcoin: 50000},
+      {ton: 40000000, mlcoin: 40000},
+      {ton: 30000000, mlcoin: 30000},
+      {ton: 20000000, mlcoin: 20000},
+      {ton: 10000000, mlcoin: 10000}, 
+    ];
+
+let mlcoinbought = 0;
+for (let tier of rewardTiers) {
+  if (value >= tier.ton) {
+    mlcoinbought = tier.mlcoin;
+    break;
+  }
+
+}
+
+
+if (mlcoinbought > 0) {
+  await UserDashboard.findOneAndUpdate(
+    { userId },
+    {
+      $inc: { mlcoin: mlcoinbought }
+    },
+    { new: true }
+  );
+console.log(`User ${userId} balance updated successfully. Added ${mlcoinbought} mlcoin.`);
+}
+
 }
 
 // Route for frontend to trigger polling
