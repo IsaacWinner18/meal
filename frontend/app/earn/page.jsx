@@ -43,7 +43,7 @@ window.Telegram.WebApp.openLink(`https://meal-coin.vercel.app/tonredirect?amount
   };
 
   const cards = [
-    { id: 1, name: "OTMO-100,000", image: "https://res.cloudinary.com/dkfmaqtpy/image/upload/v1741039906/donald-bot1_dphe2y.jpg", ton: "1", stars: "18" },
+    { id: 1, name: "OTMO-100,000", image: "https://res.cloudinary.com/dkfmaqtpy/image/upload/v1741039906/donald-bot1_dphe2y.jpg", ton: "1.0", stars: "18" },
     { id: 2, name: "ELMK-90,000", image: "https://res.cloudinary.com/dkfmaqtpy/image/upload/v1741039906/elon-bot1_usq2sw.jpg", ton: "0.9", stars: "16" },
     { id: 3, name: "APAM-80,000", image: "https://res.cloudinary.com/dkfmaqtpy/image/upload/v1741039906/ape-bot1_kzpd2h.jpg", ton: "0.8", stars: "14" },
     { id: 4, name: "DEQK-70,000", image: "https://res.cloudinary.com/dkfmaqtpy/image/upload/v1741039906/death-bot1_jydsgf.jpg", ton: "0.7", stars: "11" },
