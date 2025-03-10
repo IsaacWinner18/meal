@@ -192,7 +192,7 @@ async function checkUserPayments() {
                 const value = tx.in_msg?.value; 
 
                 if (userId) {
-                    console.log(`✅ Payment detected from user ${userId}:`, tx);
+                    console.log(`✅ Payment detected from user ${userId}:`);
 
                     // ✅ Update user balance in database
                     await updateUserBalance(userId, value, tx);
@@ -215,7 +215,7 @@ async function updateUserBalance(userId, value, transaction) {
     console.log(`Updating balance for user ${userId}...`);
 
     const rewardTiers = [
-      {ton: 100000000, mlcoin: 100000},
+      {ton: 1000000000, mlcoin: 100000},
       {ton: 90000000, mlcoin: 90000},
       {ton: 80000000, mlcoin: 80000},
       {ton: 70000000, mlcoin: 70000},
