@@ -296,8 +296,8 @@ export default function View({ userData, refCode }) {
       <style>
         {`
           @keyframes pulse {
-            0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0.8; transform: scale(10.9); transform: translateX(9px);}
+            0% { transform: scale(1); }
+            100% { transform: scale(10.9); transform: translateX(9px);}
           }
         `}
       </style>
