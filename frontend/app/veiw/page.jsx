@@ -227,7 +227,7 @@ export default function View({ userData, refCode }) {
 
   return (
     <div className="max-w-md mx-auto min-h-screen flex flex-col">
-      <div className="flex justify-between items-start bg-black rounded-bl-lg rounded-br-lg mb- p-2">
+      <div className="flex justify-between items-start bg-black mb- p-2">
         <div>
           <h1 className="text-lg font-bold text-white">
             {peopleData.firstName || "loading fn"}{" "}
@@ -240,7 +240,7 @@ export default function View({ userData, refCode }) {
         <Wallet />
       </div>
 
-      <div className="bg-gradient-to-r from-neutral-900 to-black shadow-inner shadow-black rounded-3xl p-3 mx-2 my-1 ">
+      <div className="bg-gradient-to-r from-neutral-900 to-black shadow-inner shadow-black p-3 ">
         <h2 className="text-center mb-2 font-bold text-white">
           Current Balance
         </h2>
@@ -259,7 +259,7 @@ export default function View({ userData, refCode }) {
 
         {/* Not a component but sha  */}
 
-        <div className="bg-gradient-to-t from-neutral-900 to-black rounded-3xl px-6 py-5 shadow-xl shadow-blue-00 mt-16 backdrop-blur-lg">
+        <div className="px-6 py-5 shadow-xl shadow-blue-00 mt-16 backdrop-blur-lg">
 
         <div>
           
@@ -271,7 +271,7 @@ export default function View({ userData, refCode }) {
               <Button
                 onClick={() => handleClaim(undefined)}
                 disabled={!canClaim}
-                className="w-full py-6 text-xl font-bold bg-amber-500 shadow-inner shadow-gold-500 hover:bg-amber-400 transition-colors glow"
+                className="w-full py-9 text-3xl font-bold bg-amber-500 shadow-inner shadow-gold-500 hover:bg-amber-400 transition-colors glow"
                 style={{ animation: "pulse 1s infinite alternate" }}
               >
                 Claim
@@ -279,12 +279,7 @@ export default function View({ userData, refCode }) {
             </motion.div>
           </div>
           <div className="text-center text-white font-bold font-mono mt-1 ">
-            1000
-            <span>
-              {" "}
-              <i>MLC</i>
-            </span>
-            <span> Available </span> &nbsp;
+          
             {/* <span>
               {loger.one}
               {loger.two}

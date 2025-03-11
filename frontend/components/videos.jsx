@@ -48,10 +48,10 @@ export default function videoComp({handleClaimProps = () => {}, claimedVideos = 
             <Link rel="noopener noreferrer" target="_blank" key={video._id}  href={video.videoUrl} className={videoClaimed ? 'hidden' : 'block'}>
             <Card
            
-              className="bg-gradient-to-b from-neutral-800 to-black border-black mx-2 mt-2 mb-6"
+              className="bg-gradient-to-b from-black to-neutral-800 border-black my-2"
             >
               <CardHeader>
-                <CardTitle className="flex items-center text-blue-600 gap-2">
+                <CardTitle className="flex items-center text-white gap-2">
                   <PlayCircle className="text-white" />
                   Watch Videos
                 </CardTitle>
@@ -65,7 +65,7 @@ export default function videoComp({handleClaimProps = () => {}, claimedVideos = 
                     // Redirect to the video
                     handleClaimProps(video._id);
                   }}
-                  className="w-full bg-blue-600 hover:bg-blue-400 "
+                  className="w-full bg-amber-600 hover:bg-amber-400 "
                   disabled={videoClaimed}
                   >
                       {videoClaimed ? 'Start Watching' : 'Start Watching'}

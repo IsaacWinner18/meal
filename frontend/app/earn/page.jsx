@@ -77,7 +77,7 @@ window.Telegram.WebApp.openLink(`https://meal-coin.vercel.app/tonredirect?amount
 <div className="text-white m-4">Buy Custom Rare Givers to increase earning💎
     
             </div>
-      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 px-2">
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-1">
             {cards.map((card) => (
         <div key={card.id} className="p-1 bg-gray-900 rounded-2xl shadow-lg">
           <img

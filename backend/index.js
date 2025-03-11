@@ -50,11 +50,14 @@ bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
     const photoUrl = "https://meal-production.up.railway.app/uploads/transformers-molie.jpeg"
     bot.sendPhoto(chatId, photoUrl, { 
-        caption: " Welcome to Mealcoin: A crypto dedicated to ending hunger worldwide.",
+        caption: " Welcome to Mealcoin: The native currency of the Mealcity platform. Mealcity is a decentralized digital metropolis on TON, accessible via Telegram Web Apps, where wallets, exchanges, swapping networks, and secure messaging converge to power a vibrant ecosystem.",
         reply_markup: {
             inline_keyboard: [
-                [{text: "Visit Mealcoin",
+                [{text: "🎁 Claim Mealcoin",
                     url: "https://t.me/mealcoinbot/mealcoin"
+                }],
+                [{text: "🫂 Visit Channel",
+                    url: "https://t.me/mealcoinai"
                 }]
             ]
         }
