@@ -25,6 +25,8 @@ export default function Home() {
       setDelayedUserData(userData);
       setLoading(false);
     }, 2000);
+    // setDelayedUserData(userData);
+    //   setLoading(false);
 
     return () => clearTimeout(timer)
   }, [userData]);

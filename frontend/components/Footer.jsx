@@ -3,14 +3,14 @@ import Link from "next/link";
 
 export default function Footer({ updatePage: setPageState }) {
   return (
-    <div className=" text-white mt-7 mb-2 py-2 bg-neutral-800 rounded-full shadow-xl shadow-black font-mono fixed bottom-0 left-0 w-full">
+    <div className=" text-white mt-7 mb-2 py-2 bg-neutral-800 backdrop-blur-lg rounded-full shadow-xl shadow-black font-mono fixed bottom-0 left-0 w-full">
       <div className="flex justify-between mx-10 ">
       <button onClick={() => setPageState(1)}>
           {/* <Link href="/" className="flex flex-col items-center"> */}
             <p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                fill="none"
+                fill="gold"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
@@ -23,7 +23,7 @@ export default function Footer({ updatePage: setPageState }) {
                 />
               </svg>
             </p>
-            <p className="text-xs opacity-85">HOME</p>
+            <p className="text-xs opacity-85 glow">HOME</p>
           {/* </Link> */}
         </button>
 
@@ -32,7 +32,7 @@ export default function Footer({ updatePage: setPageState }) {
             <p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                fill="none"
+                fill="gold"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
@@ -45,7 +45,7 @@ export default function Footer({ updatePage: setPageState }) {
                 />
               </svg>
             </p>
-            <p className="text-xs opacity-85">EARN</p>
+            <p className="text-xs opacity-85 glow">EARN</p>
           {/* </Link> */}
         </button>
         <button onClick={() => setPageState(3)}>
@@ -53,7 +53,7 @@ export default function Footer({ updatePage: setPageState }) {
             <p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                fill="none"
+                fill="gold"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
@@ -66,7 +66,19 @@ export default function Footer({ updatePage: setPageState }) {
                 />
               </svg>
             </p>
-            <p className="text-xs opacity-85">INVITE</p>
+            <p className="text-xs opacity-85 glow">INVITE</p>
+          {/* </Link> */}
+        </button>
+
+        <button>
+          {/* <Link href="/earn" className="flex flex-col items-center"> */}
+            <p>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="gold" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
+</svg>
+
+            </p>
+            <p className="text-xs opacity-85 glow">CHART</p>
           {/* </Link> */}
         </button>
 
@@ -77,3 +89,4 @@ export default function Footer({ updatePage: setPageState }) {
     </div>
   );
 }
+

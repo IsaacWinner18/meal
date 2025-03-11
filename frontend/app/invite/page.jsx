@@ -77,17 +77,17 @@ const copyLinkToClipboard = async () => {
       </div>
       <Card className="bg-green border-white mb-6">
         <CardHeader>
-          <CardTitle className="text-blue-700">Your Referral Code</CardTitle>
+          <CardTitle className="text-neutral-200">Your Referral Code</CardTitle>
           <CardDescription className="text-white opacity-55">
             Share this Link with friends to earn rewards
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex gap-2">
-            <div className="bg-blue-600 text-white p-3 rounded-lg flex-1 text-center font-mono overflow-x-scroll">
+            <div className="bg-amber-600 text-white p-3 rounded-lg flex-1 text-center font-mono overflow-x-scroll">
               {`https://t.me/mealcoinbot/mealcoin?startapp=${userData?.userId}`}
             </div>
-            <Button onClick={copyLinkToClipboard} variant="outline" size="icon" className="shrink-0">
+            <Button onClick={copyLinkToClipboard} variant="outline" size="icon" className="shrink-0 ">
               <Copy className="h-4 w-4" />
             </Button>
           </div>
@@ -97,7 +97,7 @@ const copyLinkToClipboard = async () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Trophy className="text-white" />
-            <p className="text-blue-700">Rewards</p>
+            <p className="text-neutral-200">Rewards</p>
           </CardTitle>
           <CardDescription className="text-white opacity-60">
             Earn for every friend who joins..
@@ -106,20 +106,20 @@ const copyLinkToClipboard = async () => {
         <CardContent className="space-y-4">
           <div className="flex justify-between items-center">
             <span className="text-white">Per Referral</span>
-            <span className="text-blue-500 font-bold">10 MLC</span>
+            <span className="text-amber-500 font-bold glow backdrop-blur-lg">50 MLC</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-white">Total Referrals</span>
-            <span className="text-blue-500 font-bold">{count}</span>
+            <span className="text-amber-500 font-bold glow backdrop-blur-lg">{count}</span>
           </div>
         </CardContent>
       </Card>
       <div className="grid gap-4">
-        <Button onClick={shareOnTelegram} className="w-full bg-blue-500 hover:bg-blue-600">
+        <Button onClick={shareOnTelegram} className="w-full bg-amber-800 hover:bg-amber-300 glow backdrop-blur-lg">
           <Share2 className="mr-2 h-4 w-4" />
           Share via Social Media
         </Button>
-        <Button onClick={copyLinkToClipboard} variant="outline" className="w-full text-blue-400">
+        <Button onClick={copyLinkToClipboard} variant="outline" className="w-full text-amber-900">
           <Copy className="mr-2 h-4 w-4" />
           Copy Invite Link
         </Button>

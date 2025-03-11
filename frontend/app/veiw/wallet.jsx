@@ -72,7 +72,7 @@ export default function Wallet() {
       <div onClick={handleWalletClick} className="flex flex-col justify-center items-center">
         <div>
           <button>
-            <div className="bg-blue-600 rounded-lg shadow-xl shadow-blue-700">
+            <div className="glow rounded-lg shadow-xl shadow-amber-700">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"

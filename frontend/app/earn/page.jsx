@@ -89,7 +89,7 @@ window.Telegram.WebApp.openLink(`https://meal-coin.vercel.app/tonredirect?amount
           />
           <div className="px-2">
 
-          <h2 className="mt-2 font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-purple-300 to-blue-400">
+          <h2 className="mt-2 font-bold text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-blue-300 to-black glow">
             {card.name}
           </h2>
           <div className="flex justify-between items-center mt-2">
@@ -103,7 +103,7 @@ window.Telegram.WebApp.openLink(`https://meal-coin.vercel.app/tonredirect?amount
               <span className="mr-1">⭐</span> {card.stars}
             </p>
           </div>
-          <button onClick={() => handleTransfer(card.ton * 1000000000)} className="my-4 w-20 bg-blue-500 text-white py-2 rounded-xl text-sm font-semibold shadow-lg transition transform hover:scale-105 glow-effect">
+          <button onClick={() => handleTransfer(card.ton * 1000000000)} className="my-4 w-20 bg-amber-500 text-white py-2 rounded-xl text-sm font-semibold shadow-lg transition transform hover:scale-105 glow-effect">
             Buy Now
            
           </button>

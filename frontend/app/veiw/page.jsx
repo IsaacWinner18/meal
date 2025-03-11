@@ -240,40 +240,45 @@ export default function View({ userData, refCode }) {
         <Wallet />
       </div>
 
-      <div className="bg-gradient-to-r from-neutral-900 to-black shadow-inner shadow-black rounded-3xl p-3 mx-2 my-1">
+      <div className="bg-gradient-to-r from-neutral-900 to-black shadow-inner shadow-black rounded-3xl p-3 mx-2 my-1 ">
         <h2 className="text-center mb-2 font-bold text-white">
           Current Balance
         </h2>
-        <div className="flex items-center justify-center gap-2 text-3xl font-bold mb-2">
-          <ArrowUp className="text-blue-200 bg-blue-600 rounded-full p-1" />
-          <span className="text-neutral-100">{balance}</span>
+        <div className="flex items-center justify-center gap-2 text-3xl font-bold mb-2 glow">
+          <ArrowUp className="text-amber-200 bg-amber-600 rounded-full p-1" />
+          <span className="text-neutral-100">{balance.toLocaleString()}</span>
           <span className="text-neutral-400 shadow-xl shadow-blue-100 hover:text-neutral-300">
             MLC
           </span>
         </div>
         <div className="bg-neutral-900 rounded-full text-center my-4 shadow-inner shadow-black inset-">
           <span className="text-white text-sm font-mono">
-            EARNING RATE +400.00 MLC/hr{" "}
+            EARNING RATE +42.00 MLC/hr{" "}
           </span>
         </div>
 
         {/* Not a component but sha  */}
 
-        <div className="bg-gradient-to-t from-neutral-900 to-black rounded-3xl px-6 py-5 shadow-xl shadow-blue-00 mt-16">
+        <div className="bg-gradient-to-t from-neutral-900 to-black rounded-3xl px-6 py-5 shadow-xl shadow-blue-00 mt-16 backdrop-blur-lg">
+
+        <div>
+          
+        </div>
           <h2 className="text-lg text-center text-white mb-3">Next GRAB!</h2>
           <Progress value={progress} className="mb-4 bg-white text-white" />
-          <div className="mx-16">
+          <div className="mx-16" style={{  filter: "brightness(90%)"}}>
             <motion.div whileTap={{ scale: 0.95 }}>
               <Button
                 onClick={() => handleClaim(undefined)}
                 disabled={!canClaim}
-                className="w-full py-6 text-xl bg-blue-500 shadow-inner shadow-blue-200 hover:bg-blue-700 transition-colors"
+                className="w-full py-6 text-xl font-bold bg-amber-500 shadow-inner shadow-gold-500 hover:bg-amber-400 transition-colors glow"
+                style={{ animation: "pulse 1s infinite alternate" }}
               >
                 Claim
               </Button>
             </motion.div>
           </div>
-          <div className="text-center text-white font-bold font-mono mt-1">
+          <div className="text-center text-white font-bold font-mono mt-1 ">
             1000
             <span>
               {" "}
@@ -287,6 +292,15 @@ export default function View({ userData, refCode }) {
           </div>
         </div>
       </div>
+
+      <style>
+        {`
+          @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(10.9); transform: translateX(9px);}
+          }
+        `}
+      </style>
 
       <Videos
         handleClaimProps={(id) => handleClaim(id)}
