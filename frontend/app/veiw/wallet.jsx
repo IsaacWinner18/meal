@@ -90,12 +90,12 @@ export default function Wallet() {
       </div>
 
       {showConfirmDialog && (
-        <div className="fixed top-20 inset-0 flex items-center justify-center bg-black bg-opacity-70">
-          <div className="bg-white p-4 rounded-lg shadow-lg">
+        <div className="fixed top-20 inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+          <div className="bg-white p-12 rounded-lg shadow-lg">
             <p>Do you want to disconnect?</p>
             <div className="flex justify-end space-x-2 mt-4">
-              <button onClick={handleCancel} className="px-4 py-2 bg-gray-300 rounded">Cancel</button>
-              <button onClick={handleConfirm} className="px-4 py-2 bg-blue-600 text-white rounded">Confirm</button>
+              <button onClick={handleCancel} className="px-6 py-4 bg-gray-300 rounded">Cancel</button>
+              <button onClick={handleConfirm} className="px-6 py-4 bg-blue-600 text-white rounded">Confirm</button>
             </div>
           </div>
         </div>
