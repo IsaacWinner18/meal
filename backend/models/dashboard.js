@@ -18,7 +18,7 @@ const dashboardSchema = new mongoose.Schema({
     type: Date,
     default: null,
   },
-  videoIds: {
+  taskIds: {
     type: Array,
     default: [],
   },

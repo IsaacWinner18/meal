@@ -1,101 +1,41 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
-import Videos from "@/components/videos";
+import Tasks from "@/components/tasks";
 import Wallet from "./wallet";
+import Image from "next/image";
+import SpaceAnimation from "@/app/veiw/space-animation";
 export default function View({ userData, refCode }) {
 
   const [balance, setBalance] = useState(0);
-  const [progress, setProgress] = useState(0);
   const [canClaim, setCanClaim] = useState(true);
-  const [loger, setLogErr] = useState({
-    one: "",
-    two: "",
-  });
-  // const [videos, setVideos] = useState([]);
-  const [lastClaimed, setLastClaimed] = useState(null);
-  const [claimedVideos, setClaimedVideos] = useState([]);
+  const [lastClaimed, setLastClaimed] = useState(() => localStorage.getItem('lastClaimed'));
+
+  const [progress, setProgress] = useState(() => localStorage.getItem('progress') || 0);
+
+
+  const [claimedTasks, setClaimedTasks] = useState([]);
 
   const [peopleData, setPeopleData] = useState({
     firstName: "",
     userId: "",
     referralCode: "",
   });
-  const [referredBy, setReferredBy] = useState();
-
-  // useEffect(() => {
-  //   const loadTelegramSDK = () => {
-  //     if (typeof window.Telegram === "undefined") {
-  //       const script = document.createElement("script");
-  //       script.src = "https://telegram.org/js/telegram-web-app.js";
-  //       script.onload = () => {
-  //         console.log("Telegram WebApp SDK loaded.");
-
-  //         // Example usage after SDK is loaded
-  //         if (typeof Telegram !== "undefined" && Telegram.WebApp) {
-  //           const webApp = Telegram.WebApp;
-
-  //           // Extract user data from initDataUnsafe
-  //           const userData = webApp.initDataUnsafe?.user;
-  //           // const initData = window.Telegram.WebApp.initDataUnsafe;
-
-  //           if (userData) {
-  //             // Access user properties
-  //             const { first_name, last_name, username, id } = userData;
-
-  //             webApp.ready();
-
-  //             // I uncomment anytime i want to deploy
-
-  //             setPeopleData((prev) => ({
-  //               ...prev,
-  //               firstName: first_name,
-  //               userName: username,
-  //               userId: id,
-  //               referralCode: id,
-  //             }));
-
-  //             fetchData({
-  //               firstName: first_name,
-
-  //               userName: username,
-  //               userId: id,
-  //               referralCode: id,
-  //             });
-
-  //             console.log("User's first name:", first_name);
-  //           } else {
-  //             console.log("User data not available.");
-  //           }
-  //         }
-  //       };
-  //       script.onerror = () => {
-  //         console.error("Failed to load Telegram WebApp SDK.");
-  //       };
-  //       document.head.appendChild(script);
-  //     } else {
-  //       console.log("Telegram WebApp SDK already loaded.");
-  //     }
-  //   };
-
-  //   loadTelegramSDK();
-  // }, []);
-
-  // // I uncomment when testing locally
-  // useEffect(() => {
-
-  //   fetchData({
-  //     firstName: "winner",
-  //     userName: "samson12",
-  //     userId: "344556",
-  //     referralCode: "1234567",
-  //   });
-  // }, []);
-
   
+  const [isAnimating, setIsAnimating] = useState(false)
+
+  const handleClaimtwo = () => {
+    if (isAnimating) return
+    setIsAnimating(true)
+
+    // Reset animation after 3 seconds
+    setTimeout(() => {
+      setIsAnimating(false)
+    }, 3000)
+  }
+
   useEffect(() => {
     if (userData) {
       setPeopleData({
@@ -134,8 +74,8 @@ export default function View({ userData, refCode }) {
 
       const data = await response.json();
       console.log(data);
-      setLastClaimed(new Date(data.user.lastClaimed));
-      setClaimedVideos(data.user.videoIds);
+      setClaimedTasks(data.user.taskIds);
+      console.log("the claimed tasks:", claimedTasks)
 
       // alert(data.toString())
       setBalance(data.user.mlcoin);
@@ -157,7 +97,11 @@ export default function View({ userData, refCode }) {
     }
   }, [peopleData.userId]);
 
-  const handleClaim = async (videoId) => {
+
+
+
+
+  const handleClaim = async (taskId) => {
     // if (canClaim) {
     try {
       const response = await fetch(
@@ -170,7 +114,7 @@ export default function View({ userData, refCode }) {
 
           body: JSON.stringify({
             userId: peopleData.userId,
-            videoId: videoId ? videoId : null,
+            taskId: taskId ? taskId : null,
           }),
         }
       );
@@ -182,23 +126,22 @@ export default function View({ userData, refCode }) {
       const data = await response.json();
       setBalance(data.user.mlcoin);
       setProgress(0);
+      localStorage.setItem("progress", "0");
 
-      if (videoId) {
-        setClaimedVideos((prev) => [...prev, videoId]);
-      }
+    setCanClaim(false);
 
-      if (!videoId) {
-        setCanClaim(false);
-        setTimeout(() => {
-          setCanClaim(true);
-        }, 2 * 60 * 1000);
+      const dateinit = new Date(data.lastClaimed);
+      setLastClaimed(dateinit)
+      localStorage.setItem("lastClaimed", dateinit);
+      
+      console.log('last claimed:', new Date(data.lastClaimed) )
+
+      if (taskId) {
+        setClaimedTasks((prev) => [...prev, taskId]);
       }
-      if (loger.one) setLogErr((prev) => ({ ...prev, one: "" }));
+      
     } catch (error) {
       console.log(`The adeola error ${error}`);
-      // setLogErr((prev) => ({
-      //   one: error.message,
-      // }));
     }
   };
 
@@ -210,18 +153,46 @@ export default function View({ userData, refCode }) {
 
       const differenceInMinutes =
         (date2.getTime() - date1.getTime()) / (1000 * 60);
-      const increment = 100 / ((differenceInMinutes * 60 * 1000) / interval);
 
-      const timer = setInterval(() => {
-        setProgress((prev) => {
-          if (prev >= 100) {
-            clearInterval(timer);
-            return 100;
-          }
-          return prev + increment;
-        });
-      }, interval);
-      return () => clearInterval(timer);
+        const claimCooldownMinutes = 2; // 2 minutes cooldown
+
+      const increment = 100 / ((claimCooldownMinutes * 60 * 1000) / interval);
+
+      if (differenceInMinutes >= claimCooldownMinutes) {
+        setCanClaim(true);
+      setProgress(100);
+      localStorage.setItem("progress", "100");
+      } else {
+        setCanClaim(false);
+
+        const remainingTime = claimCooldownMinutes * 60 - differenceInMinutes * 60;
+
+
+        const initialProgress = (differenceInMinutes / claimCooldownMinutes) * 100;
+
+
+        setProgress(initialProgress);
+
+        localStorage.setItem("progress", initialProgress.toString());
+
+
+        const timer = setInterval(() => {
+          setProgress((prev) => {
+            if (prev >= 100) {
+              clearInterval(timer);
+              setCanClaim(true);
+              localStorage.setItem("progress", "100");
+              return 100;
+            }
+
+            const newProgress = prev + increment;
+            localStorage.setItem("progress", newProgress.toString());
+            return newProgress;
+
+          });
+        }, interval);
+        return () => clearInterval(timer);
+      }
     }
   }, [lastClaimed]);
 
@@ -247,36 +218,59 @@ export default function View({ userData, refCode }) {
         <div className="flex items-center justify-center gap-2 text-3xl font-bold mb-2 glow">
           <ArrowUp className="text-amber-200 bg-amber-600 rounded-full p-1" />
           <span className="text-neutral-100">{balance.toLocaleString()}</span>
-          <span className="text-neutral-400 shadow-xl shadow-blue-100 hover:text-neutral-300">
+          <span className="text-neutral-400 shadow-xl shadow-amber-100 hover:text-neutral-300">
             MLC
           </span>
         </div>
+        <div className="flex justify-center items-center ">
+          <Image src="https://res.cloudinary.com/dkfmaqtpy/image/upload/v1741712631/mealcoin-logo_avicx0.png" alt="mealcoin-logo" width={60} height={30} />
+
+        </div>
         <div className="bg-neutral-900 rounded-full text-center my-4 shadow-inner shadow-black inset-">
           <span className="text-white text-sm font-mono">
-            EARNING RATE +42.00 MLC/hr{" "}
+            EARNING RATE +1000.00 MLC/day{" "}
           </span>
         </div>
 
         {/* Not a component but sha  */}
 
-        <div className="px-6 py-5 shadow-xl shadow-blue-00 mt-16 backdrop-blur-lg">
+        <div className="px-6 shadow-xl shadow-blue-00 mt-1 backdrop-blur-lg">
 
         <div>
           
         </div>
-          <h2 className="text-lg text-center text-white mb-3">Next GRAB!</h2>
-          <Progress value={progress} className="mb-4 bg-white text-white" />
-          <div className="mx-16" style={{  filter: "brightness(90%)"}}>
+          <h2 className="text-lg text-center text-white mb-3 font-mono">Next GRAB!</h2>
+        
+          <div className="mb-5" style={{ width: "100%", height: "14px", background: "#ddd", borderRadius: "10px", overflow: "hidden" }}>
+
+  <div value={progress}
+    style={{
+      width: `${progress}%`,
+      height: "100%",
+      background: "#ff5722", // Change this color
+      transition: "width 0.5s ease-in-out"
+    }}
+  />
+</div>
+
+          <div className="mx-16" style={{  filter: " blur(0.3px) brightness(90%)"}}>
             <motion.div whileTap={{ scale: 0.95 }}>
               <Button
-                onClick={() => handleClaim(undefined)}
+                onClick={() => {
+
+                  handleClaim(undefined);
+                  handleClaimtwo();
+                }
+                }
                 disabled={!canClaim}
-                className="w-full py-9 text-3xl font-bold bg-amber-500 shadow-inner shadow-gold-500 hover:bg-amber-400 transition-colors glow"
+                
+                className="w-full py-9 text-3xl font-bold bg-gradient-to-r from-amber-500 shadow-inner shadow-gold-500 hover:bg-amber-400 transition-colors glow"
                 style={{ animation: "pulse 1s infinite alternate" }}
               >
                 Claim
               </Button>
             </motion.div>
+            
           </div>
           <div className="text-center text-white font-bold font-mono mt-1 ">
           
@@ -297,11 +291,12 @@ export default function View({ userData, refCode }) {
         `}
       </style>
 
-      <Videos
+      <Tasks
         handleClaimProps={(id) => handleClaim(id)}
-        claimedVideos={claimedVideos}
+        claimedTasks={claimedTasks}
       />
       {/* <Footer /> */}
+      <SpaceAnimation isAnimating={isAnimating} />
     </div>
   );
 }

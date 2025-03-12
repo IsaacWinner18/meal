@@ -1,6 +1,6 @@
 const express = require("express");
 const UserDashboard = require("../models/dashboard");
-const UserVideo = require("../models/video.model");
+const UserTask = require("../models/task.model");
 const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
 const DashboardRoute = express.Router();
@@ -28,14 +28,14 @@ DashboardRoute.post("/dashboard", async (req, res) => {
         user: {
           userId: existingUser.userId,
           mlcoin: existingUser.mlcoin,
-          videoIds: existingUser.videoIds,
+          taskIds: existingUser.taskIds,
           referrals: existingUser.referrals,
         },
       });
     }
       
     let referrer = null;
-    let referralBonus = 50;
+    let referralBonus = 15000;
     let mlcoin = 0;
 
 if (referredBy) {
@@ -46,7 +46,7 @@ if (referredBy) {
             // Update referrer and store the result
     const updatedReferrer = await UserDashboard.findOneAndUpdate(
       { userId: referredBy },  
-      { $inc: { mlcoin: referralBonus, referrals: 1 } },  
+      { $inc: { mlcoin: 10000, referrals: 1 } },  
       { new: true },  // Returns the updated document
     );
 
@@ -94,13 +94,14 @@ const A = (date) => {
 };
 
 DashboardRoute.patch("/dashboard", async (req, res) => {
-  const { userId, videoId } = req.body;
+  const { userId, taskId } = req.body;
   console.log(req.body);
   // console.log("This is the videoId that needs to be stored at backend", videoId)
 
   let user;
+  let mlcperhour = 1000;
   try {
-    if (!videoId) {
+    if (!taskId) {
       const usertime = await UserDashboard.findOne({ userId });
 
       if (!usertime) {
@@ -115,24 +116,30 @@ DashboardRoute.patch("/dashboard", async (req, res) => {
       user = await UserDashboard.findOneAndUpdate(
         { userId },
         {
-          $inc: { mlcoin: 1000 },
+          $inc: { mlcoin: mlcperhour },
           lastClaimed: new Date(),
         },
         { new: true }
       );
     } else {
-      const video = await UserVideo.findOne({ _id: videoId });
-      // console.log(video)
+      const task = await UserTask.findOne({_id: taskId });
+ 
 
-      if (!video) {
-        return res.status(400).json({ message: "Invalid video ID provided" });
+      if (!task) {
+        return res.status(400).json({ message: "Invalid task ID provided" });
       }
+
+      const userTaskCheck = await UserDashboard.findOne({userId, taskIds: taskId});
+
+      if (userTaskCheck) 
+        return res.status(400).json({message: "Task already completed"})
+      
 
       user = await UserDashboard.findOneAndUpdate(
         { userId },
         {
-          $inc: { mlcoin: video.coin },
-          $addToSet: { videoIds: videoId },
+          $inc: { mlcoin: task.coin },
+          $addToSet: { taskIds: taskId },
         },
         { new: true }
       );
@@ -141,7 +148,7 @@ DashboardRoute.patch("/dashboard", async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "userId not found" });
     }
-    res.json({ message: "mlcoin updated successfully", user });
+    res.json({ message: "mlcoin updated successfully", user, lastClaimed: user.lastClaimed });
   } catch (err) {
     console.log(`This an update error ${err}`);
     res
@@ -150,10 +157,10 @@ DashboardRoute.patch("/dashboard", async (req, res) => {
   }
 });
 
-DashboardRoute.get("/videos", async (req, res) => {
-  const videos = await UserVideo.find();
+DashboardRoute.get("/tasks", async (req, res) => {
+  const tasks = await UserTask.find();
 
-  return res.status(200).json({ data: videos });
+  return res.status(200).json({ data: tasks });
   
 });
 

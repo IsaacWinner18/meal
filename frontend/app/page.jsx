@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import View from "./veiw/page";
 import Invite from "./invite/page";
 import Footer from "@/components/Footer";
+
 import Earn from "./earn/page";
 import Image from "next/image";
 import { ToastProvider, useToast, CopyButton } from "../app/invite/toast"
@@ -96,6 +97,7 @@ export default function Home() {
       ) : (
 
     <>
+    
       {pageState === 1 && <View userData={userData} refCode={refCode} />}
       {pageState === 2 && <Earn updatePage={setPageState} userData={userData} />}
       <ToastProvider>
