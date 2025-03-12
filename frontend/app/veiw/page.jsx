@@ -11,9 +11,9 @@ export default function View({ userData, refCode }) {
 
   const [balance, setBalance] = useState(0);
   const [canClaim, setCanClaim] = useState(true);
-  const [lastClaimed, setLastClaimed] = useState(() => localStorage.getItem('lastClaimed'));
+  const [lastClaimed, setLastClaimed] = useState(null);
 
-  const [progress, setProgress] = useState(() => localStorage.getItem('progress') || 0);
+  const [progress, setProgress] = useState(0);
 
 
   const [claimedTasks, setClaimedTasks] = useState([]);
@@ -25,6 +25,22 @@ export default function View({ userData, refCode }) {
   });
   
   const [isAnimating, setIsAnimating] = useState(false)
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedLastClaimed = localStorage.getItem("lastClaimed");
+      const storedProgress = localStorage.getItem("progress");
+      if (storedLastClaimed) {
+        setLastClaimed(storedLastClaimed);
+      }
+      if (storedProgress) {
+        setProgress(Number(storedProgress));
+      }
+    }
+  }, []);
+
+
+
 
   const handleClaimtwo = () => {
     if (isAnimating) return
