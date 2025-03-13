@@ -23,7 +23,7 @@ export default function TaskComp({handleClaimProps = () => {}, claimedTasks = []
 
       useEffect(() => {
         taskFunc()
-      }, [process.env.NEXT_PUBLIC_API_URL])
+      }, [])
 
   
 

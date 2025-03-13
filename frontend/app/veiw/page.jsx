@@ -133,7 +133,7 @@ export default function View({ userData, refCode }) {
           ),
         }
       );
-      console.log("Sending PATCH request with:", { userId: peopleData.userId, taskId });
+      // console.log("Sending PATCH request with:", { userId: peopleData.userId, taskId });
 
       if (!response.ok) {
         throw new Error("failed to update mlcoin");
