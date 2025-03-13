@@ -128,12 +128,12 @@ export default function View({ userData, refCode }) {
             "Content-Type": "application/json",
           },
 
-          body: JSON.stringify({
-            userId: peopleData.userId,
-            taskId: taskId ? taskId : null,
-          }),
+          body: JSON.stringify(
+            taskId ? { userId: peopleData.userId, taskId } : { userId: peopleData.userId }
+          ),
         }
       );
+      console.log("Sending PATCH request with:", { userId: peopleData.userId, taskId });
 
       if (!response.ok) {
         throw new Error("failed to update mlcoin");
