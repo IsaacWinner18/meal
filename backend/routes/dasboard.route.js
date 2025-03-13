@@ -253,6 +253,8 @@ if (mlcoinbought > 0) {
     { new: true }
   );
 console.log(`User ${userId} balance updated successfully. Added ${mlcoinbought} mlcoin.`);
+} else {
+  console.log("couldn't update mlcoin")
 }
 
 }
