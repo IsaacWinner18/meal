@@ -80,15 +80,15 @@ export default function Home() {
     loadTelegramSDK(); 
   }, []);
 
-  useEffect(() => {
-    setUserData({
-      firstName: "Winner",
-      userId: 409876,
-    });
-  }, [])
-  useEffect(() => {
-    setRefcode(234567)
-  }, [])
+  // useEffect(() => {
+  //   setUserData({
+  //     firstName: "Winner",
+  //     userId: 409876,
+  //   });
+  // }, [])
+  // useEffect(() => {
+  //   setRefcode(234567)
+  // }, [])
  console.log("This is the userData", userData)
 
   return (
