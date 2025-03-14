@@ -9,6 +9,7 @@ const dashboardSchema = new mongoose.Schema({
   userId: {
     type: Number,
     required: true,
+    unique: true,
   },
   mlcoin: {
     type: Number,

@@ -19,8 +19,6 @@ DashboardRoute.post("/dashboard", async (req, res) => {
 
   try {
     const existingUser = await UserDashboard.findOne({ userId });
-    // console.log(existingUser ? "user exists" : "nope");
-    // console.log(existingUser);
 
     if (existingUser) {
       return res.status(200).json({
@@ -70,7 +68,9 @@ if (referredBy) {
       referralCode,
       referredBy: referrer ? referrer.userId : null,
       referrals
-    });
+    },
+    { upsert: true, new: true }
+  );
     const savedUser = await userDashboard.save();
     
     res.status(201).json({
