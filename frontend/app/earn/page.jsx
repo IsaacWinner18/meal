@@ -9,7 +9,8 @@ export default function Earn({ userData, updatePage }) {
   async function startPolling() {
     try {
       console.log("starting polling");
-      console.log("API URL:", `${process.env.NEXT_PUBLIC_API_URL}/start-polling`);
+      // console.log("API URL:", `${process.env.NEXT_PUBLIC_API_URL}/start-polling`);
+
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/start-polling`, {
           method: 'POST', 
           headers: {
