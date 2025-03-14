@@ -170,6 +170,7 @@ export default function View({ userData, refCode }) {
         setCanClaim(true);
       setProgress(100);
       localStorage.setItem("progress", "100");
+
       } else {
         setCanClaim(false);
 
@@ -204,7 +205,9 @@ export default function View({ userData, refCode }) {
     }
   }, [lastClaimed]);
 
-  
+  const clearLocal = () => {
+    localStorage.clear();
+  }
 
   return (
     <div className="max-w-md mx-auto min-h-screen flex flex-col">
@@ -238,7 +241,7 @@ export default function View({ userData, refCode }) {
         </div>
         <div className="bg-neutral-900 rounded-full text-center my-4 shadow-inner shadow-black inset-">
           <span className="text-white text-sm font-mono">
-            EARNING RATE +1000.00 MLC/day{" "}
+            EARNING RATE +1000.00 MLC/day <Button onClick={clearLocal()}>clear local storage </Button> {" "}
           </span>
         </div>
 
