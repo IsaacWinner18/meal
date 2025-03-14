@@ -60,7 +60,7 @@ if (referredBy) {
     
     }
     console.log("New user mlcoin:", mlcoin);
-console.log("Referrer:", referrer ? referrer.userId : "No referrer");
+   console.log("Referrer:", referrer ? referrer.userId : "No referrer");
 
 
     const userDashboard = new UserDashboard({
@@ -94,14 +94,13 @@ const A = (date) => {
 };
 
 DashboardRoute.patch("/dashboard", async (req, res) => {
-  const { userId, taskId } = req.body;
+  const { userId } = req.body;
   console.log(req.body);
   // console.log("This is the videoId that needs to be stored at backend", videoId)
 
   let user;
   let mlcperhour = 1000;
   try {
-    if (!taskId) {
       const usertime = await UserDashboard.findOne({ userId });
 
       if (!usertime) {
@@ -121,29 +120,8 @@ DashboardRoute.patch("/dashboard", async (req, res) => {
         },
         { new: true }
       );
-    } else {
-      const task = await UserTask.findOne({_id: taskId });
- 
-
-      if (!task) {
-        return res.status(400).json({ message: "Invalid task ID provided" });
-      }
-
-      const userTaskCheck = await UserDashboard.findOne({userId, taskIds: taskId});
-
-      if (userTaskCheck) 
-        return res.status(400).json({message: "Task already completed"})
+    
       
-
-      user = await UserDashboard.findOneAndUpdate(
-        { userId },
-        {
-          $inc: { mlcoin: task.coin },
-          $addToSet: { taskIds: taskId },
-        },
-        { new: true }
-      );
-    }
 
     if (!user) {
       return res.status(404).json({ message: "userId not found" });
@@ -163,6 +141,45 @@ DashboardRoute.get("/tasks", async (req, res) => {
   return res.status(200).json({ data: tasks });
   
 });
+
+DashboardRoute.patch("/tasks", async (req, res) => {
+  const { userId, taskId } = req.body;
+
+  console.log(" task route console logging", req.body)
+
+  try {
+
+  
+  
+  const task = await UserTask.findOne({_id: taskId });
+
+      if (!task) {
+        return res.status(400).json({ message: "Invalid task ID provided" });
+      }
+
+      const userTaskCheck = await UserDashboard.findOne({userId, taskIds: taskId});
+
+      if (userTaskCheck) {
+        console.log("Task already completed")
+        return res.status(400).json({message: "Task already completed"})
+      } else {  
+        const userInTask =  await UserDashboard.findOneAndUpdate(
+                { userId },
+                {
+                  $inc: { mlcoin: task.coin },
+                  $addToSet: { taskIds: taskId },
+                },
+                { new: true }
+              );
+res.json({message: "patch of task done", userInTask })
+      }
+    } catch (error) {
+      console.log("task couln't update mlcoin")
+    }   
+    
+})
+
+
 
 
 const userAddress = "0QDMoTcRiP_ciARdO2CFDvAlZ_-V70wyVl4w2na66b_oHjzV";

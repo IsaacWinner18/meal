@@ -9,6 +9,7 @@ import Earn from "./earn/page";
 import Image from "next/image";
 import { ToastProvider, useToast, CopyButton } from "../app/invite/toast"
 import Loader from "./loader/page";
+import TaskComp from "@/components/tasks";
 // import TonRedirect from "./tonredirect/page";
 
 
@@ -81,14 +82,14 @@ export default function Home() {
 
   // useEffect(() => {
   //   setUserData({
-  //     firstName: " Winner ",
+  //     firstName: "Winner",
   //     userId: 409876,
   //   });
   // }, [])
   // useEffect(() => {
   //   setRefcode(234567)
   // }, [])
- // console.log("This is the userData", userData)
+ console.log("This is the userData", userData)
 
   return (
     <>
@@ -104,7 +105,7 @@ export default function Home() {
       {pageState === 3 && <Invite updatePage={setPageState} userData={userData} />}
       </ToastProvider>
       {pageState === 1 && <Footer updatePage={setPageState} />}
-      {/* {pageState === 4 && <TonRedirect updatePage={setPageState} userData={userData}/>} */}
+      {/* {pageState === 4 && <TaskComp updatePage={setPageState} userData={userData}/>} */}
       </> 
       )}
       

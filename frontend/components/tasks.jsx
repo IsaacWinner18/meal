@@ -5,27 +5,76 @@ import Link from "next/link";
 import Image from "next/image";
 
 
-export default function TaskComp({handleClaimProps = () => {}, claimedTasks = [] }) {
- 
-  
-  
+export default function TaskComp({updatePage, funcUsedInTask, userData}) {
+   
   const [tasks, setTasks] = useState([]);
+  const [claimedTaskIds, setClaimedTaskIds] = useState([])
+  // const [setBalance] = useState(0)
+
+  const fetchDataInTask = async () => {
+    try {
+      const firstResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/dashboard`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({firstName: userData.firstName, userId: userData?.userId }),
+        }
+      );
+  
+      if (!firstResponse.ok) {
+        throw new Error("failed to register");
+      }
+      const data = await firstResponse.json();
+  
+      setClaimedTaskIds(data.user.taskIds)
+      funcUsedInTask(data)
+      // console.log("this is the claimed taskIds from post in task", data.user.taskIds)
+
+    } catch (error) {
+      console.log(`Fetch error: ${error.message}`);
+     
+    }
+  }
 
 
-    const taskFunc = async () => {
+  const patchTask = async (task) => {
+    try {
+
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/tasks`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({userId: userData?.userId, taskId: task._id})
+        }
+      );
+    } catch (error) {
+      console.log("couldn't patch from task component")
+    }
+  }
+
+    
+  const taskFunc = async () => {
         const responseTask = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/tasks`
-        );
+          `${process.env.NEXT_PUBLIC_API_URL}/tasks`,  {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            }
+    });
+
         if (!responseTask.ok) throw Error("Something went wrong");
         const { data } = await responseTask.json();
         setTasks(data);
       };
 
       useEffect(() => {
+        fetchDataInTask()
         taskFunc()
       }, [])
-
-  
 
     
     return (
@@ -36,11 +85,16 @@ export default function TaskComp({handleClaimProps = () => {}, claimedTasks = []
       <div className="space-y-4 mb-24">
 
         {tasks.map((task) => {
-          const taskClaimed = claimedTasks.includes(task._id);
+          const taskClaimed = claimedTaskIds.includes(task._id);
           return (
             <Link rel="noopener noreferrer" target="_blank" key={task._id}  href={task.taskUrl}>
           <div
-            onClick={() => handleClaimProps(task._id)}
+            onClick={ async () => {
+              await patchTask(task); 
+              await fetchDataInTask();
+              await taskFunc();
+              
+             }}
             className="flex items-center bg-[#1e1e1e] rounded-lg p-3 cursor-pointer hover:bg-[#2a2a2a] transition-colors"
           >
             <div className="relative h-16 w-16 flex-shrink-0 mr-3">

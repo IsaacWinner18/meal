@@ -7,16 +7,16 @@ import Tasks from "@/components/tasks";
 import Wallet from "./wallet";
 import Image from "next/image";
 import SpaceAnimation from "@/app/veiw/space-animation";
+
+
+
+
 export default function View({ userData, refCode }) {
 
   const [balance, setBalance] = useState(0);
   const [canClaim, setCanClaim] = useState(true);
   const [lastClaimed, setLastClaimed] = useState(null);
-
   const [progress, setProgress] = useState(0);
-
-
-  const [claimedTasks, setClaimedTasks] = useState([]);
 
   const [peopleData, setPeopleData] = useState({
     firstName: "",
@@ -38,8 +38,6 @@ export default function View({ userData, refCode }) {
       }
     }
   }, []);
-
-
 
 
   const handleClaimtwo = () => {
@@ -90,9 +88,6 @@ export default function View({ userData, refCode }) {
 
       const data = await response.json();
       console.log(data);
-      setClaimedTasks(data.user.taskIds);
-      console.log("the claimed tasks:", claimedTasks)
-
       // alert(data.toString())
       setBalance(data.user.mlcoin);
     } catch (error) {
@@ -117,7 +112,7 @@ export default function View({ userData, refCode }) {
 
 
 
-  const handleClaim = async (taskId) => {
+  const handleClaim = async () => {
     // if (canClaim) {
     try {
       const response = await fetch(
@@ -128,12 +123,9 @@ export default function View({ userData, refCode }) {
             "Content-Type": "application/json",
           },
 
-          body: JSON.stringify(
-            taskId ? { userId: peopleData.userId, taskId } : { userId: peopleData.userId }
-          ),
+          body: JSON.stringify({ userId: peopleData.userId }),
         }
       );
-      // console.log("Sending PATCH request with:", { userId: peopleData.userId, taskId });
 
       if (!response.ok) {
         throw new Error("failed to update mlcoin");
@@ -144,22 +136,22 @@ export default function View({ userData, refCode }) {
       setProgress(0);
       localStorage.setItem("progress", "0");
 
-    setCanClaim(false);
+       setCanClaim(false);
 
       const dateinit = new Date(data.lastClaimed);
       setLastClaimed(dateinit)
       localStorage.setItem("lastClaimed", dateinit);
-      
-      console.log('last claimed:', new Date(data.lastClaimed) )
-
-      if (taskId) {
-        setClaimedTasks((prev) => [...prev, taskId]);
-      }
-      
+      funcUsedInTask(data)
+      // console.log('last claimed:', new Date(data.lastClaimed) )
+     
     } catch (error) {
       console.log(`The adeola error ${error}`);
     }
   };
+
+  const funcUsedInTask = (data) => {
+    setBalance(data.user.mlcoin);
+  }
 
   useEffect(() => {
     if (lastClaimed) {
@@ -211,6 +203,8 @@ export default function View({ userData, refCode }) {
       }
     }
   }, [lastClaimed]);
+
+  
 
   return (
     <div className="max-w-md mx-auto min-h-screen flex flex-col">
@@ -307,10 +301,7 @@ export default function View({ userData, refCode }) {
         `}
       </style>
 
-      <Tasks
-        handleClaimProps={(id) => handleClaim(id)}
-        claimedTasks={claimedTasks}
-      />
+      <Tasks userData={userData} funcUsedInTask={funcUsedInTask} />
       {/* <Footer /> */}
       <SpaceAnimation isAnimating={isAnimating} />
     </div>
