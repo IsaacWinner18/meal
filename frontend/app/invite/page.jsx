@@ -84,7 +84,7 @@ const copyLinkToClipboard = async () => {
         </CardHeader>
         <CardContent>
           <div className="flex gap-2">
-            <div className="bg-amber-600 text-white p-3 rounded-lg flex-1 text-center font-mono overflow-x-scroll">
+            <div className="bg-amber-800 text-white p-3 rounded-lg flex-1 text-center font-mono overflow-x-scroll">
               {`https://t.me/mealcoinbot/mealcoin?startapp=${userData?.userId}`}
             </div>
             <Button onClick={copyLinkToClipboard} variant="outline" size="icon" className="shrink-0 ">
@@ -106,7 +106,7 @@ const copyLinkToClipboard = async () => {
         <CardContent className="space-y-4">
           <div className="flex justify-between items-center">
             <span className="text-white">Per Referral</span>
-            <span className="text-amber-500 font-bold glow backdrop-blur-lg">50 MLC</span>
+            <span className="text-amber-500 font-bold glow backdrop-blur-lg">10,000 MLC</span>
           </div>
           <div className="flex justify-between items-center">
             <span className="text-white">Total Referrals</span>

@@ -194,7 +194,7 @@ async function checkUserPayments() {
 
     while (fetchMore) {
         try {
-            let url = `https://testnet.toncenter.com/api/v2/getTransactions?address=${userAddress}&limit=6`;
+            let url = `https://testnet.toncenter.com/api/v2/getTransactions?address=${userAddress}&limit=10`;
             if (offsetLT) {
                 url += `&lt=${offsetLT}`;
             }
