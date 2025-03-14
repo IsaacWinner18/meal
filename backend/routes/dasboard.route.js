@@ -62,17 +62,15 @@ if (referredBy) {
 
 
     const userDashboard = new UserDashboard({
-      $setOnInsert: {
-        _id: new mongoose.Types.ObjectId(),
       firstName,
       userId,
       mlcoin,
       referralCode,
       referredBy: referrer ? referrer.userId : null,
       referrals
-      }
+      
     },
-    { upsert: true, new: true }
+   
   );
     const savedUser = await userDashboard.save();
     
