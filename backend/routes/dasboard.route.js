@@ -200,16 +200,12 @@ async function updateUserBalance(userId, value, transaction) {
     console.log(`Updating balance for user ${userId}...`);
 
     const rewardTiers = [
-      {ton: 500000000, mlcoin: 100000},
-      {ton: 400000000, mlcoin: 90000},
-      {ton: 300000000, mlcoin: 80000},
-      {ton: 200000000, mlcoin: 70000},
-      {ton: 100000000, mlcoin: 60000},
-      {ton: 90000000, mlcoin: 50000},
-      {ton: 80000000, mlcoin: 40000},
-      {ton: 70000000, mlcoin: 30000},
-      {ton: 60000000, mlcoin: 20000},
-      {ton: 50000000, mlcoin: 10000}, 
+      {ton: 500000000, mlcoin: 100000}, //0.5
+      {ton: 400000000, mlcoin: 90000}, //0.4
+      {ton: 300000000, mlcoin: 80000}, //0.3
+      {ton: 200000000, mlcoin: 70000}, //0.2
+      {ton: 100000000, mlcoin: 60000}, //0.1
+      {ton: 90000000, mlcoin: 50000}, // 0.09
     ];
 
 let mlcoinbought = 0;
