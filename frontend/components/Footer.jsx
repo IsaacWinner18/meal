@@ -70,7 +70,7 @@ export default function Footer({ updatePage: setPageState }) {
           {/* </Link> */}
         </button>
 
-        <button>
+        <button onClick={() => setPageState(4)}>
           {/* <Link href="/earn" className="flex flex-col items-center"> */}
             <p>
             <svg xmlns="http://www.w3.org/2000/svg" fill="gold" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8">

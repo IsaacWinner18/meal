@@ -2,14 +2,13 @@ const express = require("express");
 const UserDashboard = require("../models/dashboard");
 const UserTask = require("../models/task.model");
 const fetch = (...args) => import("node-fetch").then(({ default: fetch }) => fetch(...args));
-const mongoose = require("mongoose");
 const DashboardRoute = express.Router();
 
 
 DashboardRoute.post("/dashboard", async (req, res) => {
   const { firstName, userId, mlcoin, referralCode, referredBy, referrals } =
     req.body;
-  console.log(req.body);
+  // console.log(req.body);
 
   if (firstName.length === 0 || userId.length === 0) {
     return res
@@ -18,87 +17,48 @@ DashboardRoute.post("/dashboard", async (req, res) => {
   }
 
   try {
-    const existingUser = await UserDashboard.findOne({ userId });
-
-    if (existingUser) {
-      return res.status(200).json({
-        message: "User exists",
-        user: {
-          userId: existingUser.userId,
-          mlcoin: existingUser.mlcoin,
-          taskIds: existingUser.taskIds,
-          referrals: existingUser.referrals,
-        },
-      });
-    }
-      
-    let referrer = null;
-    let referralBonus = 15000;
     let mlcoin = 0;
+    let referralBonus = 15000;
+    let referredByUser = null;
 
-if (referredBy) {
-      referrer = await UserDashboard.findOne({ userId: referredBy });
+    if (referredBy) {
+      referredByUser = await UserDashboard.findOneAndUpdate(
+        { userId: referredBy },
+        { $inc: { mlcoin: 10000, referrals: 1 } },
+        { new: true }
+      );
+      if (referredByUser) mlcoin += referralBonus;
+    }
 
-      if (referrer) {
-        console.log("Referrer found:", referrer.userId, "with mlcoin:", referrer.mlcoin);
-            // Update referrer and store the result
-    const updatedReferrer = await UserDashboard.findOneAndUpdate(
-      { userId: referredBy },  
-      { $inc: { mlcoin: 10000, referrals: 1 } },  
-      { new: true },  // Returns the updated document
+    // Atomically find the user or create a new one
+    const updatedUser = await UserDashboard.findOneAndUpdate(
+      { userId }, // Find by userId
+      {
+        $setOnInsert: { firstName, mlcoin, referralCode, referredBy: referredByUser ? referredByUser.userId : null, referrals },
+      },
+      { upsert: true, new: true } // Create only if not exists
     );
 
-    if (updatedReferrer) {
-      console.log("Referrer mlcoin after update:", updatedReferrer.mlcoin);
-    } else {
-      console.log("Referrer update failed.");
-    }
-        mlcoin += referralBonus;
-      } 
-    
-    }
-    console.log("New user mlcoin:", mlcoin);
-   console.log("Referrer:", referrer ? referrer.userId : "No referrer");
-
-
-    const userDashboard = new UserDashboard({
-      firstName,
-      userId,
-      mlcoin,
-      referralCode,
-      referredBy: referrer ? referrer.userId : null,
-      referrals
-      
-    },
-   
-  );
-    const savedUser = await userDashboard.save();
-    
-    res.status(201).json({
-      message: "Info saved successfully",
-      user: savedUser,
+    res.status(200).json({
+      message: "User exists or created successfully",
+      user: updatedUser,
     });
   } catch (err) {
     console.error(`A: Error saving info: ${err.message}`);
     res.status(500).json({ message: "Error saving info", error: err.message });
   }
+
 });
 
 const A = (date) => {
   const lastUpdated = new Date(date);
   const currentTime = new Date();
-
-  // Check if 24 hours have passed
-  const hoursSinceLastUpdate = (currentTime - lastUpdated) / (1000 * 60);
-
-  return hoursSinceLastUpdate >= 1;
+  const timeSinceLastUpdate = (currentTime - lastUpdated) / (1000 * 60);
+  return timeSinceLastUpdate >= 1;
 };
 
 DashboardRoute.patch("/dashboard", async (req, res) => {
   const { userId } = req.body;
-  console.log(req.body);
-  // console.log("This is the videoId that needs to be stored at backend", videoId)
-
   let user;
   let mlcperhour = 1000;
   try {
@@ -240,16 +200,16 @@ async function updateUserBalance(userId, value, transaction) {
     console.log(`Updating balance for user ${userId}...`);
 
     const rewardTiers = [
-      {ton: 1000000000, mlcoin: 100000},
-      {ton: 900000000, mlcoin: 90000},
-      {ton: 800000000, mlcoin: 80000},
-      {ton: 700000000, mlcoin: 70000},
-      {ton: 600000000, mlcoin: 60000},
-      {ton: 500000000, mlcoin: 50000},
-      {ton: 400000000, mlcoin: 40000},
-      {ton: 300000000, mlcoin: 30000},
-      {ton: 200000000, mlcoin: 20000},
-      {ton: 100000000, mlcoin: 10000}, 
+      {ton: 500000000, mlcoin: 100000},
+      {ton: 400000000, mlcoin: 90000},
+      {ton: 300000000, mlcoin: 80000},
+      {ton: 200000000, mlcoin: 70000},
+      {ton: 100000000, mlcoin: 60000},
+      {ton: 90000000, mlcoin: 50000},
+      {ton: 80000000, mlcoin: 40000},
+      {ton: 70000000, mlcoin: 30000},
+      {ton: 60000000, mlcoin: 20000},
+      {ton: 50000000, mlcoin: 10000}, 
     ];
 
 let mlcoinbought = 0;

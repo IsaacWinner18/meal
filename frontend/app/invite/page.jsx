@@ -34,12 +34,29 @@ export default function Invite({ updatePage, userData }) {
     }
   }, [userData]);
   
-  const referralLink = `https://t.me/mealcoinbot/mealcoin?startapp=${userData?.userId}`;
+  const referralLink = `Hey! 🎁 15,000 free $MLC token are already waiting for you at MealCity, I'm loving it 😌. You should join too!🎉. https://t.me/mealcoinbot/mealcoin?startapp=${userData?.userId}`;
   
   const shareOnTelegram = () => {
     const referralText = `Hey! 🎁 15,000 free $MLC token are already waiting for you at MealCity, I'm loving it 😌. You should join too!🎉`;
     const fullUrl = `https://t.me/share/url?url=${encodeURIComponent(referralLink)}&text=${encodeURIComponent(referralText)}`;
     Telegram.WebApp.openTelegramLink(fullUrl);
+  };
+
+  const shareViaWebShareAPI = () => {
+    const referralText = `Hey! 🎁 15,000 free $MLC token are already waiting for you at MealCity, I'm loving it 😌. You should join too!🎉`;
+    const referralLink = `https://t.me/mealcoinbot/mealcoin?startapp=${userData?.userId}`;
+  
+    if (navigator.share) {
+      navigator.share({
+        title: 'Invite to MealCity',
+        text: referralText,
+        url: referralLink,
+      })
+      .then(() => showToast("Shared successfully"))
+      .catch((error) => console.log("Error sharing", error));
+    } else {
+      showToast("Web Share API is not supported in your browser");
+    }
   };
 
 const copyLinkToClipboard = async () => {
@@ -84,8 +101,8 @@ const copyLinkToClipboard = async () => {
         </CardHeader>
         <CardContent>
           <div className="flex gap-2">
-            <div className="bg-amber-800 text-white p-3 rounded-lg flex-1 text-center font-mono overflow-x-scroll">
-              {`https://t.me/mealcoinbot/mealcoin?startapp=${userData?.userId}`}
+            <div className="bg-amber-800 text-white p-3 rounded-lg flex-1 text-center font-mono">
+              {`${userData?.userId}`}
             </div>
             <Button onClick={copyLinkToClipboard} variant="outline" size="icon" className="shrink-0 ">
               <Copy className="h-4 w-4" />
@@ -117,8 +134,12 @@ const copyLinkToClipboard = async () => {
       <div className="grid gap-4">
         <Button onClick={shareOnTelegram} className="w-full bg-amber-800 hover:bg-amber-300 glow backdrop-blur-lg">
           <Share2 className="mr-2 h-4 w-4" />
-          Share via Social Media
+          Share via Telegram
         </Button>
+        <Button onClick={shareViaWebShareAPI} className="w-full bg-amber-800 hover:bg-amber-300 glow backdrop-blur-lg">
+        <Share2 className="mr-2 h-4 w-4" />
+        Share via Social Media
+      </Button>
         <Button onClick={copyLinkToClipboard} variant="outline" className="w-full text-amber-900">
           <Copy className="mr-2 h-4 w-4" />
           Copy Invite Link

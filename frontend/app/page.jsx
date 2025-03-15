@@ -10,6 +10,7 @@ import Image from "next/image";
 import { ToastProvider, useToast, CopyButton } from "../app/invite/toast"
 import Loader from "./loader/page";
 import TaskComp from "@/components/tasks";
+import ChartPage from "./chart/page";
 // import TonRedirect from "./tonredirect/page";
 
 
@@ -80,16 +81,16 @@ export default function Home() {
     loadTelegramSDK(); 
   }, []);
 
-  // useEffect(() => {
-  //   setUserData({
-  //     firstName: "Winner",
-  //     userId: 409876,
-  //   });
-  // }, [])
-  // useEffect(() => {
-  //   setRefcode(234567)
-  // }, [])
- console.log("This is the userData", userData)
+//   useEffect(() => {
+//     setUserData({
+//       firstName: "Winner",
+//       userId: 409876,
+//     });
+//   }, [])
+//   useEffect(() => {
+//     setRefcode(234567)
+//   }, [])
+//  console.log("This is the userData", userData)
 
   return (
     <>
@@ -105,7 +106,7 @@ export default function Home() {
       {pageState === 3 && <Invite updatePage={setPageState} userData={userData} />}
       </ToastProvider>
       {pageState === 1 && <Footer updatePage={setPageState} />}
-      {/* {pageState === 4 && <TaskComp updatePage={setPageState} userData={userData}/>} */}
+      {pageState === 4 && <ChartPage updatePage={setPageState} userData={userData}/>}
       </> 
       )}
       
