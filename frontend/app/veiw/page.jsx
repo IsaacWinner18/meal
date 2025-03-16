@@ -205,9 +205,9 @@ export default function View({ userData, refCode }) {
     }
   }, [lastClaimed]);
 
-  // const clearLocal = () => {
-  //   localStorage.clear();
-  // }
+  const clearLocal = () => {
+    localStorage.clear();
+  }
 
   return (
     <div className="max-w-md mx-auto min-h-screen flex flex-col">
@@ -242,7 +242,7 @@ export default function View({ userData, refCode }) {
         <div className="bg-neutral-900 rounded-full text-center my-4 shadow-inner shadow-black inset-">
           <span className="text-white text-sm font-mono">
             EARNING RATE +1000.00 MLC/day 
-            {/* <Button onClick={clearLocal()}>clear local storage </Button> */}
+            <Button onClick={clearLocal}>clear local storage </Button>
              {" "}
           </span>
         </div>
