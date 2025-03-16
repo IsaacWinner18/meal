@@ -144,6 +144,7 @@ export default function View({ userData, refCode }) {
       funcUsedInTask(data)
       // console.log('last claimed:', new Date(data.lastClaimed) )
      
+      clearLocal()
     } catch (error) {
       console.log(`The adeola error ${error}`);
     }
@@ -242,7 +243,6 @@ export default function View({ userData, refCode }) {
         <div className="bg-neutral-900 rounded-full text-center my-4 shadow-inner shadow-black inset-">
           <span className="text-white text-sm font-mono">
             EARNING RATE +1000.00 MLC/day 
-            <Button onClick={clearLocal}>clear local storage </Button>
              {" "}
           </span>
         </div>
