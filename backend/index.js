@@ -64,3 +64,4 @@ bot.onText(/\/start/, (msg) => {
     })
 
 })
+console.log(photoUrl)
