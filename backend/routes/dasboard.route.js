@@ -8,7 +8,7 @@ const DashboardRoute = express.Router();
 DashboardRoute.post("/dashboard", async (req, res) => {
   const { firstName, userId, mlcoin, referralCode, referredBy, referrals } =
     req.body;
-  console.log(req.body);
+  // console.log(req.body);
 
   if (firstName.length === 0 || userId.length === 0) {
     return res

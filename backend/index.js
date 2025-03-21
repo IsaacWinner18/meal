@@ -35,15 +35,20 @@ app.listen(5000, async() => {
 app.use("/uploads", express.static(path.join(__dirname, "public/uploads")))
  
 const token = process.env.TELEGRAM_TOKEN
-const bot = new telegramBot(token);
+const bot = new telegramBot(token, {polling: true});
 const webhookUrl = `${process.env.NEXT_PUBLIC_API_URL}/bot` + token;
+// console.log(webhookUrl)
+// bot.setWebHook(webhookUrl)
 
-bot.setWebHook(webhookUrl)
-
-app.post(`/bot${token}`, (req, res) => {
-    bot.processUpdate(req.body)
-    res.sendStatus(200);
-});
+// app.post(`/bot${token}`, (req, res) => {
+//     try {
+//         bot.processUpdate(req.body)
+//         res.sendStatus(200);
+//     } catch (err) {
+//         console.log("Error processing update:", err)
+//         res.sendStatus(500)
+//     }
+// });
 
 bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
