@@ -34,9 +34,8 @@ app.listen(5000, async() => {
 
 app.use("/uploads", express.static(path.join(__dirname, "public/uploads")))
  
-const token = "7933372816:AAHaz_nQBCyUqYiJiGYy4we7bRh222dglco"
+const token = process.env.TELEGRAM_TOKEN
 const bot = new telegramBot(token);
-
 const webhookUrl = `${process.env.NEXT_PUBLIC_API_URL}/bot` + token;
 
 bot.setWebHook(webhookUrl)
