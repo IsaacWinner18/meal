@@ -40,8 +40,10 @@ const A = (date) => {
       { userId }, // Find by userId
       {
         $setOnInsert: { 
-          firstName, mlcoin, 
-          referralCode, referredBy: referredByUser ? referredByUser.userId : referredBy, 
+          firstName, 
+          mlcoin, 
+          referralCode : userId, 
+          referredBy: referredBy ? referredBy : null, 
           referrals: 0 
         },
       },
