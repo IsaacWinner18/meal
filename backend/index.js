@@ -52,7 +52,7 @@ app.post(`/bot${token}`, (req, res) => {
 
 bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
-    const photoUrl = `https://${process.env.NEXT_PUBLIC_API_URL}/uploads/transformers-molie.jpeg`;
+    const photoUrl = `${process.env.NEXT_PUBLIC_API_URL}/uploads/transformers-molie.jpeg`;
     console.log(photoUrl)
     bot.sendPhoto(chatId, photoUrl, { 
         caption: " Welcome to Mealcoin: The native currency of the Mealcity platform. Mealcity is a decentralized digital metropolis on TON, accessible via Telegram Web Apps, where wallets, exchanges, swapping networks, and secure messaging converge to power a vibrant ecosystem.",
