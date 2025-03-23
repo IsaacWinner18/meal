@@ -8,7 +8,7 @@ const A = (date) => {
   };
 
  const postDashboard = async (req, res) => {
-  const { firstName, userId, mlcoin, referralCode, referredBy, referrals } =
+  const { firstName, userId, referralCode, referredBy} =
     req.body;
   // console.log(req.body);
 
@@ -43,7 +43,7 @@ const A = (date) => {
           firstName, 
           mlcoin, 
           referralCode : userId, 
-          referredBy: referredBy ? referredBy : null, 
+          referredBy: referredByUser ? referredByUser.userId : referredBy, 
           referrals: 0 
         },
       },
