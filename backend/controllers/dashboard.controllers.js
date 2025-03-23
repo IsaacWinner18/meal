@@ -29,14 +29,21 @@ const A = (date) => {
         { $inc: { mlcoin: 10000, referrals: 1 } },
         { new: true }
       );
-      if (referredByUser) mlcoin += referralBonus;
+      if (referredByUser) {
+        mlcoin += referralBonus; 
+        console.log(`User ${referredBy} referred ${userId}`);
+      }
     }
 
     // Atomically find the user or create a new one
     const updatedUser = await UserDashboard.findOneAndUpdate(
       { userId }, // Find by userId
       {
-        $setOnInsert: { firstName, mlcoin, referralCode, referredBy: referredByUser ? referredByUser.userId : null, referrals },
+        $setOnInsert: { 
+          firstName, mlcoin, 
+          referralCode, referredBy: referredByUser ? referredByUser.userId : referredBy, 
+          referrals: 0 
+        },
       },
       { upsert: true, new: true } // Create only if not exists
     );
