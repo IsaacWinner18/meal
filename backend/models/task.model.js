@@ -33,3 +33,4 @@ const UserTask = mongoose.model("UserTasks", taskSchema);
 
 // Export the model
 module.exports = UserTask;
+

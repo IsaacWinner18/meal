@@ -29,6 +29,7 @@ export default function View({ userData, refCode }) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedLastClaimed = localStorage.getItem("lastClaimed");
+      console.log(storedLastClaimed)
       const storedProgress = localStorage.getItem("progress");
       if (storedLastClaimed) {
         setLastClaimed(storedLastClaimed);
@@ -139,10 +140,12 @@ export default function View({ userData, refCode }) {
        setCanClaim(false);
 
       const dateinit = new Date(data.lastClaimed);
+
       setLastClaimed(dateinit)
+      console.log(dateinit)
       localStorage.setItem("lastClaimed", dateinit);
       funcUsedInTask(data)
-      // console.log('last claimed:', new Date(data.lastClaimed) )
+      console.log('last claimed:', new Date(data.lastClaimed) )
      
       clearLocal()
     } catch (error) {
@@ -207,7 +210,7 @@ export default function View({ userData, refCode }) {
   }, [lastClaimed]);
 
   const clearLocal = () => {
-    localStorage.clear();
+    localStorage.removeItem("progress");
   }
 
   return (

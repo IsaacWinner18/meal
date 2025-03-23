@@ -21,7 +21,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [delayedUserData, setDelayedUserData] = useState(null);
 
-  console.log(process.env.NEXT_PUBLIC_API_URL)
+  // console.log(process.env.NEXT_PUBLIC_API_URL)
   useEffect(() => {
     if(!userData) return;
 
