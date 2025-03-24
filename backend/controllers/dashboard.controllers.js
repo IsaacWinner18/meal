@@ -24,7 +24,8 @@ const A = (date) => {
       const existingUser = await UserDashboard.findOne({userId})
       if (existingUser) {
         console.log(1)
-        return res.status(400).json({message: "User already exists", user: existingUser})
+        throw new Error("User already exists")
+        // return res.status(400).json({message: "User already exists", user: existingUser})
       }
 
 
