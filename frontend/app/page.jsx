@@ -9,7 +9,7 @@ import Earn from "./earn/page";
 import Image from "next/image";
 import { ToastProvider, useToast, CopyButton } from "../app/invite/toast"
 import Loader from "./loader/page";
-import TaskComp from "@/components/tasks";
+// import TaskComp from "@/components/tasks";
 import ChartPage from "./chart/page";
 // import TonRedirect from "./tonredirect/page";
 
