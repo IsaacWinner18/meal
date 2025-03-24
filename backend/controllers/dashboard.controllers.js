@@ -10,7 +10,6 @@ const A = (date) => {
  const postDashboard = async (req, res) => {
   const { firstName, userId, referralCode, referredBy} =
     req.body;
-  console.log(req.body);
 
   if (firstName.length === 0 || userId.length === 0) {
     return res
@@ -19,24 +18,24 @@ const A = (date) => {
   }
   
   try {
-      console.log(userId)
-
       const existingUser = await UserDashboard.findOne({userId})
 
       if (existingUser) {
-        console.log(1)
         return res.status(200).json({message: "User already exists", user: existingUser})
       } else {
         let mlcoin = 0;
         let referralBonus = 15000;
         let referrer = null;
-        
+       
+        console.log("Creating new user")
+
         if (referredBy) {
           referrer = await UserDashboard.findOneAndUpdate(
             { userId: referredBy },
             { $inc: { mlcoin: 10000, referrals: 1 } },
             { new: true }
           );
+          console.log("Line 36", referrer)
           if (referrer) {
             mlcoin += referralBonus; 
             console.log(`User ${referredBy} referred ${userId}`);
