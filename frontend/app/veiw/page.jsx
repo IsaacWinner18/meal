@@ -63,6 +63,7 @@ export default function View({ userData, refCode }) {
 
 
   async function fetchData(newData) {
+    alert("FETCHING")
     try {
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/dashboard`,
@@ -108,9 +109,6 @@ export default function View({ userData, refCode }) {
       });
     }
   }, [peopleData.userId]);
-
-
-
 
 
   const handleClaim = async () => {
