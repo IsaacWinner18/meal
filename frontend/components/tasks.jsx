@@ -13,13 +13,13 @@ export default function TaskComp({updatePage, funcUsedInTask, userData}) {
 
   const fetchDataInTask = async () => {
     try {
-      const firstResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/dashboard`,
+      const firstResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/task/${userData?.userId}`,
         {
-          method: "POST",
+          method: "GET",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({firstName: userData.firstName, userId: userData?.userId }),
+          // body: JSON.stringify({firstName: userData.firstName, userId: userData?.userId }),
         }
       );
   

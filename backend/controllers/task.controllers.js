@@ -44,4 +44,13 @@ const UserDashboard = require("../models/dashboard")
       
   };
 
-  module.exports = { getTasks, patchTasks };
+  const getTaskById = async (req, res) => {
+    const { userId } = req.params;
+    console.log("this is the userId on task", userId)
+    const user = await UserDashboard.findOne({userId})
+    if (user) {
+      return res.status(200).json({ user})
+    }
+  }
+
+  module.exports = { getTasks, patchTasks, getTaskById };

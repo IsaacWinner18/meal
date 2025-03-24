@@ -27,7 +27,7 @@ const A = (date) => {
         let referralBonus = 15000;
         let referrer = null;
        
-        console.log("Creating new user")
+        // console.log("Creating new user")
 
         if (referredBy) {
           referrer = await UserDashboard.findOneAndUpdate(
@@ -41,7 +41,7 @@ const A = (date) => {
             console.log(`User ${referredBy} referred ${userId}`);
           }
         }
-        console.log(mlcoin)
+        // console.log(mlcoin)
           
         const user = new UserDashboard({
           firstName,
