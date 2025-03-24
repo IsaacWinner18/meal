@@ -37,7 +37,7 @@ app.use("/uploads", express.static(path.join(__dirname, "public/uploads")))
 const token = process.env.TELEGRAM_TOKEN
 const bot = new telegramBot(token, {polling: false});
 const webhookUrl = `${process.env.NEXT_PUBLIC_API_URL}/bot` + token;
-console.log(webhookUrl)
+// console.log(webhookUrl)
 bot.setWebHook(webhookUrl)
 
 app.post(`/bot${token}`, (req, res) => {
@@ -53,7 +53,7 @@ app.post(`/bot${token}`, (req, res) => {
 bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
     const photoUrl = `${process.env.NEXT_PUBLIC_API_URL}/uploads/transformers-molie.jpeg`;
-    console.log(photoUrl)
+    // console.log(photoUrl)
     bot.sendPhoto(chatId, photoUrl, { 
         caption: " Welcome to Mealcoin: The native currency of the Mealcity platform. Mealcity is a decentralized digital metropolis on TON, accessible via Telegram Web Apps, where wallets, exchanges, swapping networks, and secure messaging converge to power a vibrant ecosystem.",
         reply_markup: {

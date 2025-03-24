@@ -18,41 +18,41 @@ const A = (date) => {
       .json({ message: "Invalid info provided" });
   }
 
+  const existingUser = await UserDashboard.findOne({userId})
+  if (existingUser) {
+    return res.status(200).json({message: "User already exists", user: existingUser})
+  }
+
   try {
     let mlcoin = 0;
     let referralBonus = 15000;
-    let referredByUser = null;
-
+    let referrer = null;
+    
     if (referredBy) {
-      referredByUser = await UserDashboard.findOneAndUpdate(
+      referrer = await UserDashboard.findOneAndUpdate(
         { userId: referredBy },
         { $inc: { mlcoin: 10000, referrals: 1 } },
         { new: true }
       );
-      if (referredByUser) {
+      if (referrer) {
         mlcoin += referralBonus; 
         console.log(`User ${referredBy} referred ${userId}`);
       }
     }
+      
+    const user = new UserDashboard({
+      firstName,
+      mlcoin,
+      userId,
+      referralCode,
+      referredBy,
+    });
 
-    // Atomically find the user or create a new one
-    const updatedUser = await UserDashboard.findOneAndUpdate(
-      { userId }, // Find by userId
-      {
-        $setOnInsert: { 
-          firstName, 
-          mlcoin, 
-          referralCode : userId, 
-          referredBy: referredByUser ? referredByUser.userId : referredBy, 
-          referrals: 0 
-        },
-      },
-      { upsert: true, new: true } // Create only if not exists
-    );
-
+    await user.save();
+    
     res.status(200).json({
       message: "User exists or created successfully",
-      user: updatedUser,
+      user
     });
   } catch (err) {
     console.error(`A: Error saving info: ${err.message}`);
