@@ -46,7 +46,7 @@ const UserDashboard = require("../models/dashboard")
 
   const getTaskById = async (req, res) => {
     const { userId } = req.params;
-    console.log("this is the userId on task", userId)
+    // console.log("this is the userId on task", userId)
     const user = await UserDashboard.findOne({userId})
     if (user) {
       return res.status(200).json({ user})

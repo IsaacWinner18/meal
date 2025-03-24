@@ -30,6 +30,7 @@ export default function TaskComp({updatePage, funcUsedInTask, userData}) {
   
       setClaimedTaskIds(data.user.taskIds)
       funcUsedInTask(data)
+      console.log(data)
       // console.log("this is the claimed taskIds from post in task", data.user.taskIds)
 
     } catch (error) {
@@ -68,6 +69,7 @@ export default function TaskComp({updatePage, funcUsedInTask, userData}) {
 
         if (!responseTask.ok) throw Error("Something went wrong");
         const { data } = await responseTask.json();
+        // console.log(data)
         setTasks(data);
       };
 

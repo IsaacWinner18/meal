@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
-// import Tasks from "@/components/tasks";
+import Tasks from "@/components/tasks";
 import Wallet from "./wallet";
 import Image from "next/image";
 import SpaceAnimation from "@/app/veiw/space-animation";
@@ -306,7 +306,7 @@ export default function View({ userData, refCode }) {
         `}
       </style>
 
-      {/* <Tasks userData={userData} funcUsedInTask={funcUsedInTask} /> */}
+      <Tasks userData={userData} funcUsedInTask={funcUsedInTask} />
       {/* <Footer /> */}
       <SpaceAnimation isAnimating={isAnimating} />
     </div>

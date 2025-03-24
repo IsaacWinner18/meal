@@ -35,7 +35,7 @@ const A = (date) => {
             { $inc: { mlcoin: 10000, referrals: 1 } },
             { new: true }
           );
-          console.log("Line 36", referrer)
+          // console.log("Line 36", referrer)
           if (referrer) {
             mlcoin += referralBonus; 
             console.log(`User ${referredBy} referred ${userId}`);
