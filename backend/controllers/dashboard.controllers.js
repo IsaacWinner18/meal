@@ -17,13 +17,16 @@ const A = (date) => {
       .status(500)
       .json({ message: "Invalid info provided" });
   }
-
-  const existingUser = await UserDashboard.findOne({userId})
-  if (existingUser) {
-    return res.status(200).json({message: "User already exists", user: existingUser})
-  }
-
+  
   try {
+      console.logo(userId)
+      
+      const existingUser = await UserDashboard.findOne({userId})
+      if (existingUser) {
+        return res.status(400).json({message: "User already exists", user: existingUser})
+      }
+
+
     let mlcoin = 0;
     let referralBonus = 15000;
     let referrer = null;
@@ -59,9 +62,7 @@ const A = (date) => {
     res.status(500).json({ message: "Error saving info", error: err.message });
   }
 
-}
-
-
+ }
 
   const patchDashboard = async (req, res) => {
   const { userId } = req.body;
