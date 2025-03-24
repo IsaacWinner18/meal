@@ -19,10 +19,11 @@ const A = (date) => {
   }
   
   try {
-      console.logo(userId)
-      
+      console.log(userId)
+
       const existingUser = await UserDashboard.findOne({userId})
       if (existingUser) {
+        console.log(1)
         return res.status(400).json({message: "User already exists", user: existingUser})
       }
 
@@ -42,6 +43,7 @@ const A = (date) => {
         console.log(`User ${referredBy} referred ${userId}`);
       }
     }
+    console.log(2)
       
     const user = new UserDashboard({
       firstName,
