@@ -24,42 +24,40 @@ const A = (date) => {
       const existingUser = await UserDashboard.findOne({userId})
       if (existingUser) {
         console.log(1)
-        throw new Error("User already exists")
-        // return res.status(400).json({message: "User already exists", user: existingUser})
-      }
-
-
-    let mlcoin = 0;
-    let referralBonus = 15000;
-    let referrer = null;
+        return res.status(200).json({message: "User already exists", user: existingUser})
+      } else {
+        let mlcoin = 0;
+        let referralBonus = 15000;
+        let referrer = null;
+        
+        if (referredBy) {
+          referrer = await UserDashboard.findOneAndUpdate(
+            { userId: referredBy },
+            { $inc: { mlcoin: 10000, referrals: 1 } },
+            { new: true }
+          );
+          if (referrer) {
+            mlcoin += referralBonus; 
+            console.log(`User ${referredBy} referred ${userId}`);
+          }
+        }
+        console.log(2)
+          
+        const user = new UserDashboard({
+          firstName,
+          mlcoin,
+          userId,
+          referralCode,
+          referredBy,
+        });
     
-    if (referredBy) {
-      referrer = await UserDashboard.findOneAndUpdate(
-        { userId: referredBy },
-        { $inc: { mlcoin: 10000, referrals: 1 } },
-        { new: true }
-      );
-      if (referrer) {
-        mlcoin += referralBonus; 
-        console.log(`User ${referredBy} referred ${userId}`);
+        await user.save();
+        
+        res.status(200).json({
+          message: "User exists or created successfully",
+          user
+        });
       }
-    }
-    console.log(2)
-      
-    const user = new UserDashboard({
-      firstName,
-      mlcoin,
-      userId,
-      referralCode,
-      referredBy,
-    });
-
-    await user.save();
-    
-    res.status(200).json({
-      message: "User exists or created successfully",
-      user
-    });
   } catch (err) {
     console.error(`A: Error saving info: ${err.message}`);
     res.status(500).json({ message: "Error saving info", error: err.message });
