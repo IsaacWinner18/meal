@@ -10,7 +10,7 @@ const A = (date) => {
  const postDashboard = async (req, res) => {
   const { firstName, userId, referralCode, referredBy} =
     req.body;
-  // console.log(req.body);
+  console.log(req.body);
 
   if (firstName.length === 0 || userId.length === 0) {
     return res
@@ -22,6 +22,7 @@ const A = (date) => {
       console.log(userId)
 
       const existingUser = await UserDashboard.findOne({userId})
+
       if (existingUser) {
         console.log(1)
         return res.status(200).json({message: "User already exists", user: existingUser})
@@ -41,7 +42,7 @@ const A = (date) => {
             console.log(`User ${referredBy} referred ${userId}`);
           }
         }
-        console.log(2)
+        console.log(mlcoin)
           
         const user = new UserDashboard({
           firstName,
@@ -54,7 +55,7 @@ const A = (date) => {
         await user.save();
         
         res.status(200).json({
-          message: "User exists or created successfully",
+          message: "User created successfully",
           user
         });
       }
