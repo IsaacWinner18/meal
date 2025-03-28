@@ -89,6 +89,7 @@ export default function View({ userData, refCode }) {
 
       const data = await response.json();
       console.log(data);
+      clearLocal();
       // alert(data.toString())
       setBalance(data.user.mlcoin);
     } catch (error) {
