@@ -37,7 +37,7 @@ app.use("/uploads", express.static(path.join(__dirname, "public/uploads")))
 const token = process.env.TELEGRAM_TOKEN
 const bot = new telegramBot(token, {polling: false});
 const webhookUrl = `${process.env.NEXT_PUBLIC_API_URL}/bot` + token;
-console.log(webhookUrl)
+// console.log(webhookUrl)
 bot.setWebHook(webhookUrl)
 
 app.post(`/bot${token}`, (req, res) => {

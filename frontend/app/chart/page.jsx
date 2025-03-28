@@ -2,6 +2,8 @@
 import { useEffect } from 'react';
 
 const ChartPage = ({ updatePage }) => {
+
+  
   useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://s3.tradingview.com/tv.js';
