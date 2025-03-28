@@ -209,6 +209,7 @@ export default function View({ userData, refCode }) {
 
   const clearLocal = () => {
     localStorage.removeItem("progress");
+    localStorage.removeItem("lastClaimed");
   }
 
   return (
