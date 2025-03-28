@@ -89,7 +89,6 @@ export default function View({ userData, refCode }) {
 
       const data = await response.json();
       console.log(data);
-      clearLocal();
       // alert(data.toString())
       setBalance(data.user.mlcoin);
     } catch (error) {
@@ -107,6 +106,7 @@ export default function View({ userData, refCode }) {
         userId: peopleData.userId,
         referralCode: peopleData.referralCode,
       });
+      clearLocal();
     }
   }, [peopleData.userId]);
 
@@ -145,7 +145,7 @@ export default function View({ userData, refCode }) {
       funcUsedInTask(data)
       console.log('last claimed:', new Date(data.lastClaimed) )
      
-      clearLocal()
+      
     } catch (error) {
       console.log(`The adeola error ${error}`);
     }
